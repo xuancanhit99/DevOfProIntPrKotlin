@@ -13,4 +13,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "DevOfProIntPrKotlin"
-include ':app'
+include ':pr6'
+include ':pr7'
+include ':pr8'
+include ':pr9'
