@@ -26,30 +26,24 @@ class GuessNumber : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guess_number)
-
         initUI()
         initView()
     }
 
     @SuppressLint("SetTextI18n")
     private fun initView() {
-
         min = intent.getIntExtra("MAIN_MIN", 0)
         max = intent.getIntExtra("MAIN_MAX", 0)
         sMin = min.toString();
         sMax = max.toString();
-
-
         Log.d("Value Min", min.toString())
         Log.d("Value Max", max.toString())
-
         tvText.text =
-            "Guess the number from $sMin to $sMax\nIs your number bigger than " + (max + min) / 2 + "?"
-
+            "Guess the number from $sMin to $sMax\n" +
+                    "Is your number bigger than " + (max + min) / 2 + "?"
         btnYes.setOnClickListener {
             middleRangeCalculate("Yes")
         }
-
         btnNo.setOnClickListener {
             middleRangeCalculate("No")
         }
@@ -64,14 +58,13 @@ class GuessNumber : AppCompatActivity() {
         }
     }
 
-
     @SuppressLint("SetTextI18n")
     private fun middleRangeCalculate(status: String) {
         if (status == "Yes") {
             min = (max + min) / 2
             tvText.text =
-                "Guess the number from $sMin to $sMax\nIs your number bigger than " + (max + min) / 2 + "?"
-
+                "Guess the number from $sMin to $sMax\n" +
+                        "Is your number bigger than " + (max + min) / 2 + "?"
             Log.d("Value Min", min.toString())
             Log.d("Value Max", max.toString())
             checkStopAndGiveResult()
@@ -83,8 +76,8 @@ class GuessNumber : AppCompatActivity() {
                 showDialog("Your number is $max!")
             }
             tvText.text =
-                "Guess the number from $sMin to $sMax\nIs your number bigger than " + (max + min) / 2 + "?"
-
+                "Guess the number from $sMin to $sMax\n" +
+                        "Is your number bigger than " + (max + min) / 2 + "?"
             Log.d("Value Min", min.toString())
             Log.d("Value Max", max.toString())
             checkStopAndGiveResult()
@@ -127,7 +120,6 @@ class GuessNumber : AppCompatActivity() {
         }
         builder.show()
     }
-
 
     private fun initUI() {
         btnNo = findViewById(R.id.btn_guess_number_no)
