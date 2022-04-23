@@ -83,23 +83,6 @@ class GuessNumber : AppCompatActivity() {
             checkStopAndGiveResult()
         }
     }
-
-//    private fun showDialog(title: String) {
-//        val dialog = Dialog(this)
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-//        dialog.setCancelable(false)
-//        dialog.setContentView(R.layout.activity_guess_number)
-//        val body = dialog.findViewById(R.id.tv_guess_number_text) as TextView
-//        body.text = title
-//        val yesBtn = dialog.findViewById(R.id.btn_guess_number_yes) as Button
-//        val noBtn = dialog.findViewById(R.id.btn_guess_number_no) as TextView
-//        yesBtn.setOnClickListener {
-//            dialog.dismiss()
-//        }
-//        noBtn.setOnClickListener { dialog.dismiss() }
-//        dialog.show()
-//    }
-
     private fun showDialog(title: String) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(title)
@@ -110,11 +93,6 @@ class GuessNumber : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
-//        builder.setNegativeButton("No") { dialog, which ->
-//
-//        }
-
         builder.setNeutralButton("No") { dialog, which ->
             finish()
         }
