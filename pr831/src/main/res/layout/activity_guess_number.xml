@@ -1,9 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="#fff"
     android:layout_height="match_parent"
     tools:context=".GuessNumber">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="@color/myColor1"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="3dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="?attr/selectableItemBackground"
+            android:text="Let me guess!"
+            android:textColor="@color/whiteTextColor"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_guess_number_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_baseline_question_answer_24"
+                android:drawableTint="?attr/colorControlNormal"
+                android:textColor="@color/myColor8" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/myColor2"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="5dp">
+
+            <Button
+                android:id="@+id/btn_guess_number_yes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:drawableStart="@drawable/ic_baseline_confirmation_number_24"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/white"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="Yes"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/myColor7"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="5dp">
+
+            <Button
+                android:id="@+id/btn_guess_number_no"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:drawableStart="@drawable/ic_baseline_confirmation_number_24"
+                android:drawablePadding="10dp"
+                android:drawableTint="#fff"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="No"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+
+</LinearLayout>

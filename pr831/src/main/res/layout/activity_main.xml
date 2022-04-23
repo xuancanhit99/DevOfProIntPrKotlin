@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#fff"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -41,12 +42,12 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/main_edt_from"
+            android:id="@+id/edt_main_min"
             style="@style/modifiedEditText"
             android:drawableStart="@drawable/ic_baseline_keyboard_arrow_right_24"
             android:drawableTint="?attr/colorControlNormal"
-            android:hint="From"
-            android:inputType="numberDecimal"
+            android:hint="Min"
+            android:inputType="number"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,20 +59,22 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/main_edt_to"
+            android:id="@+id/edt_main_max"
             style="@style/modifiedEditText"
             android:drawableStart="@drawable/ic_baseline_keyboard_arrow_right_24"
             android:drawableTint="?attr/colorControlNormal"
-            android:hint="To"
-            android:inputType="numberDecimal"
+            android:hint="Max"
+            android:inputType="number"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        android:theme="@style/AppTheme.MyButton7"
+        android:drawableStart="@drawable/ic_baseline_play_arrow_24"
         android:layout_marginTop="60dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:id="@+id/main_btn_start_game"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:id="@+id/btn_main_start_game"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Start game"/>
