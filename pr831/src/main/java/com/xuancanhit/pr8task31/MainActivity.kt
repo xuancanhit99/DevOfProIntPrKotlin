@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
-
     lateinit var edtMin: EditText
     lateinit var edtMax: EditText
     lateinit var btnStartGame: Button
@@ -24,9 +23,11 @@ class MainActivity : AppCompatActivity() {
     private fun initView() {
         btnStartGame.setOnClickListener {
             if (edtMin.text.toString() == "" || edtMax.text.toString() == "") {
-                Toast.makeText(this, "Input fields cannot be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Input fields cannot be empty",
+                    Toast.LENGTH_SHORT).show()
             } else if (edtMax.text.toString().toInt() <= edtMin.text.toString().toInt()) {
-                Toast.makeText(this, "Invalid min, max value", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Invalid min, max value",
+                    Toast.LENGTH_SHORT).show()
             } else {
                 val intent = Intent(this, GuessNumber::class.java)
                 intent.putExtra("MAIN_MIN", edtMin.text.toString().toInt())
@@ -34,14 +35,11 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-
         }
     }
-
     private fun initUI() {
         edtMin = findViewById(R.id.edt_main_min)
         edtMax = findViewById(R.id.edt_main_max)
         btnStartGame = findViewById(R.id.btn_main_start_game)
     }
-
 }

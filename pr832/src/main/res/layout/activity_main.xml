@@ -20,16 +20,18 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="5dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="?attr/selectableItemBackground"
-                android:text="Enter Guess Range"
+                android:text="My Applications"
                 android:textColor="@color/whiteTextColor"
                 android:textSize="25sp"
                 android:textStyle="bold" />
         </RelativeLayout>
+
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -40,41 +42,59 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_main_min"
+            android:id="@+id/edt_main_text"
             style="@style/modifiedEditText"
             android:drawableStart="@drawable/ic_baseline_keyboard_arrow_right_24"
             android:drawableTint="?attr/colorControlNormal"
-            android:hint="Min"
-            android:inputType="number"
+            android:hint="Please enter"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+
+    <RadioGroup
+        android:id="@+id/rdg_main"
         android:layout_width="match_parent"
-        android:layout_marginTop="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_height="wrap_content">
+        android:orientation="vertical">
+        <RadioButton
+            android:id="@+id/rd_btn_main_web_address"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Open Website" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_main_max"
-            style="@style/modifiedEditText"
-            android:drawableStart="@drawable/ic_baseline_keyboard_arrow_right_24"
-            android:drawableTint="?attr/colorControlNormal"
-            android:hint="Max"
-            android:inputType="number"
-            android:maxLines="1" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <RadioButton
+            android:id="@+id/rd_btn_main_geo_point"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Open Map" />
+
+        <RadioButton
+            android:id="@+id/rd_btn_main_number_phone"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Make a call" />
+    </RadioGroup>
+
 
     <Button
         android:theme="@style/AppTheme.MyButton7"
         android:drawableStart="@drawable/ic_baseline_play_arrow_24"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"
-        android:id="@+id/btn_main_start_game"
+        android:id="@+id/btn_main_run_process"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start game"/>
+        android:text="Run Process"/>
+
 
 </LinearLayout>
