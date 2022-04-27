@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    app:cardElevation="3dp"
+    app:cardCornerRadius="10dp"
+    android:orientation="horizontal"
+    android:layout_height="100dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_img"
+            android:padding="5dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/unknown" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Full Name"
+                android:textSize="12pt"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Phone"
+                android:textSize="8pt" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
