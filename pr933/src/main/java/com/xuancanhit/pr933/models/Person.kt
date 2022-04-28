@@ -1,50 +1,54 @@
 package com.xuancanhit.pr933.models
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.io.File
 import java.io.FileWriter
-import java.io.IOException
 import java.io.PrintWriter
 
-data class Person(val name: String, val gender: Int, val phone: String) {
+data class Person(val name: String, val gender: Int, val phone: String)
+
+fun readFileAsTextUsingInputStream(fileName: String)
+        = File(fileName).inputStream().readBytes().toString(Charsets.UTF_8)
+
+fun deserializeObjectListTest() {
+    val person = object : TypeToken<ArrayList<Person>>() {}.type
+    val personList = Gson().fromJson<ArrayList<Person>>(readFileAsTextUsingInputStream("pr933/src/main/assets/data_persons.json"), person)
+    for (i in 0 until personList.size) {
+        println(personList[i].name)
+    }
+
 }
-
-
 
 fun main() {
-    val list = listOf(-1, 0, 1)
-    val per = Person(
-        "Name 1", list.random(), "+789858944001"
-    )
-
-    val path = "myData.json"
-    try {
-        val mapper = ObjectMapper()
-        mapper.writeValue(File(path), per)
-    } catch (e: IOException) {
-        e.printStackTrace()
-    }
-}
-
-fun main1() {
-    val list = listOf(-1, 0, 1)
+    val listPerson: ArrayList<Person> = ArrayList<Person>()
+    val listGenderOption = listOf(-1, 0, 1)
+    val listAlphabet = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
     var randomGender: Int
-    val path = "../myData.json"
+    var randomAlphabet: String
+
+    val path = "pr933/src/main/assets/data_persons.json"
+    for (i in 1..20) {
+        randomGender = listGenderOption.random()
+        randomAlphabet = listAlphabet.random()
+        listPerson.add(
+            Person(
+                randomAlphabet+ "Name $i", randomGender, "+78985894400$i"
+            )
+        )
+    }
+
     try {
-        for (i in 1..20) {
-            randomGender = list.random()
-            PrintWriter(FileWriter(path)).use {
-                val gson = Gson()
-                val jsonString = gson.toJson(
-                    Person(
-                        "Name $i", randomGender, "+78985894400$i"
-                    )
-                )
-                it.write(jsonString)
-            }
+        PrintWriter(FileWriter(path)).use {
+            val gson = Gson()
+            val jsonList:String = gson.toJson(
+                listPerson
+            )
+            it.write(jsonList)
         }
     } catch (e: Exception) {
         e.printStackTrace()
     }
+
+    deserializeObjectListTest()
 }

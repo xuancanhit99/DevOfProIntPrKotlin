@@ -43,10 +43,8 @@ dependencies {
 
     //My lib
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.google.code.gson:gson:2.8.9'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.1'
 
 
 
