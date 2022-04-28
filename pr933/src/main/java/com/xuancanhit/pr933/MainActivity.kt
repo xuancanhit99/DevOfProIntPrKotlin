@@ -11,7 +11,6 @@ import com.xuancanhit.pr933.models.Person
 import com.xuancanhit.pr933.ui.view.adapters.EmployeeAdapter
 import java.nio.charset.Charset
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerview:RecyclerView
