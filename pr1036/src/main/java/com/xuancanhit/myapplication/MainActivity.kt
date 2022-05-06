@@ -1,9 +1,9 @@
 package com.xuancanhit.myapplication
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Communicator {
 
     private val fragmentManager = supportFragmentManager
 
@@ -20,5 +20,18 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.add(R.id.fl_main_colored_fragment2, ColoredFragment())
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
+    }
+
+    override fun passDataComm(colorPosition: Int) {
+        val bundle = Bundle()
+        bundle.putInt("COLOR", colorPosition)
+
+        val coloredFragment = ColoredFragment()
+        coloredFragment.arguments = bundle
+
+        val fragmentTransactionOnClick = fragmentManager.beginTransaction()
+        fragmentTransactionOnClick.replace(R.id.fl_main_colored_fragment2, coloredFragment)
+        fragmentTransactionOnClick.addToBackStack(null)
+        fragmentTransactionOnClick.commit()
     }
 }
