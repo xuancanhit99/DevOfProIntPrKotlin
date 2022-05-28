@@ -21,20 +21,16 @@ class MainActivity : AppCompatActivity(), Communicator {
     private var m = 0
     private var sun = false
     private var moon = false
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
     }
-
     private fun initView() {
         // View (Sub-Class) where onTouchEvent is implemented
         v1 = findViewById(R.id.main_view)
         onTouch()
     }
-
     private fun passDataToFragmentAndReset() {
         passDataComm(h, m, sun, moon)
         h = 0
@@ -42,7 +38,6 @@ class MainActivity : AppCompatActivity(), Communicator {
         sun = false
         moon = false
     }
-
     private fun testTimePickerDialog() {
         val mCurrentTime = Calendar.getInstance()
         val hour = mCurrentTime[Calendar.HOUR_OF_DAY]
@@ -54,7 +49,6 @@ class MainActivity : AppCompatActivity(), Communicator {
                 m = selectedMinute
                 passDataToFragmentAndReset()
                 //Toast.makeText(this, "$h $m Солнце днем:$sun Лунаизвезды ночью:$moon", Toast.LENGTH_SHORT).show()
-
             },
             hour,
             minute,
@@ -67,16 +61,13 @@ class MainActivity : AppCompatActivity(), Communicator {
         // Set up the alert builder
         val builder = AlertDialog.Builder(this)
         //builder.setTitle("Choose some animals")
-
         // Add a checkbox list
         val status = arrayOf("Лунаизвезды ночью", "Солнце днем")
         val checkedItems = booleanArrayOf(false, false)
         builder.setMultiChoiceItems(status, checkedItems) { _, which, isChecked ->
             // The user checked or unchecked a box
-
             when (which) {
                 0 -> moon = isChecked
-
                 //Toast.makeText(this, "Moon And Start ON", Toast.LENGTH_SHORT).show()
                 1 -> sun = isChecked
                 //Toast.makeText(this, "Солнце днем ON", Toast.LENGTH_SHORT).show()
@@ -106,14 +97,12 @@ class MainActivity : AppCompatActivity(), Communicator {
                     // Make a Toast when movements captured on the sub-class
                     //Toast.makeText(applicationContext, "Move", Toast.LENGTH_SHORT).show()
                     testCheckboxDialog()
-
                     true
                 }
                 else -> false
             }
         }
     }
-
     override fun passDataComm(hour: Int, minute: Int, sun: Boolean, moonAndStars: Boolean) {
         val bundle = Bundle()
         bundle.putInt("HOUR", hour)
@@ -131,6 +120,4 @@ class MainActivity : AppCompatActivity(), Communicator {
         fragmentTransactionOnClick.addToBackStack(null)
         fragmentTransactionOnClick.commit()
     }
-
-
 }
