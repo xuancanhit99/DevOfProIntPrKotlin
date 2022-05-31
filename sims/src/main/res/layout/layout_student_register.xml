@@ -125,7 +125,7 @@
             android:textStyle="bold" />
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/progressBarStudentRegister"
             android:layout_width="30dp"
             android:layout_height="30dp"
             style="?android:attr/progressBarStyleLarge"

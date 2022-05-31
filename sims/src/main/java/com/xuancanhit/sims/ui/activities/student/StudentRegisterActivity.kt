@@ -1,6 +1,5 @@
 package com.xuancanhit.sims.ui.activities.student
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.Intent.ACTION_PICK
@@ -16,7 +15,6 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -26,14 +24,12 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
-import com.xuancanhit.sims.MainActivity
 import com.xuancanhit.sims.R
 import com.xuancanhit.sims.model.Student
 import kotlinx.android.synthetic.main.activity_student_register.*
 import kotlinx.android.synthetic.main.layout_student_register.*
 import java.io.ByteArrayOutputStream
 import java.util.*
-import java.util.regex.Pattern
 
 class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -102,111 +98,136 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
             edt_stu_register_email.requestFocus()
         }
 
-        progressBar.visibility = View.VISIBLE
+        progressBarStudentRegister.visibility = View.VISIBLE
 
-        //-----------------------Register User by email and password----------------------
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    val user = auth.currentUser
+        if (email.isNotEmpty() && password.isNotEmpty()) {
+            //-----------------------Register User by email and password----------------------
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        val user = auth.currentUser
 
-                    //-------------Upload Image to Storage and load link img-------------------
-                    val storageRef = storage.reference
+                        //-------------Upload Image to Storage and load link img-------------------
+                        val storageRef = storage.reference
 
-                    //Load data Image from image view
-                    val calendar = Calendar.getInstance()
-                    val mountainsRef = storageRef.child("image" + calendar.timeInMillis + ".png")
-                    // Get the data from an ImageView as bytes
-                    iv_stu_register_avt.isDrawingCacheEnabled = true
-                    iv_stu_register_avt.buildDrawingCache()
-                    val bitmap = (iv_stu_register_avt.drawable as BitmapDrawable).bitmap
-                    val byteAOS = ByteArrayOutputStream()
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteAOS)
-                    val data = byteAOS.toByteArray()
+                        //Load data Image from image view
+                        val calendar = Calendar.getInstance()
+                        val mountainsRef =
+                            storageRef.child("image" + calendar.timeInMillis + ".png")
+                        // Get the data from an ImageView as bytes
+                        iv_stu_register_avt.isDrawingCacheEnabled = true
+                        iv_stu_register_avt.buildDrawingCache()
+                        val bitmap = (iv_stu_register_avt.drawable as BitmapDrawable).bitmap
+                        val byteAOS = ByteArrayOutputStream()
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteAOS)
+                        val data = byteAOS.toByteArray()
 
-                    //Put data image
-                    var uploadTask = mountainsRef.putBytes(data)
-                    uploadTask.addOnFailureListener {
-                        // Handle unsuccessful uploads
-                        Log.d("SIMS_STUDENT_UP_LOAD_IMG", "Failed when upload image!")
-                    }.addOnSuccessListener { taskSnapshot ->
-                        // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                        Log.d("SIMS_STUDENT_UP_LOAD_IMG", "Successfully when upload image!")
+                        //Put data image
+                        var uploadTask = mountainsRef.putBytes(data)
+                        uploadTask.addOnFailureListener {
+                            // Handle unsuccessful uploads
+                            Log.d("SIMS_STUDENT_UP_LOAD_IMG", "Failed when upload image!")
+                        }.addOnSuccessListener { taskSnapshot ->
+                            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+                            Log.d("SIMS_STUDENT_UP_LOAD_IMG", "Successfully when upload image!")
 
-                        // Lay link file vua moi up
-                        uploadTask.continueWithTask { task ->
-                            if (!task.isSuccessful) {
-                                task.exception?.let {
-                                    throw it
-                                }
-                            }
-                            mountainsRef.downloadUrl
-                        }.addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                val downloadUri = task.result
-                                Log.d("SIMS_STUDENT_LINK_IMG", downloadUri.toString())
-
-                                //Set data user create new node in realtime database
-                                user?.let {
-                                    //Set user basic profile
-                                    val profileUpdates = userProfileChangeRequest {
-                                        displayName = name
-                                        photoUri = Uri.parse(downloadUri.toString())
+                            // Lay link file vua moi up
+                            uploadTask.continueWithTask { task ->
+                                if (!task.isSuccessful) {
+                                    task.exception?.let {
+                                        throw it
                                     }
-                                    user.updateProfile(profileUpdates)
-                                        .addOnCompleteListener { task ->
-                                            if (task.isSuccessful) {
-                                                Log.d(
-                                                    "SIMS_STUDENT_UPDATE_PROFILE",
-                                                    "User profile updated."
-                                                )
-                                            } else {
-                                                Log.d(
-                                                    "SIMS_STUDENT_UPDATE_PROFILE",
-                                                    "User profile update failed."
-                                                )
-                                            }
-                                        }
-
-                                    //Set data Realtime Database
-                                    val student = Student(email, name, "", downloadUri.toString(), "", "", "", "")
-                                    database.child("Students").child(user.uid)
-                                        .setValue(student) { error, ref ->
-                                            if (error == null) {
-                                                Toast.makeText(this, "Student has been registered successfully!", Toast.LENGTH_SHORT)
-                                                    .show()
-                                                progressBar.visibility = View.GONE
-                                                setEmptyUI()
-                                            } else {
-                                                Toast.makeText(
-                                                    this,
-                                                    "Failed to register! Try again!",
-                                                    Toast.LENGTH_SHORT
-                                                ).show()
-                                                Log.d("SIMS_STUDENT_SET_DATA_NODE", error.toString())
-                                                progressBar.visibility = View.GONE
-                                            }
-                                        }
                                 }
+                                mountainsRef.downloadUrl
+                            }.addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    val downloadUri = task.result
+                                    Log.d("SIMS_STUDENT_LINK_IMG", downloadUri.toString())
 
-                            } else {
-                                // Handle failures
-                                Log.d("SIMS_STUDENT_LINK_IMG", "Failed when create link image!")
+                                    //Set data user create new node in realtime database
+                                    user?.let {
+                                        //Set user basic profile
+                                        val profileUpdates = userProfileChangeRequest {
+                                            displayName = name
+                                            photoUri = Uri.parse(downloadUri.toString())
+                                        }
+                                        user.updateProfile(profileUpdates)
+                                            .addOnCompleteListener { task ->
+                                                if (task.isSuccessful) {
+                                                    Log.d(
+                                                        "SIMS_STUDENT_UPDATE_PROFILE",
+                                                        "User profile updated."
+                                                    )
+                                                } else {
+                                                    Log.d(
+                                                        "SIMS_STUDENT_UPDATE_PROFILE",
+                                                        "User profile update failed."
+                                                    )
+                                                }
+                                            }
+
+                                        //Set data Realtime Database
+                                        val student = Student(
+                                            email,
+                                            name,
+                                            "",
+                                            downloadUri.toString(),
+                                            "",
+                                            "",
+                                            "",
+                                            ""
+                                        )
+                                        database.child("Students").child(user.uid)
+                                            .setValue(student) { error, ref ->
+                                                if (error == null) {
+                                                    Toast.makeText(
+                                                        this,
+                                                        "You have been registered successfully. Check your email to verify your account!",
+                                                        Toast.LENGTH_SHORT
+                                                    )
+                                                        .show()
+                                                    progressBarStudentRegister.visibility = View.GONE
+                                                    setEmptyUI()
+                                                } else {
+                                                    Toast.makeText(
+                                                        this,
+                                                        "Failed to register! Try again!",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+                                                    Log.d(
+                                                        "SIMS_STUDENT_SET_DATA_NODE",
+                                                        error.toString()
+                                                    )
+                                                    progressBarStudentRegister.visibility = View.GONE
+                                                }
+                                            }
+                                    }
+
+                                } else {
+                                    // Handle failures
+                                    Log.d("SIMS_STUDENT_LINK_IMG", "Failed when create link image!")
+                                }
                             }
                         }
+                        //-------------End Upload Image to Storage and load link img-------------------
+
+
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        //Log.w("TAG", "createUserWithEmail:failure", task.exception)
+                        Toast.makeText(baseContext, task.exception.toString(), Toast.LENGTH_SHORT)
+                            .show()
+                        progressBarStudentRegister.visibility = View.GONE
                     }
-                    //-------------End Upload Image to Storage and load link img-------------------
-
-
-                } else {
-                    // If sign in fails, display a message to the user.
-                    //Log.w("TAG", "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, task.exception.toString(), Toast.LENGTH_SHORT)
-                        .show()
-                    progressBar.visibility = View.GONE
                 }
-            }
+        } else {
+            Toast.makeText(
+                this,
+                "Fields cannot be left blank. Please check again!",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     //ResetUI
@@ -214,7 +235,13 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
         edt_stu_register_email.setText("")
         edt_stu_register_name.setText("")
         edt_stu_register_password.setText("")
-        iv_stu_register_avt.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.graduated, null))
+        iv_stu_register_avt.setImageDrawable(
+            ResourcesCompat.getDrawable(
+                resources,
+                R.drawable.graduated,
+                null
+            )
+        )
     }
     //-----------------------End register User by email and password----------------------
 
@@ -232,6 +259,7 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
+
     private fun openCameraActivityForResult() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startForResultOpenCamera.launch(intent)
@@ -247,11 +275,12 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
                 //do stuff here
                 if (intent != null) {
                     val selectedImgUri = intent.data
-                    if(selectedImgUri!=null)
-                    iv_stu_register_avt.setImageURI(selectedImgUri)
+                    if (selectedImgUri != null)
+                        iv_stu_register_avt.setImageURI(selectedImgUri)
                 }
             }
         }
+
     private fun openFileManagerActivityForResult() {
         val intent = Intent(ACTION_PICK)
         intent.type = "image/*"
@@ -263,11 +292,6 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
     private fun loginActivity() {
         startActivity(Intent(this, StudentLoginActivity::class.java))
         finish()
-    }
-
-
-    private fun testToast() {
-        Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show()
     }
 
     override fun onClick(p0: View) {

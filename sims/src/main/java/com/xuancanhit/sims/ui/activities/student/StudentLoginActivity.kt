@@ -43,7 +43,28 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
         initView()
     }
 
+    override fun onClick(p0: View) {
+        when (p0.id) {
+            R.id.iv_stu_login_close -> finish()
+//            R.id.tv_stu_login_to_login_admin
+            R.id.tv_stu_login_to_register -> registerActivity()
+            R.id.tv_stu_login_forgot_password ->forgotPasswordActivity()
+            R.id.btn_stu_login -> loginStudent()
+        }
+    }
+
     private fun initView() {
+        //Image View Close
+        iv_stu_login_close.setOnClickListener(this)
+        //To Login Admin
+        tv_stu_login_to_login_admin.setOnClickListener(this)
+        //To Register
+        tv_stu_login_to_register.setOnClickListener(this)
+        //Button Login
+        btn_stu_login.setOnClickListener(this)
+        //Forgot Password
+        tv_stu_login_forgot_password.setOnClickListener(this)
+
 
         //Remember Me
         val loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE)
@@ -58,101 +79,98 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
         //Login When Enter - Done
         edt_stu_login_password.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                studentLogin()
+                loginAuthentication()
                 rememberMe()
             }
             false
         })
-
-        //Image View Close
-        iv_stu_login_close.setOnClickListener {
-            finish()
-        }
-
-        //To Login Admin
-        tv_stu_login_to_login_admin.setOnClickListener {
-
-        }
-
-        //To Register
-        tv_stu_login_to_register.setOnClickListener {
-            startActivity(Intent(this, StudentRegisterActivity::class.java))
-            finish()
-        }
-
-        //Button Login
-        btn_stu_login.setOnClickListener {
-            email = edt_stu_login_email.text.toString().trim()
-            password = edt_stu_login_password.text.toString().trim()
-
-
-            if (password.isEmpty()) {
-                edt_stu_login_password.error = "Enter password!"
-                edt_stu_login_password.requestFocus()
-            }
-
-            if (email.isEmpty()) {
-                edt_stu_login_email.error = "Enter email address!"
-                edt_stu_login_email.requestFocus()
-            }
-
-            if (password.length < 6)
-                edt_stu_login_password.error = "Password too short, enter minimum 6 characters!"
-
-            if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                studentLogin()
-                rememberMe()
-            } else {
-                edt_stu_login_email.error = "Email address not valid"
-                edt_stu_login_email.requestFocus()
-            }
-        }
-
     }
 
+    private fun loginStudent() {
+        email = edt_stu_login_email.text.toString().trim()
+        password = edt_stu_login_password.text.toString().trim()
 
+        if (password.isEmpty()) {
+            edt_stu_login_password.error = "Enter password!"
+            edt_stu_login_password.requestFocus()
+        }
 
-    private fun studentLogin() {
+        if (email.isEmpty()) {
+            edt_stu_login_email.error = "Enter email address!"
+            edt_stu_login_email.requestFocus()
+        }
+
+        if (password.length < 6)
+            edt_stu_login_password.error = "Password too short, enter minimum 6 characters!"
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            edt_stu_login_email.error = "Email address not valid"
+            edt_stu_login_email.requestFocus()
+        }
+
+        progressBarStudentLogin.visibility = View.VISIBLE
+
+        loginAuthentication()
+        rememberMe()
+    }
+
+    private fun forgotPasswordActivity() {
+        startActivity(Intent(this, StudentForgotPasswordActivity::class.java))
+        finish()
+    }
+
+    private fun registerActivity() {
+        startActivity(Intent(this, StudentRegisterActivity::class.java))
+        finish()
+    }
+
+    private fun loginAuthentication() {
         if (email.isNotEmpty() && password.isNotEmpty()) {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         //Log.d(TAG, "signInWithEmail:success")
-                        Toast.makeText(this, "Login Successfully", Toast.LENGTH_SHORT).show()
-
                         val user = auth.currentUser
                         user?.let {
-                            // Name, email address, and profile photo Url
-                            val name = user.displayName
-                            Log.d("LOG", name.toString())
-                            val email = user.email
-                            Log.d("LOG", email.toString())
-                            val photoUrl = user.photoUrl
-                            Log.d("LOG", photoUrl.toString())
-                            // Check if user's email is verified
-                            val emailVerified = user.isEmailVerified
-                            Log.d("LOG", emailVerified.toString())
 
-                            // The user's ID, unique to the Firebase project. Do NOT use this value to
-                            // authenticate with your backend server, if you have one. Use
-                            // FirebaseUser.getToken() instead.
-                            val uid = user.uid
-                            Log.d("LOG", uid.toString())
+                            //Verify account
+                            if(user.isEmailVerified) {
+                                Toast.makeText(this, "Welcome " + user.displayName + "!", Toast.LENGTH_SHORT).show()
+                            } else {
+                                user.sendEmailVerification()
+                                Toast.makeText(this, "Check your email to verify your account!", Toast.LENGTH_SHORT).show()
+                            }
+                            progressBarStudentLogin.visibility = View.GONE
+
+//                            // Name, email address, and profile photo Url
+//                            val name = user.displayName
+//                            Log.d("LOG", name.toString())
+//                            val email = user.email
+//                            Log.d("LOG", email.toString())
+//                            val photoUrl = user.photoUrl
+//                            Log.d("LOG", photoUrl.toString())
+//                            // Check if user's email is verified
+//                            val emailVerified = user.isEmailVerified
+//                            Log.d("LOG", emailVerified.toString())
+//
+//                            // The user's ID, unique to the Firebase project. Do NOT use this value to
+//                            // authenticate with your backend server, if you have one. Use
+//                            // FirebaseUser.getToken() instead.
+//                            val uid = user.uid
+//                            Log.d("LOG", uid.toString())
                         }
                         //updateUI(user)
                     } else {
                         // If sign in fails, display a message to the user.
-                        //Log.w(TAG, "signInWithEmail:failure", task.exception)
                         Toast.makeText(baseContext, task.exception.toString(), Toast.LENGTH_SHORT)
                             .show()
-                        //updateUI(null)
+                        progressBarStudentLogin.visibility = View.GONE
                     }
                 }
         } else {
-            Toast.makeText(this, "Something wrong. Please check again!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Fields cannot be left blank. Please check again!", Toast.LENGTH_SHORT).show()
         }
-
     }
 
 
@@ -165,9 +183,5 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
             loginPrefsEditor.clear()
         }
         loginPrefsEditor.apply()
-    }
-
-    override fun onClick(p0: View) {
-
     }
 }

@@ -109,6 +109,11 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-
+        <ProgressBar
+            android:id="@+id/progressBarStudentLogin"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            android:layout_gravity="center|bottom" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
