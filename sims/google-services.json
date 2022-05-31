@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "638921630054",
+    "firebase_url": "https://android-app-sims-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "android-app-sims",
+    "storage_bucket": "android-app-sims.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638921630054:android:5bc484cc6dce6efe2528a7",
+        "android_client_info": {
+          "package_name": "com.xuancanhit.sims"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "638921630054-fu29gal32en5dtsfukl94bm2qa3j1k42.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNBulpKU9aZEFodCRd-IiqeviHUuJgAV0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "638921630054-fu29gal32en5dtsfukl94bm2qa3j1k42.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

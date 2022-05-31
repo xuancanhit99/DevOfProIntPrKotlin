@@ -99,7 +99,6 @@ public class MoneyExchangeActivity extends AppCompatActivity {
                     edtTheyGet.setText("");
                 } else {
                     DoConvertAndShowResult(from, to, Double.parseDouble(edtYouSend.getText().toString()));
-
                 }
             }
 

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">sims</string>
-    <string name="app_name_rus">Система управления\n информацией для\n иностранных студентов</string>
+    <string name="app_name_rus">Система Управления\nСтудентами</string>
     <string name="copyright">© Xuan Canh IKBO–07–19</string>
 
 
@@ -13,5 +13,14 @@
     <string name="admin_login">ADMIN LOGIN</string>
     <string name="student_login">STUDENT LOGIN</string>
     <string name="open">Open</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login">Login</string>
+    <string name="are_you_an_admin_login_here">Are you an admin? Login here</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign Up</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="choose_photo">Choose Photo</string>
+    <string name="full_name">Full Name</string>
+    <string name="button_register">Register</string>
 
 </resources>

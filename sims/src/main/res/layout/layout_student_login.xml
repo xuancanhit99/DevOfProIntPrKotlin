@@ -31,6 +31,7 @@
                 android:drawableStart="@drawable/ic_baseline_mail_outline_24"
                 android:hint="@string/login_email_hint"
                 android:inputType="textEmailAddress"
+                android:autofillHints="emailAddress"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -47,6 +48,7 @@
                 android:drawableStart="@drawable/ic_outline_lock_24"
                 android:hint="@string/login_password_hint"
                 android:inputType="textPassword"
+                android:autofillHints="password"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,7 +64,7 @@
                 android:id="@+id/cb_stu_login_remember_me"
                 style="@style/viewParent"
                 android:layout_gravity="start"
-                android:text="Remember me"
+                android:text="@string/remember_me"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="15sp" />
 
@@ -75,7 +77,7 @@
                 android:layout_marginStart="150dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="2dp"
-                android:text="Forgot Password?"
+                android:text="@string/forgot_password"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="15sp" />
         </RelativeLayout>
@@ -85,13 +87,13 @@
             style="@style/loginButton"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/loginViewsMargin"
-            android:text="Login" />
+            android:text="@string/login" />
 
         <TextView
             android:id="@+id/tv_stu_login_to_login_admin"
             style="@style/parent"
             android:layout_marginTop="@dimen/loginViewsMargin"
-            android:text="Are you an admin? Login here"
+            android:text="@string/are_you_an_admin_login_here"
             android:textAlignment="center"
             android:textColor="@color/primaryTextColor"
             android:textSize="16sp"
@@ -101,7 +103,7 @@
             android:id="@+id/tv_stu_login_to_register"
             style="@style/parent"
             android:layout_marginTop="3dp"
-            android:text="Don't have an account? Sign Up"
+            android:text="@string/don_t_have_an_account_sign_up"
             android:textAlignment="center"
             android:textColor="@color/primaryTextColor"
             android:textSize="16sp"
