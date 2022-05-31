@@ -44,8 +44,10 @@
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/drawable/ic_outline_lock_24.xml" value="0.3465" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/drawable/menu_item_padding.xml" value="0.1895" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/activity_main.xml" value="0.5182291666666666" />
+        <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/activity_student_forgot_password.xml" value="0.5182291666666666" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/activity_student_login.xml" value="0.5" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/activity_student_register.xml" value="0.42291666666666666" />
+        <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/layout_student_forgot_password.xml" value="0.53125" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/layout_student_login.xml" value="0.33" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/layout_student_register.xml" value="0.33" />
         <entry key="pr1/src/main/res/layout/activity_currency_unit_update_data.xml" value="0.28396739130434784" />

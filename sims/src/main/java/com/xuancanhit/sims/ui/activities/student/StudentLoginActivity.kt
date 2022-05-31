@@ -4,6 +4,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
+import android.util.Patterns
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
@@ -21,7 +24,7 @@ import kotlinx.android.synthetic.main.layout_student_login.*
 import kotlinx.android.synthetic.main.layout_student_register.*
 import java.util.regex.Pattern
 
-class StudentLoginActivity : AppCompatActivity() {
+class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var loginPrefsEditor: SharedPreferences.Editor
 
@@ -82,29 +85,32 @@ class StudentLoginActivity : AppCompatActivity() {
             email = edt_stu_login_email.text.toString().trim()
             password = edt_stu_login_password.text.toString().trim()
 
-            if (isEmptyEditText(edt_stu_login_email)) {
-                edt_stu_login_email.error = "Enter email address!"
+
+            if (password.isEmpty()) {
+                edt_stu_login_password.error = "Enter password!"
+                edt_stu_login_password.requestFocus()
             }
 
-            if (isEmptyEditText(edt_stu_login_password))
-                edt_stu_login_password.error = "Enter password!"
+            if (email.isEmpty()) {
+                edt_stu_login_email.error = "Enter email address!"
+                edt_stu_login_email.requestFocus()
+            }
+
             if (password.length < 6)
                 edt_stu_login_password.error = "Password too short, enter minimum 6 characters!"
 
-            if (MainActivity.isEmailValid(edt_stu_login_email)) {
+            if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 studentLogin()
                 rememberMe()
             } else {
                 edt_stu_login_email.error = "Email address not valid"
+                edt_stu_login_email.requestFocus()
             }
         }
 
     }
 
-    private fun isEmptyEditText(editText: EditText): Boolean {
-        val str = editText.text.toString()
-        return TextUtils.isEmpty(str)
-    }
+
 
     private fun studentLogin() {
         if (email.isNotEmpty() && password.isNotEmpty()) {
@@ -115,7 +121,25 @@ class StudentLoginActivity : AppCompatActivity() {
                         //Log.d(TAG, "signInWithEmail:success")
                         Toast.makeText(this, "Login Successfully", Toast.LENGTH_SHORT).show()
 
-                        //val user = auth.currentUser
+                        val user = auth.currentUser
+                        user?.let {
+                            // Name, email address, and profile photo Url
+                            val name = user.displayName
+                            Log.d("LOG", name.toString())
+                            val email = user.email
+                            Log.d("LOG", email.toString())
+                            val photoUrl = user.photoUrl
+                            Log.d("LOG", photoUrl.toString())
+                            // Check if user's email is verified
+                            val emailVerified = user.isEmailVerified
+                            Log.d("LOG", emailVerified.toString())
+
+                            // The user's ID, unique to the Firebase project. Do NOT use this value to
+                            // authenticate with your backend server, if you have one. Use
+                            // FirebaseUser.getToken() instead.
+                            val uid = user.uid
+                            Log.d("LOG", uid.toString())
+                        }
                         //updateUI(user)
                     } else {
                         // If sign in fails, display a message to the user.
@@ -141,5 +165,9 @@ class StudentLoginActivity : AppCompatActivity() {
             loginPrefsEditor.clear()
         }
         loginPrefsEditor.apply()
+    }
+
+    override fun onClick(p0: View) {
+
     }
 }

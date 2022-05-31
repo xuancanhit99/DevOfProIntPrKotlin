@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.xuancanhit.sims.ui.activities.student.StudentLoginActivity
 import com.xuancanhit.sims.ui.activities.student.StudentRegisterActivity
@@ -27,18 +28,5 @@ class MainActivity : AppCompatActivity() {
 
 
     companion object {
-        fun isEmailValid(editText: EditText): Boolean {
-            val emailC = editText.text.toString()
-            if (emailC == "") return true
-            val expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]+$"
-            val pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE)
-            val matcher = pattern.matcher(emailC)
-            return matcher.matches()
-        }
-
-        fun isEmptyEditText(editText: EditText): Boolean {
-            val str = editText.text.toString()
-            return TextUtils.isEmpty(str)
-        }
     }
 }

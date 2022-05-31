@@ -34,7 +34,7 @@
                 android:id="@+id/iv_stu_register_avt"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_marginStart="30dp"
+
                 android:src="@drawable/graduated" />
 
 
@@ -123,6 +123,14 @@
             android:textColor="@color/primaryTextColor"
             android:textSize="16sp"
             android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            style="?android:attr/progressBarStyleLarge"
+            android:visibility="gone"
+            android:layout_gravity="center|bottom" />
 
     </LinearLayout>
 
