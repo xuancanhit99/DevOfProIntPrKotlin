@@ -22,7 +22,7 @@
     <TextView
         style="@style/viewParent"
         android:layout_marginTop="10dp"
-        android:text="Student Login"
+        android:text="@string/student_login"
         android:fontFamily="@font/my_font"
         android:textSize="@dimen/headerTextSize"
         android:textColor="@color/blackTextColor"

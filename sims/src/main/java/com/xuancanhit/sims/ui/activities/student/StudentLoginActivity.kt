@@ -51,7 +51,7 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
 //            R.id.tv_stu_login_to_login_admin
             R.id.tv_stu_login_to_register -> registerActivity()
             R.id.tv_stu_login_forgot_password -> forgotPasswordActivity()
-            R.id.btn_progress_button_login -> handlerButtonLogin()
+            R.id.btn_progress_button -> handlerButtonLogin()
         }
     }
 
@@ -67,8 +67,8 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
         //Forgot Password
         tv_stu_login_forgot_password.setOnClickListener(this)
         //View Button Login
-        textView_progress_button_login.text = "Login"
-        btn_progress_button_login.setOnClickListener(this)
+        textView_progress_button.text = "Login"
+        btn_progress_button.setOnClickListener(this)
 
         //Remember Me
         val loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE)
@@ -83,7 +83,7 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
         //Login When Enter - Done
         edt_stu_login_password.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                loginAuthentication()
+                handlerButtonLogin()
                 rememberMe()
             }
             false
@@ -93,8 +93,8 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
 
     //Hieu ung Button Login
     private fun handlerButtonLogin() {
-        progressButtonStudentLogin = ProgressButton(cardView_progress_button_login, constraint_layout_progress_button_login, progressBar_progress_button_login, textView_progress_button_login)
-        progressButtonStudentLogin.buttonActivated("Logging in", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+        progressButtonStudentLogin = ProgressButton(cardView_progress_button, constraint_layout_progress_button, progressBar_progress_button, textView_progress_button)
+        progressButtonStudentLogin.buttonActivated("Logging in...", AnimationUtils.loadAnimation(this, R.anim.fade_in))
         Handler(Looper.getMainLooper()).postDelayed({
                 loginStudent()
         }, 1000.toLong())

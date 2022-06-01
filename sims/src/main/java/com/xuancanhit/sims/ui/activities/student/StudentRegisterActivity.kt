@@ -1,5 +1,6 @@
 package com.xuancanhit.sims.ui.activities.student
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.Intent.ACTION_PICK
@@ -7,10 +8,13 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.util.Patterns
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -26,8 +30,11 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.xuancanhit.sims.R
 import com.xuancanhit.sims.model.Student
+import com.xuancanhit.sims.tool.InternetDialog
+import com.xuancanhit.sims.tool.ProgressButton
 import kotlinx.android.synthetic.main.activity_student_register.*
 import kotlinx.android.synthetic.main.layout_student_register.*
+import kotlinx.android.synthetic.main.progress_button_layout.*
 import java.io.ByteArrayOutputStream
 import java.util.*
 
@@ -41,6 +48,8 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var email: String
     private lateinit var password: String
 
+
+    private lateinit var progressButtonStudentRegister: ProgressButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,20 +65,34 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
         initView()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initView() {
         //Image View Close
-        iv_stu_register_close!!.setOnClickListener(this)
+        iv_stu_register_close.setOnClickListener(this)
         //Button Choose Photo
-        btn_stu_register_choose_photo!!.setOnClickListener(this)
+        btn_stu_register_choose_photo.setOnClickListener(this)
         //Button Take Photo
-        btn_stu_register_take_photo!!.setOnClickListener(this)
+        btn_stu_register_take_photo.setOnClickListener(this)
         //Button Register
-        btn_stu_register!!.setOnClickListener(this)
+        textView_progress_button.text = "Register"
+        btn_progress_button.setOnClickListener(this)
         //TextView Login
-        tv_stu_register_to_login!!.setOnClickListener(this)
+        tv_stu_register_to_login.setOnClickListener(this)
+    }
+
+    //Hieu ung Button Login
+    private fun handlerButtonRegister() {
+        progressButtonStudentRegister = ProgressButton(cardView_progress_button, constraint_layout_progress_button, progressBar_progress_button, textView_progress_button)
+        progressButtonStudentRegister.buttonActivated("Registering...", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+        Handler(Looper.getMainLooper()).postDelayed({
+            registerStudent()
+        }, 1000.toLong())
     }
 
     private fun registerStudent() {
+        // CALL getInternetStatus() function to check for internet and display error dialog
+        InternetDialog(this).internetStatus
+
         name = edt_stu_register_name.text.toString().trim()
         email = edt_stu_register_email.text.toString().trim()
         password = edt_stu_register_password.text.toString().trim()
@@ -98,7 +121,6 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
             edt_stu_register_email.requestFocus()
         }
 
-        progressBarStudentRegister.visibility = View.VISIBLE
 
         if (email.isNotEmpty() && password.isNotEmpty()) {
             //-----------------------Register User by email and password----------------------
@@ -136,6 +158,12 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
                             uploadTask.continueWithTask { task ->
                                 if (!task.isSuccessful) {
                                     task.exception?.let {
+                                        //Register loi
+                                        progressButtonStudentRegister.buttonError("Register error", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                        Handler(Looper.getMainLooper()).postDelayed({
+                                            //Reset Button
+                                            progressButtonStudentRegister.buttonReset("Register", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                        }, 1000.toLong())
                                         throw it
                                     }
                                 }
@@ -187,7 +215,12 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
                                                         Toast.LENGTH_SHORT
                                                     )
                                                         .show()
-                                                    progressBarStudentRegister.visibility = View.GONE
+                                                    //Login thanh cong
+                                                    progressButtonStudentRegister.buttonFinished("Registered", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                                    Handler(Looper.getMainLooper()).postDelayed({
+                                                        //Reset Button
+                                                        progressButtonStudentRegister.buttonReset("Register", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                                    }, 1000.toLong())
                                                     setEmptyUI()
                                                 } else {
                                                     Toast.makeText(
@@ -199,7 +232,12 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
                                                         "SIMS_STUDENT_SET_DATA_NODE",
                                                         error.toString()
                                                     )
-                                                    progressBarStudentRegister.visibility = View.GONE
+                                                    //Register loi
+                                                    progressButtonStudentRegister.buttonError("Register error", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                                    Handler(Looper.getMainLooper()).postDelayed({
+                                                        //Reset Button
+                                                        progressButtonStudentRegister.buttonReset("Register", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                                    }, 1000.toLong())
                                                 }
                                             }
                                     }
@@ -218,7 +256,12 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
                         //Log.w("TAG", "createUserWithEmail:failure", task.exception)
                         Toast.makeText(baseContext, task.exception.toString(), Toast.LENGTH_SHORT)
                             .show()
-                        progressBarStudentRegister.visibility = View.GONE
+                        //Register loi
+                        progressButtonStudentRegister.buttonError("Register error", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            //Reset Button
+                            progressButtonStudentRegister.buttonReset("Register", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                        }, 1000.toLong())
                     }
                 }
         } else {
@@ -227,6 +270,12 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
                 "Fields cannot be left blank. Please check again!",
                 Toast.LENGTH_SHORT
             ).show()
+            //Register loi
+            progressButtonStudentRegister.buttonError("Register error", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+            Handler(Looper.getMainLooper()).postDelayed({
+                //Reset Button
+                progressButtonStudentRegister.buttonReset("Register", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+            }, 1000.toLong())
         }
     }
 
@@ -299,7 +348,7 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
             R.id.iv_stu_register_close -> finish()
             R.id.btn_stu_register_take_photo -> openCameraActivityForResult()
             R.id.btn_stu_register_choose_photo -> openFileManagerActivityForResult()
-            R.id.btn_stu_register -> registerStudent()
+            R.id.btn_progress_button -> handlerButtonRegister()
             R.id.tv_stu_register_to_login -> loginActivity()
         }
     }
