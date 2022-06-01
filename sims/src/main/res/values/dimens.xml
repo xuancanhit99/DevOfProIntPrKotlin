@@ -2,10 +2,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!--dimes for design 3-->
     <dimen name="headerTextSize">22sp</dimen>
-    <dimen name="newsMoreTextSize">12sp</dimen>
+    <dimen name="newsMoreTextSize">16sp</dimen>
     <dimen name="loginCardRadius">20dp</dimen>
     <dimen name="loginViewsMargin">20dp</dimen>
-    <dimen name="signup_text_margin_top">10dp</dimen>
+    <dimen name="signup_text_margin_top">5dp</dimen>
     <dimen tools:override = "true"
         name = "design_navigation_separator_vertical_padding">20dp</dimen>
+    <dimen name="contentTextSize">16dp</dimen>
+
+<!--    New Button-->
+    <dimen name="defaultBtnWidth">210dp</dimen>
+    <dimen name="buttonsMargin">20dp</dimen>
+    <dimen name="doneSize">25dp</dimen>
+    <dimen name="drawableTextMargin">10dp</dimen>
+    <dimen name="progressRadius">10dp</dimen>
+    <dimen name="progressStroke">5dp</dimen>
+    <dimen name="textMarginStyled">20dp</dimen>
+
 </resources>

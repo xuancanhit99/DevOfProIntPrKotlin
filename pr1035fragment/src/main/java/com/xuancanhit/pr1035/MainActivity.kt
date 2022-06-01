@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         initView()
     }
 
+
     private fun initView() {
         val fragmentTransaction = fragmentManager.beginTransaction()
 

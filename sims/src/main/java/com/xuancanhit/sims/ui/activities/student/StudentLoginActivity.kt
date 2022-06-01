@@ -19,6 +19,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.xuancanhit.sims.MainActivity
 import com.xuancanhit.sims.R
+import com.xuancanhit.sims.tool.InternetDialog
 import kotlinx.android.synthetic.main.activity_student_login.*
 import kotlinx.android.synthetic.main.layout_student_login.*
 import kotlinx.android.synthetic.main.layout_student_register.*
@@ -87,6 +88,10 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun loginStudent() {
+        // CALL getInternetStatus() function to check for internet and display error dialog
+        InternetDialog(this).internetStatus
+
+
         email = edt_stu_login_email.text.toString().trim()
         password = edt_stu_login_password.text.toString().trim()
 
@@ -137,6 +142,8 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
                             //Verify account
                             if(user.isEmailVerified) {
                                 Toast.makeText(this, "Welcome " + user.displayName + "!", Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(this, StudentMainActivity::class.java))
+                                finish()
                             } else {
                                 user.sendEmailVerification()
                                 Toast.makeText(this, "Check your email to verify your account!", Toast.LENGTH_SHORT).show()

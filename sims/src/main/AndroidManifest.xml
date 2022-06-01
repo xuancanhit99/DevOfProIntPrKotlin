@@ -3,6 +3,8 @@
     package="com.xuancanhit.sims">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 
     <application
         android:allowBackup="true"
@@ -12,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".StudentMenuActivity"
+            android:name=".ui.activities.student.StudentMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.student.StudentMenuActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.student.StudentForgotPasswordActivity"
