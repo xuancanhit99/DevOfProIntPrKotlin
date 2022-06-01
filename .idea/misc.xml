@@ -67,7 +67,8 @@
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/activity_student_main.xml" value="0.5572916666666666" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/activity_student_menu.xml" value="0.5" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/activity_student_register.xml" value="0.42291666666666666" />
-        <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/dialog_no_internet.xml" value="0.5572916666666666" />
+        <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/dialog_no_internet.xml" value="0.5" />
+        <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/dialog_verify_email.xml" value="0.5" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/fragment_chat.xml" value="0.5572916666666666" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/fragment_home.xml" value="0.5572916666666666" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/fragment_learning_results.xml" value="0.5572916666666666" />
@@ -77,6 +78,7 @@
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/layout_student_forgot_password.xml" value="0.53125" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/layout_student_login.xml" value="0.5" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/layout_student_register.xml" value="0.5" />
+        <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/layout_temp.xml" value="0.53125" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/progress_button_layout.xml" value="0.55625" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/menu/item_menu.xml" value="0.55625" />
         <entry key="pr1/src/main/res/layout/activity_currency_unit_update_data.xml" value="0.28396739130434784" />

@@ -16,7 +16,7 @@ class InternetDialog(val context: Context? = null) {
         dialog1.setContentView(R.layout.dialog_no_internet)
         dialog1.setCancelable(true)
         dialog1.setCanceledOnTouchOutside(true)
-        dialog1.btnSpinAndWinRedeem.setOnClickListener {
+        dialog1.btnSpinAndWinRedeemInternetDialog.setOnClickListener {
             dialog1.dismiss()
         }
         dialog1.show()

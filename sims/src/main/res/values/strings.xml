@@ -22,7 +22,7 @@
     <string name="choose_photo">&#160;Choose Photo</string>
     <string name="full_name">Full Name</string>
     <string name="button_register">Register</string>
-    <string name="student_forgot_password">STUDENT FORGOT PASSWORD</string>
+    <string name="student_forgot_password">Student Forgot Password</string>
     <string name="reset_password">Reset password</string>
     <string name="logout">Выйти</string>
     <string name="welcome_rus">Добро Пожаловать</string>

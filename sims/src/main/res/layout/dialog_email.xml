@@ -19,34 +19,37 @@
 
 
             <ImageView
+                android:id="@+id/iv_dialog_email"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/no_internet_image"
+                android:layout_height="350dp"
+                android:src="@drawable/email_service"
                 android:layout_gravity="center"/>
 
             <TextView
+                android:id="@+id/tv_dialog_email_title"
                 style="@style/homeHeading"
                 android:fontFamily="@font/my_font"
                 android:textColor="@color/blackTextColor"
                 android:textSize="@dimen/headerTextSize"
-                android:text="No Internet"
+                android:text="Verify Email"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"/>
 
             <TextView
-                android:id="@+id/spinAndWinReward"
+                android:id="@+id/tv_dialog_email_message"
                 android:layout_width="wrap_content"
                 android:fontFamily="@font/my_font"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 style="@style/learnhubTitleText"
                 android:textStyle="normal"
+                android:gravity="center"
                 android:textSize="14dp"
-                android:text="Please check your connection status and try again"/>
+                android:text="Check your email to verify your account"/>
 
             <Button
-                android:id="@+id/btnSpinAndWinRedeemInternetDialog"
+                android:id="@+id/btnSpinAndWinRedeemEmailDialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -55,7 +58,7 @@
                 android:fontFamily="@font/my_font"
                 android:layout_marginTop="20dp"
                 android:textColor="@color/whiteTextColor"
-                android:background="@drawable/onboarding_button"/>
+                android:background="@drawable/onboarding_button" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

@@ -30,9 +30,11 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.xuancanhit.sims.R
 import com.xuancanhit.sims.model.Student
+import com.xuancanhit.sims.tool.EmailDialog
 import com.xuancanhit.sims.tool.InternetDialog
 import com.xuancanhit.sims.tool.ProgressButton
 import kotlinx.android.synthetic.main.activity_student_register.*
+import kotlinx.android.synthetic.main.dialog_email.*
 import kotlinx.android.synthetic.main.layout_student_register.*
 import kotlinx.android.synthetic.main.progress_button_layout.*
 import java.io.ByteArrayOutputStream
@@ -82,8 +84,16 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
 
     //Hieu ung Button Login
     private fun handlerButtonRegister() {
-        progressButtonStudentRegister = ProgressButton(cardView_progress_button, constraint_layout_progress_button, progressBar_progress_button, textView_progress_button)
-        progressButtonStudentRegister.buttonActivated("Registering...", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+        progressButtonStudentRegister = ProgressButton(
+            cardView_progress_button,
+            constraint_layout_progress_button,
+            progressBar_progress_button,
+            textView_progress_button
+        )
+        progressButtonStudentRegister.buttonActivated(
+            "Registering...",
+            AnimationUtils.loadAnimation(this, R.anim.fade_in)
+        )
         Handler(Looper.getMainLooper()).postDelayed({
             registerStudent()
         }, 1000.toLong())
@@ -159,10 +169,16 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
                                 if (!task.isSuccessful) {
                                     task.exception?.let {
                                         //Register loi
-                                        progressButtonStudentRegister.buttonError("Register error", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                        progressButtonStudentRegister.buttonError(
+                                            "Register error",
+                                            AnimationUtils.loadAnimation(this, R.anim.fade_in)
+                                        )
                                         Handler(Looper.getMainLooper()).postDelayed({
                                             //Reset Button
-                                            progressButtonStudentRegister.buttonReset("Register", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                            progressButtonStudentRegister.buttonReset(
+                                                "Register",
+                                                AnimationUtils.loadAnimation(this, R.anim.fade_in)
+                                            )
                                         }, 1000.toLong())
                                         throw it
                                     }
@@ -209,17 +225,26 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
                                         database.child("Students").child(user.uid)
                                             .setValue(student) { error, ref ->
                                                 if (error == null) {
-                                                    Toast.makeText(
-                                                        this,
-                                                        "You have been registered successfully. Check your email to verify your account!",
-                                                        Toast.LENGTH_SHORT
-                                                    )
-                                                        .show()
+                                                    EmailDialog(this).showVerifyEmailDialog("Successful Registration","You have been registered successfully. Check your email to verify your account")
+
+
                                                     //Login thanh cong
-                                                    progressButtonStudentRegister.buttonFinished("Registered", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                                    progressButtonStudentRegister.buttonFinished(
+                                                        "Registered",
+                                                        AnimationUtils.loadAnimation(
+                                                            this,
+                                                            R.anim.fade_in
+                                                        )
+                                                    )
                                                     Handler(Looper.getMainLooper()).postDelayed({
                                                         //Reset Button
-                                                        progressButtonStudentRegister.buttonReset("Register", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                                        progressButtonStudentRegister.buttonReset(
+                                                            "Register",
+                                                            AnimationUtils.loadAnimation(
+                                                                this,
+                                                                R.anim.fade_in
+                                                            )
+                                                        )
                                                     }, 1000.toLong())
                                                     setEmptyUI()
                                                 } else {
@@ -233,10 +258,22 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
                                                         error.toString()
                                                     )
                                                     //Register loi
-                                                    progressButtonStudentRegister.buttonError("Register error", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                                    progressButtonStudentRegister.buttonError(
+                                                        "Register error",
+                                                        AnimationUtils.loadAnimation(
+                                                            this,
+                                                            R.anim.fade_in
+                                                        )
+                                                    )
                                                     Handler(Looper.getMainLooper()).postDelayed({
                                                         //Reset Button
-                                                        progressButtonStudentRegister.buttonReset("Register", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                                        progressButtonStudentRegister.buttonReset(
+                                                            "Register",
+                                                            AnimationUtils.loadAnimation(
+                                                                this,
+                                                                R.anim.fade_in
+                                                            )
+                                                        )
                                                     }, 1000.toLong())
                                                 }
                                             }
@@ -257,10 +294,16 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
                         Toast.makeText(baseContext, task.exception.toString(), Toast.LENGTH_SHORT)
                             .show()
                         //Register loi
-                        progressButtonStudentRegister.buttonError("Register error", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                        progressButtonStudentRegister.buttonError(
+                            "Register error",
+                            AnimationUtils.loadAnimation(this, R.anim.fade_in)
+                        )
                         Handler(Looper.getMainLooper()).postDelayed({
                             //Reset Button
-                            progressButtonStudentRegister.buttonReset("Register", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                            progressButtonStudentRegister.buttonReset(
+                                "Register",
+                                AnimationUtils.loadAnimation(this, R.anim.fade_in)
+                            )
                         }, 1000.toLong())
                     }
                 }
@@ -271,10 +314,16 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
                 Toast.LENGTH_SHORT
             ).show()
             //Register loi
-            progressButtonStudentRegister.buttonError("Register error", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+            progressButtonStudentRegister.buttonError(
+                "Register error",
+                AnimationUtils.loadAnimation(this, R.anim.fade_in)
+            )
             Handler(Looper.getMainLooper()).postDelayed({
                 //Reset Button
-                progressButtonStudentRegister.buttonReset("Register", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                progressButtonStudentRegister.buttonReset(
+                    "Register",
+                    AnimationUtils.loadAnimation(this, R.anim.fade_in)
+                )
             }, 1000.toLong())
         }
     }

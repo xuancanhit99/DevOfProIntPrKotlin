@@ -19,7 +19,9 @@ import com.google.firebase.ktx.Firebase
 import com.xuancanhit.sims.R
 import com.xuancanhit.sims.tool.InternetDialog
 import com.xuancanhit.sims.tool.ProgressButton
+import com.xuancanhit.sims.tool.EmailDialog
 import kotlinx.android.synthetic.main.activity_student_login.*
+import kotlinx.android.synthetic.main.dialog_email.*
 import kotlinx.android.synthetic.main.layout_student_login.*
 import kotlinx.android.synthetic.main.progress_button_layout.*
 
@@ -33,7 +35,7 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var email: String
     private lateinit var password: String
 
-    private lateinit var progressButtonStudentLogin:ProgressButton
+    private lateinit var progressButtonStudentLogin: ProgressButton
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,10 +95,18 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
 
     //Hieu ung Button Login
     private fun handlerButtonLogin() {
-        progressButtonStudentLogin = ProgressButton(cardView_progress_button, constraint_layout_progress_button, progressBar_progress_button, textView_progress_button)
-        progressButtonStudentLogin.buttonActivated("Logging in...", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+        progressButtonStudentLogin = ProgressButton(
+            cardView_progress_button,
+            constraint_layout_progress_button,
+            progressBar_progress_button,
+            textView_progress_button
+        )
+        progressButtonStudentLogin.buttonActivated(
+            "Logging in...",
+            AnimationUtils.loadAnimation(this, R.anim.fade_in)
+        )
         Handler(Looper.getMainLooper()).postDelayed({
-                loginStudent()
+            loginStudent()
         }, 1000.toLong())
     }
 
@@ -155,10 +165,16 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
                             //Verify account
                             if (user.isEmailVerified) {
                                 //Login thanh cong
-                                progressButtonStudentLogin.buttonFinished("Logged in", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                progressButtonStudentLogin.buttonFinished(
+                                    "Logged in",
+                                    AnimationUtils.loadAnimation(this, R.anim.fade_in)
+                                )
                                 Handler(Looper.getMainLooper()).postDelayed({
                                     //Reset Button
-                                    progressButtonStudentLogin.buttonReset("Login", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                    progressButtonStudentLogin.buttonReset(
+                                        "Login",
+                                        AnimationUtils.loadAnimation(this, R.anim.fade_in)
+                                    )
                                 }, 1000.toLong())
 
                                 Toast.makeText(
@@ -170,17 +186,19 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
                                 finish()
                             } else {
                                 //Login loi
-                                progressButtonStudentLogin.buttonError("Login in error", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                progressButtonStudentLogin.buttonError(
+                                    "Login in error",
+                                    AnimationUtils.loadAnimation(this, R.anim.fade_in)
+                                )
                                 Handler(Looper.getMainLooper()).postDelayed({
                                     //Reset Button
-                                    progressButtonStudentLogin.buttonReset("Login", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                    progressButtonStudentLogin.buttonReset(
+                                        "Login",
+                                        AnimationUtils.loadAnimation(this, R.anim.fade_in)
+                                    )
                                 }, 1000.toLong())
                                 user.sendEmailVerification()
-                                Toast.makeText(
-                                    this,
-                                    "Check your email to verify your account!",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                EmailDialog(this).showVerifyEmailDialog("Verify Email", "Check your email to verify your account")
                             }
                             //progressButtonStudentLogin.buttonFinished()
 
@@ -204,10 +222,16 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
                         //updateUI(user)
                     } else {
                         //Login loi
-                        progressButtonStudentLogin.buttonError("Login in error", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                        progressButtonStudentLogin.buttonError(
+                            "Login in error",
+                            AnimationUtils.loadAnimation(this, R.anim.fade_in)
+                        )
                         Handler(Looper.getMainLooper()).postDelayed({
                             //Reset Button
-                            progressButtonStudentLogin.buttonReset("Login", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                            progressButtonStudentLogin.buttonReset(
+                                "Login",
+                                AnimationUtils.loadAnimation(this, R.anim.fade_in)
+                            )
                         }, 1000.toLong())
                         // If sign in fails, display a message to the user.
                         Toast.makeText(baseContext, task.exception.toString(), Toast.LENGTH_SHORT)
@@ -217,10 +241,16 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
                 }
         } else {
             //Login loi
-            progressButtonStudentLogin.buttonError("Login in error", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+            progressButtonStudentLogin.buttonError(
+                "Login in error",
+                AnimationUtils.loadAnimation(this, R.anim.fade_in)
+            )
             Handler(Looper.getMainLooper()).postDelayed({
                 //Reset Button
-                progressButtonStudentLogin.buttonReset("Login", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                progressButtonStudentLogin.buttonReset(
+                    "Login",
+                    AnimationUtils.loadAnimation(this, R.anim.fade_in)
+                )
             }, 1000.toLong())
             Toast.makeText(
                 this,
