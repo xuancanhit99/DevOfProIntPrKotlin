@@ -87,6 +87,14 @@
         <item name="colorButtonNormal">@color/myColor10</item>
         <item name="android:textColor">@color/white</item>
     </style>
+    <style name="AppTheme.MyButton11" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/bl</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="AppTheme.MyButton12" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/button_blue_color</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 
 
     <style name="OverlayText">
