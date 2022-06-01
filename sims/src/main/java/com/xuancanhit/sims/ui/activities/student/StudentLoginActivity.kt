@@ -1,29 +1,28 @@
 package com.xuancanhit.sims.ui.activities.student
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.util.Patterns
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.xuancanhit.sims.MainActivity
 import com.xuancanhit.sims.R
 import com.xuancanhit.sims.tool.InternetDialog
+import com.xuancanhit.sims.tool.ProgressButton
 import kotlinx.android.synthetic.main.activity_student_login.*
 import kotlinx.android.synthetic.main.layout_student_login.*
-import kotlinx.android.synthetic.main.layout_student_register.*
-import java.util.regex.Pattern
+import kotlinx.android.synthetic.main.progress_button_layout.*
+
 
 class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -34,12 +33,14 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var email: String
     private lateinit var password: String
 
+    private lateinit var progressButtonStudentLogin:ProgressButton
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_student_login)
 
         auth = Firebase.auth
-
 
         initView()
     }
@@ -49,23 +50,25 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
             R.id.iv_stu_login_close -> finish()
 //            R.id.tv_stu_login_to_login_admin
             R.id.tv_stu_login_to_register -> registerActivity()
-            R.id.tv_stu_login_forgot_password ->forgotPasswordActivity()
-            R.id.btn_stu_login -> loginStudent()
+            R.id.tv_stu_login_forgot_password -> forgotPasswordActivity()
+            R.id.btn_progress_button_login -> handlerButtonLogin()
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initView() {
+
         //Image View Close
         iv_stu_login_close.setOnClickListener(this)
         //To Login Admin
         tv_stu_login_to_login_admin.setOnClickListener(this)
         //To Register
         tv_stu_login_to_register.setOnClickListener(this)
-        //Button Login
-        btn_stu_login.setOnClickListener(this)
         //Forgot Password
         tv_stu_login_forgot_password.setOnClickListener(this)
-
+        //View Button Login
+        textView_progress_button_login.text = "Login"
+        btn_progress_button_login.setOnClickListener(this)
 
         //Remember Me
         val loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE)
@@ -85,6 +88,16 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
             }
             false
         })
+    }
+
+
+    //Hieu ung Button Login
+    private fun handlerButtonLogin() {
+        progressButtonStudentLogin = ProgressButton(cardView_progress_button_login, constraint_layout_progress_button_login, progressBar_progress_button_login, textView_progress_button_login)
+        progressButtonStudentLogin.buttonActivated("Logging in", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+        Handler(Looper.getMainLooper()).postDelayed({
+                loginStudent()
+        }, 1000.toLong())
     }
 
     private fun loginStudent() {
@@ -113,7 +126,7 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
             edt_stu_login_email.requestFocus()
         }
 
-        progressBarStudentLogin.visibility = View.VISIBLE
+
 
         loginAuthentication()
         rememberMe()
@@ -140,15 +153,36 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
                         user?.let {
 
                             //Verify account
-                            if(user.isEmailVerified) {
-                                Toast.makeText(this, "Welcome " + user.displayName + "!", Toast.LENGTH_SHORT).show()
+                            if (user.isEmailVerified) {
+                                //Login thanh cong
+                                progressButtonStudentLogin.buttonFinished("Logged in", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                Handler(Looper.getMainLooper()).postDelayed({
+                                    //Reset Button
+                                    progressButtonStudentLogin.buttonReset("Login", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                }, 1000.toLong())
+
+                                Toast.makeText(
+                                    this,
+                                    "Welcome " + user.displayName + "!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                                 startActivity(Intent(this, StudentMainActivity::class.java))
                                 finish()
                             } else {
+                                //Login loi
+                                progressButtonStudentLogin.buttonError("Login in error", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                Handler(Looper.getMainLooper()).postDelayed({
+                                    //Reset Button
+                                    progressButtonStudentLogin.buttonReset("Login", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                                }, 1000.toLong())
                                 user.sendEmailVerification()
-                                Toast.makeText(this, "Check your email to verify your account!", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    this,
+                                    "Check your email to verify your account!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
-                            progressBarStudentLogin.visibility = View.GONE
+                            //progressButtonStudentLogin.buttonFinished()
 
 //                            // Name, email address, and profile photo Url
 //                            val name = user.displayName
@@ -169,14 +203,30 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
                         }
                         //updateUI(user)
                     } else {
+                        //Login loi
+                        progressButtonStudentLogin.buttonError("Login in error", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            //Reset Button
+                            progressButtonStudentLogin.buttonReset("Login", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+                        }, 1000.toLong())
                         // If sign in fails, display a message to the user.
                         Toast.makeText(baseContext, task.exception.toString(), Toast.LENGTH_SHORT)
                             .show()
-                        progressBarStudentLogin.visibility = View.GONE
+                        //progressButtonStudentLogin.buttonFinished()
                     }
                 }
         } else {
-            Toast.makeText(this, "Fields cannot be left blank. Please check again!", Toast.LENGTH_SHORT).show()
+            //Login loi
+            progressButtonStudentLogin.buttonError("Login in error", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+            Handler(Looper.getMainLooper()).postDelayed({
+                //Reset Button
+                progressButtonStudentLogin.buttonReset("Login", AnimationUtils.loadAnimation(this, R.anim.fade_in))
+            }, 1000.toLong())
+            Toast.makeText(
+                this,
+                "Fields cannot be left blank. Please check again!",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 

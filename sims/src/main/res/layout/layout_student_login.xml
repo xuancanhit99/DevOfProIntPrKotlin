@@ -1,119 +1,138 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/parent"
-    android:layout_gravity="center"
-    android:layout_marginTop="@dimen/loginViewsMargin"
-    android:layout_marginBottom="@dimen/loginViewsMargin"
-    android:background="@color/whiteCardColor"
-    android:elevation="5dp"
-    app:cardCornerRadius="@dimen/loginCardRadius">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    android:focusableInTouchMode="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="MissingClass">
 
-    <LinearLayout
-        style="@style/linearParent"
-        android:layout_gravity="center"
-        android:padding="@dimen/loginViewsMargin">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        android:src="@drawable/login_hero_image"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:contentDescription="@string/app_name" />
 
-        <TextView
-            style="@style/headerTextPrimary"
-            android:layout_marginTop="@dimen/loginViewsMargin"
-            android:text="@string/student_login" />
+    <TextView
+        style="@style/viewParent"
+        android:layout_marginTop="10dp"
+        android:text="Student Login"
+        android:fontFamily="@font/my_font"
+        android:textSize="@dimen/headerTextSize"
+        android:textColor="@color/blackTextColor"
+        android:textStyle="bold" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputEmail"
-            style="@style/parent"
-            android:layout_marginTop="@dimen/loginViewsMargin">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputEmail"
+        style="@style/parent"
+        android:layout_marginTop="10dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_stu_login_email"
-                style="@style/modifiedEditText"
-                android:drawableTint="?attr/colorControlNormal"
-                android:drawableStart="@drawable/ic_baseline_mail_outline_24"
-                android:hint="@string/login_email_hint"
-                android:inputType="textEmailAddress"
-                android:autofillHints="emailAddress"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_stu_login_email"
+            style="@style/modifiedEditText"
+            android:drawableTint="?attr/colorControlNormal"
+            android:drawableStart="@drawable/ic_baseline_mail_outline_24"
+            android:hint="@string/login_email_hint"
+            android:fontFamily="@font/my_font"
+            android:inputType="textEmailAddress"
+            android:autofillHints="emailAddress"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputPassword"
-            style="@style/parent"
-            android:layout_marginTop="@dimen/loginViewsMargin"
-            app:passwordToggleEnabled="true">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputPassword"
+        style="@style/parent"
+        app:passwordToggleEnabled="true">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_stu_login_password"
-                style="@style/modifiedEditText"
-                android:drawableTint="?attr/colorControlNormal"
-                android:drawableStart="@drawable/ic_outline_lock_24"
-                android:hint="@string/login_password_hint"
-                android:inputType="textPassword"
-                android:autofillHints="password"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_stu_login_password"
+            style="@style/modifiedEditText"
+            android:drawableTint="?attr/colorControlNormal"
+            android:drawableStart="@drawable/ic_outline_lock_24"
+            android:hint="@string/login_password_hint"
+            android:fontFamily="@font/my_font"
+            android:inputType="textPassword"
+            android:autofillHints="password"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/cb_stu_login_remember_me"
-                style="@style/viewParent"
-                android:layout_gravity="start"
-                android:text="@string/remember_me"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/tv_stu_login_forgot_password"
-                style="@style/viewParent"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_gravity="end"
-                android:layout_marginStart="150dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="2dp"
-                android:text="@string/forgot_password"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="15sp" />
-        </RelativeLayout>
-
-        <Button
-            android:id="@+id/btn_stu_login"
-            style="@style/loginButton"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/loginViewsMargin"
-            android:text="@string/login" />
+        <CheckBox
+            android:id="@+id/cb_stu_login_remember_me"
+            style="@style/viewParent"
+            android:layout_gravity="start"
+            android:text="@string/remember_me"
+            android:fontFamily="@font/my_font"
+            android:textColor="@color/blackTextColor"
+            android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/tv_stu_login_to_login_admin"
-            style="@style/parent"
-            android:layout_marginTop="@dimen/loginViewsMargin"
-            android:text="@string/are_you_an_admin_login_here"
-            android:textAlignment="center"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:id="@+id/tv_stu_login_forgot_password"
+            style="@style/viewParent"
+            android:fontFamily="@font/my_font"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="end"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="2dp"
+            android:text="@string/forgot_password"
+            android:textColor="@color/blackTextColor"
+            android:textSize="15sp" />
+    </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_stu_login_to_register"
-            style="@style/parent"
-            android:layout_marginTop="3dp"
-            android:text="@string/don_t_have_an_account_sign_up"
-            android:textAlignment="center"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="16sp"
-            android:textStyle="bold" />
 
-        <ProgressBar
-            android:id="@+id/progressBarStudentLogin"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:visibility="gone"
-            android:layout_gravity="center|bottom" />
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+    <!--    <ImageView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:src="@drawable/ic_login_button"-->
+<!--        android:layout_gravity="right"-->
+<!--        tools:ignore="RtlHardcoded"-->
+<!--        android:contentDescription="@string/login" />-->
+
+    <include
+        android:id="@+id/viewProgressButton"
+        layout="@layout/progress_button_layout"
+        android:layout_marginTop="40dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_stu_login_to_login_admin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textColor="@color/blackTextColor"
+        android:textSize="16sp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/my_font"
+        android:text="@string/are_you_an_admin_login_here"/>
+
+    <TextView
+        android:id="@+id/tv_stu_login_to_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:layout_marginBottom="30dp"
+        android:fontFamily="@font/my_font"
+        android:textColor="@color/blackTextColor"
+        android:textSize="16sp"
+        android:text="@string/sign_up" />
+</LinearLayout>

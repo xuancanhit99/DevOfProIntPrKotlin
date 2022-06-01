@@ -12,9 +12,10 @@
     <TextView
         style="@style/OverlayText"
         android:gravity="center"
-        android:text="@string/app_name_rus"
+        android:fontFamily="@font/my_font"
+        android:text="@string/app_name"
         android:textColor="@color/white"
-        android:textSize="25sp" />
+        android:textSize="35sp" />
 
     <ImageView
         android:layout_width="250dp"
@@ -25,6 +26,7 @@
     <TextView
         style="@style/OverlayText"
         android:text="@string/copyright"
+        android:fontFamily="@font/my_font"
         android:textColor="@color/white" />
 
 </LinearLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_progress_button_login"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        app:cardBackgroundColor="@color/button_blue_color"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <Button
+            android:id="@+id/btn_progress_button_login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:drawableTint="#fff"
+            android:paddingStart="9dp"
+            android:paddingEnd="7dp"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_progress_button_login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView_progress_button_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:fontFamily="@font/my_font"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/progressBar_progress_button_login"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="16dp"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/white"
+                android:indeterminateTintMode="src_atop"
+                android:layout_marginStart="16dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textView_progress_button_login"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
