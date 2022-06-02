@@ -3,8 +3,11 @@ package com.xuancanhit.sims.ui.activities.student
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
-import android.view.WindowInsets
-import android.view.WindowManager
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.RequiresApi
@@ -13,19 +16,20 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.navigation.NavigationView
+import com.xuancanhit.sims.MainActivity
 import com.xuancanhit.sims.R
-import com.xuancanhit.sims.tool.nav.*
+import com.xuancanhit.sims.tool.nav.bottom.FragmentToActivity
+import com.xuancanhit.sims.tool.nav.top.*
 import com.xuancanhit.sims.ui.fragments.student.ChatFragment
 import com.xuancanhit.sims.ui.fragments.student.HomeFragment
 import com.xuancanhit.sims.ui.fragments.student.LearningResultsFragment
 import com.xuancanhit.sims.ui.fragments.student.ProfileFragment
 import com.yarolegovich.slidingrootnav.SlidingRootNav
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder
-
 import kotlinx.android.synthetic.main.activity_student_main.*
-import java.util.*
 
-class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener {
+class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener, FragmentToActivity {
 
     companion object {
         const val CODE_HOME = 0
@@ -38,26 +42,54 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener {
     private lateinit var screenTitles: Array<String>
     private lateinit var screenIcons: Array<Drawable?>
     private lateinit var slidingRootNav: SlidingRootNav
-    private lateinit var adapter:DrawerAdapter
+    private lateinit var adapter: DrawerAdapter
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_student_main)
 
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
+        MainActivity.hideStatusBar(window)
+
+        initNavBottomAndTopLeft(savedInstanceState)
+
+
+    }
+
+    private fun updateNavigationBarState(actionId: Int) {
+        val menu: Menu = bottom_navigation_student.menu
+        var i = 0
+        val size: Int = menu.size()
+        while (i < size) {
+            val item: MenuItem = menu.getItem(i)
+            item.isChecked = item.itemId === actionId
+            i++
+            if (item.isChecked)
+                Log.d("LOG", item.toString())
+            //Toast.makeText(this, item.itemId.toString(), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun checkItemNavigationBarState() {
+        val menu: Menu = bottom_navigation_student.menu
+        var i = 0
+        val size: Int = menu.size()
+
+        var item: MenuItem = menu.getItem(i)
+        while (i < size) {
+            item = menu.getItem(i)
+            if (item.isChecked)
+                break
+            i++
         }
 
-        initBottomNav()
+        Log.d("LOG", menu.getItem(i).toString())
+    }
 
-        //Top Nav
+
+    private fun initNavBottomAndTopLeft(savedInstanceState: Bundle?) {
+
+        //Setup nav top-left
         setSupportActionBar(toolbar_stu)
         slidingRootNav = SlidingRootNavBuilder(this)
             .withToolbarMenuToggle(toolbar_stu)
@@ -67,16 +99,14 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener {
             .withMenuLayout(R.layout.menu_left_drawer)
             .inject()
 
-
+        //Load title and icon item nav top-left
         screenTitles = loadScreenTitles()
         screenIcons = loadScreenIcons()
 
-
         adapter = DrawerAdapter(
-            Arrays.asList(
-                createItemFor(CODE_HOME).setChecked(
-                    true
-                ),
+            listOf(
+                //Create item on nav and set checked first item
+                createItemFor(CODE_HOME).setChecked(true),
                 createItemFor(CODE_PROFILE),
                 createItemFor(CODE_RESULTS),
                 createItemFor(CODE_CHAT),
@@ -84,61 +114,61 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener {
                 createItemFor(CODE_LOGOUT)
             )
         )
+
+        //Select Listener
         adapter.setListener(this)
+
+        //Set up list nav top-left
         val list = findViewById<RecyclerView>(R.id.rv_stu_nav_list)
         list.isNestedScrollingEnabled = false
         list.layoutManager = LinearLayoutManager(this)
         list.adapter = adapter
-        adapter.setSelected(CODE_HOME)
-    }
 
-    private fun initBottomNav() {
-        //Bottom-Left Nav
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        //fragmentTransaction.replace(R.id.body_container, HomeFragment())
-        //fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
+        //Set first fragment Home
+        supportFragmentManager.beginTransaction()
+            .add(R.id.body_container, HomeFragment())
+            .commit()
+
+        //-------------------------
+        //Bottom Nav
         bottom_navigation_student.selectedItemId = R.id.nav_home
 
-        bottom_navigation_student.setOnItemSelectedListener { item ->
-            var fragment: Fragment? = null
-            when(item.itemId) {
-                R.id.nav_home -> {
-                    fragment = HomeFragment()
-                    //adapter.setSelected(CODE_HOME)
-                }
-                R.id.nav_profile -> {
-                    fragment = ProfileFragment()
-                    //adapter.setSelected(CODE_PROFILE)
-                }
 
-                R.id.nav_learning_results -> {
-                    fragment = LearningResultsFragment()
-                    //adapter.setSelected(CODE_RESULTS)
-                }
-                R.id.nav_chat -> {
-                    fragment = ChatFragment()
-                    //adapter.setSelected(CODE_CHAT)
-                }
+
+        bottom_navigation_student.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> adapter.setSelected(CODE_HOME)
+                R.id.nav_profile -> adapter.setSelected(CODE_PROFILE)
+                R.id.nav_learning_results -> adapter.setSelected(CODE_RESULTS)
+                R.id.nav_chat -> adapter.setSelected(CODE_CHAT)
             }
-            val fragmentTransactionOn = supportFragmentManager.beginTransaction()
-            //fragmentTransactionOn.replace(R.id.body_container, fragment!!)
-            fragmentTransactionOn.addToBackStack(null)
-            fragmentTransactionOn.commit()
             true
         }
     }
 
     override fun onItemSelected(position: Int) {
-
-        var selectedScreen: Fragment?=null
-        when(position) {
-            CODE_HOME -> selectedScreen = HomeFragment()
-            CODE_PROFILE -> selectedScreen = ProfileFragment()
-            CODE_RESULTS -> selectedScreen = LearningResultsFragment()
-            CODE_CHAT-> selectedScreen = ChatFragment()
+        var selectedScreen: Fragment? = null
+        when (position) {
+            CODE_HOME -> {
+                selectedScreen = HomeFragment()
+                //bottom_navigation_student.menu.findItem(R.id.nav_home).isChecked = true
+            }
+            CODE_PROFILE -> {
+                selectedScreen = ProfileFragment()
+                //bottom_navigation_student.menu.findItem(R.id.nav_profile).isChecked = true
+            }
+            CODE_RESULTS -> {
+                selectedScreen = LearningResultsFragment()
+                //bottom_navigation_student.menu.findItem(R.id.nav_learning_results).isChecked = true
+            }
+            CODE_CHAT -> {
+                selectedScreen = ChatFragment()
+                //bottom_navigation_student.menu.findItem(R.id.nav_chat).isChecked = true
+            }
             CODE_LOGOUT -> finish()
         }
+
+        checkItemNavigationBarState()
         slidingRootNav.closeMenu()
 
         if (selectedScreen != null) {
@@ -148,17 +178,19 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener {
 
     private fun showFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.body_container, fragment).addToBackStack(null)
+            .replace(R.id.body_container, fragment)
+            .addToBackStack(null)
             .commit()
     }
 
     private fun createItemFor(position: Int): DrawerItem<DrawerAdapter.ViewHolder> {
         var simpleItem: SimpleItem? = null
-        screenIcons[position]?.let { simpleItem = SimpleItem(it, screenTitles[position])
-            .withIconTint(color(R.color.light_white))
-            .withTextTint(color(R.color.light_white))
-            .withSelectedIconTint(color(R.color.bl))
-            .withSelectedTextTint(color(R.color.bl))
+        screenIcons[position]?.let {
+            simpleItem = SimpleItem(it, screenTitles[position])
+                .withIconTint(color(R.color.light_white))
+                .withTextTint(color(R.color.light_white))
+                .withSelectedIconTint(color(R.color.bl))
+                .withSelectedTextTint(color(R.color.bl))
         }
         return (simpleItem as DrawerItem<DrawerAdapter.ViewHolder>)
     }
@@ -184,5 +216,9 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener {
     private fun color(@ColorRes res: Int): Int {
         return ContextCompat.getColor(this, res)
     }
-    
+
+    override fun setNavState(id: Int) {
+        bottom_navigation_student.menu.findItem(id).isChecked = true
+    }
+
 }

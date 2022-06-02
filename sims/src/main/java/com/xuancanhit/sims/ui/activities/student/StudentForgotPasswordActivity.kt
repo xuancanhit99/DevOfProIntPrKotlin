@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.xuancanhit.sims.MainActivity
 import com.xuancanhit.sims.R
 import com.xuancanhit.sims.tool.EmailDialog
 import com.xuancanhit.sims.tool.InternetDialog
@@ -34,9 +35,7 @@ class StudentForgotPasswordActivity : AppCompatActivity(), View.OnClickListener 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_student_forgot_password)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        MainActivity.hideStatusBar(window)
 
         auth = Firebase.auth
         initView()

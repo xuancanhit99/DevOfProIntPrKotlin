@@ -29,6 +29,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import com.xuancanhit.sims.MainActivity
 import com.xuancanhit.sims.R
 import com.xuancanhit.sims.model.Student
 import com.xuancanhit.sims.tool.EmailDialog
@@ -58,9 +59,7 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_student_register)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        MainActivity.hideStatusBar(window)
 
         //Firebase services
         auth = Firebase.auth

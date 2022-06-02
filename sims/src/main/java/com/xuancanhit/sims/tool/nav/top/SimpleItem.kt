@@ -1,4 +1,4 @@
-package com.xuancanhit.sims.tool.nav
+package com.xuancanhit.sims.tool.nav.top
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater

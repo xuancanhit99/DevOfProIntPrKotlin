@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.xuancanhit.sims.R
+import com.xuancanhit.sims.tool.nav.bottom.FragmentToActivity
 
 
 class HomeFragment : Fragment() {
@@ -14,6 +15,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        (activity as FragmentToActivity?)!!.setNavState(R.id.nav_home)
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
