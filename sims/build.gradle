@@ -60,6 +60,7 @@ dependencies {
 
     //Nav
     implementation 'com.yarolegovich:sliding-root-nav:1.1.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
 
 }
