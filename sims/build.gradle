@@ -56,8 +56,10 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
 
-    //Progress Button
-    implementation 'com.github.razir.progressbutton:progressbutton:2.1.0'
+
+
+    //Nav
+    implementation 'com.yarolegovich:sliding-root-nav:1.1.1'
 
 
 }

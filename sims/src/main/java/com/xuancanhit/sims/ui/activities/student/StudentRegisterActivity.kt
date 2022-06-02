@@ -14,6 +14,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.util.Patterns
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -56,6 +57,10 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_student_register)
+
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         //Firebase services
         auth = Firebase.auth

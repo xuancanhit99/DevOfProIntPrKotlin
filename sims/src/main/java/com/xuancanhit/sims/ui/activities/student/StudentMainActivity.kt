@@ -1,6 +1,10 @@
 package com.xuancanhit.sims.ui.activities.student
 
+import android.os.Build
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,9 +19,14 @@ import kotlinx.android.synthetic.main.activity_student_main.*
 
 class StudentMainActivity : AppCompatActivity() {
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_student_main)
+
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         initView()
     }
@@ -26,7 +35,7 @@ class StudentMainActivity : AppCompatActivity() {
 
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.body_container, HomeFragment())
-        fragmentTransaction.addToBackStack(null)
+        //fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
 
         bottom_navigation_student.selectedItemId = R.id.nav_home

@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Patterns
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
@@ -41,6 +42,10 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_student_login)
+
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         auth = Firebase.auth
 

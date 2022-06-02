@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Patterns
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +33,10 @@ class StudentForgotPasswordActivity : AppCompatActivity(), View.OnClickListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_student_forgot_password)
+
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         auth = Firebase.auth
         initView()
