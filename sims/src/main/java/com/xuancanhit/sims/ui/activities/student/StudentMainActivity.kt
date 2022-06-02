@@ -3,6 +3,8 @@ package com.xuancanhit.sims.ui.activities.student
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -39,10 +41,13 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener, Fragmen
         const val CODE_LOGOUT = 5
     }
 
+    private var doubleBackToExitPressedOnce = false
+
     private lateinit var screenTitles: Array<String>
     private lateinit var screenIcons: Array<Drawable?>
     private lateinit var slidingRootNav: SlidingRootNav
     private lateinit var adapter: DrawerAdapter
+    private var idFragmentOnView: Int = 0
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,39 +58,7 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener, Fragmen
 
         initNavBottomAndTopLeft(savedInstanceState)
 
-
     }
-
-    private fun updateNavigationBarState(actionId: Int) {
-        val menu: Menu = bottom_navigation_student.menu
-        var i = 0
-        val size: Int = menu.size()
-        while (i < size) {
-            val item: MenuItem = menu.getItem(i)
-            item.isChecked = item.itemId === actionId
-            i++
-            if (item.isChecked)
-                Log.d("LOG", item.toString())
-            //Toast.makeText(this, item.itemId.toString(), Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun checkItemNavigationBarState() {
-        val menu: Menu = bottom_navigation_student.menu
-        var i = 0
-        val size: Int = menu.size()
-
-        var item: MenuItem = menu.getItem(i)
-        while (i < size) {
-            item = menu.getItem(i)
-            if (item.isChecked)
-                break
-            i++
-        }
-
-        Log.d("LOG", menu.getItem(i).toString())
-    }
-
 
     private fun initNavBottomAndTopLeft(savedInstanceState: Bundle?) {
 
@@ -168,7 +141,6 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener, Fragmen
             CODE_LOGOUT -> finish()
         }
 
-        checkItemNavigationBarState()
         slidingRootNav.closeMenu()
 
         if (selectedScreen != null) {
@@ -179,7 +151,7 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener, Fragmen
     private fun showFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.body_container, fragment)
-            .addToBackStack(null)
+            //.addToBackStack(null)
             .commit()
     }
 
@@ -218,7 +190,30 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener, Fragmen
     }
 
     override fun setNavState(id: Int) {
-        bottom_navigation_student.menu.findItem(id).isChecked = true
+        idFragmentOnView = id
+        bottom_navigation_student.menu.findItem(idFragmentOnView).isChecked = true
+        when (idFragmentOnView) {
+            R.id.nav_home -> adapter.setChecked(CODE_HOME)
+            R.id.nav_profile -> adapter.setChecked(CODE_PROFILE)
+            R.id.nav_learning_results -> adapter.setChecked(CODE_RESULTS)
+            R.id.nav_chat -> adapter.setChecked(CODE_CHAT)
+        }
     }
 
+    override fun onBackPressed() {
+        supportFragmentManager.beginTransaction()
+            .add(R.id.body_container, HomeFragment())
+            .commit()
+
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            return
+        }
+
+        if(idFragmentOnView == R.id.nav_home) {
+            this.doubleBackToExitPressedOnce = true
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+            Handler(Looper.getMainLooper()).postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
+        }
+    }
 }
