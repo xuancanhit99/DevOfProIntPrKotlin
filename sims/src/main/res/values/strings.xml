@@ -68,6 +68,7 @@
     <string name="delete">Delete</string>
     <string name="exit">Exit</string>
     <string name="change_password">Change Password</string>
+    <string name="ok">OK</string>
 
 
 </resources>

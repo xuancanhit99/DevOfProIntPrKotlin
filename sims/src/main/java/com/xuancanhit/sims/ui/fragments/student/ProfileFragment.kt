@@ -1,6 +1,10 @@
 package com.xuancanhit.sims.ui.fragments.student
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Button
@@ -9,13 +13,15 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
+import com.thecode.aestheticdialogs.AestheticDialog
+import com.thecode.aestheticdialogs.DialogStyle
+import com.thecode.aestheticdialogs.DialogType
+import com.thecode.aestheticdialogs.OnDialogClickListener
+import com.xuancanhit.sims.MainActivity
 import com.xuancanhit.sims.R
 import com.xuancanhit.sims.model.Student
 import com.xuancanhit.sims.ui.interfaces.PassDataFragmentAndActivity
@@ -39,6 +45,9 @@ class ProfileFragment : Fragment() {
     private lateinit var btnBack: Button
     private lateinit var btnEdit: Button
 
+    private var check = false
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,26 +70,21 @@ class ProfileFragment : Fragment() {
         //btnBack = rootView.findViewById(R.id.btn_stu_profile_back)
         btnEdit = rootView.findViewById(R.id.btn_stu_profile_update)
 
-
-        registerForContextMenu(tvName)
-        registerForContextMenu(tvNo)
-        registerForContextMenu(tvDob)
-        registerForContextMenu(tvGroup)
-        registerForContextMenu(tvGender)
-        registerForContextMenu(tvPhone)
-        registerForContextMenu(tvEmail)
-
-
         (activity as PassDataFragmentAndActivity?)!!.setNavState(R.id.nav_profile)
         return rootView
     }
 
 
-
-
-
-
-    private fun reload(name: String = "", img:String = "", no:String="", dob:String="", group:String="", gender:String="", phone:String="", email:String="") {
+    private fun reload(
+        name: String = "",
+        img: String = "",
+        no: String = "",
+        dob: String = "",
+        group: String = "",
+        gender: String = "",
+        phone: String = "",
+        email: String = ""
+    ) {
         tvName.text = name
         tvNo.text = no
         tvDob.text = dob
@@ -96,8 +100,6 @@ class ProfileFragment : Fragment() {
             .into(ivImg)
     }
 
-
-
     override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
@@ -108,7 +110,16 @@ class ProfileFragment : Fragment() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     student = snapshot.getValue(Student::class.java)
                     student?.let {
-                        reload(it.name.toString(), it.img.toString(), it.no.toString(), it.dob.toString(), it.group.toString(), it.gender.toString(), it.phone.toString(), it.email .toString())
+                        reload(
+                            it.name.toString(),
+                            it.img.toString(),
+                            it.no.toString(),
+                            it.dob.toString(),
+                            it.group.toString(),
+                            it.gender.toString(),
+                            it.phone.toString(),
+                            it.email.toString()
+                        )
                     }
                 }
 

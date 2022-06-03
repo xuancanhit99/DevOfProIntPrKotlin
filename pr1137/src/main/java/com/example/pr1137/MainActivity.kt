@@ -103,6 +103,8 @@ class MainActivity : AppCompatActivity(), Communicator {
             }
         }
     }
+
+
     override fun passDataComm(hour: Int, minute: Int, sun: Boolean, moonAndStars: Boolean) {
         val bundle = Bundle()
         bundle.putInt("HOUR", hour)

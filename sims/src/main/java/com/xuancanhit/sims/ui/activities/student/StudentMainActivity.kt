@@ -2,16 +2,21 @@ package com.xuancanhit.sims.ui.activities.student
 
 
 import android.R.attr.typeface
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.InputType
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.TypefaceSpan
 import android.view.*
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
@@ -71,6 +76,7 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener,
     private lateinit var database: DatabaseReference
     private var student: Student? = null
 
+    //private var viewMenu: View? = null // View from fragment (click tu menu item fragment vd: tv_Name)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -231,62 +237,91 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener,
 
     //-----------------Menu for fragment--------------------------
 
-    //Custom font menu item
-    private fun applyFontToMenuItem(mi: MenuItem) {
-        val font = Typeface.create(ResourcesCompat.getFont(this, R.font.my_font), Typeface.NORMAL)
-        val mNewTitle = SpannableString(mi.title)
-        mNewTitle.setSpan(
-            TypefaceSpan(font),
-            0,
-            mNewTitle.length,
-            Spannable.SPAN_INCLUSIVE_INCLUSIVE
-        )
-        mi.title = mNewTitle
-    }
+//    //Custom font menu item
+//    private fun applyFontToMenuItem(mi: MenuItem) {
+//        val font = Typeface.create(ResourcesCompat.getFont(this, R.font.my_font), Typeface.NORMAL)
+//        val mNewTitle = SpannableString(mi.title)
+//        mNewTitle.setSpan(
+//            TypefaceSpan(font),
+//            0,
+//            mNewTitle.length,
+//            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+//        )
+//        mi.title = mNewTitle
+//    }
+//
+//    override fun onCreateContextMenu(
+//        menu: ContextMenu?,
+//        v: View?,
+//        menuInfo: ContextMenu.ContextMenuInfo?
+//    ) {
+//
+//        //Get view from Text View in Fragment profile choose Vd: tv_Name
+//        viewMenu = v
+//        super.onCreateContextMenu(menu, v, menuInfo)
+//        menuInflater.inflate(R.menu.menu_student_text, menu)
+//
+//        //---Custom font menu item----
+//        for (i in 0 until menu!!.size()) {
+//            val mi = menu.getItem(i)
+//            //for applying a font to subMenu ...
+//            val subMenu = mi.subMenu
+//            if (subMenu != null && subMenu.size() > 0) {
+//                for (j in 0 until subMenu.size()) {
+//                    val subMenuItem = subMenu.getItem(j)
+//                    applyFontToMenuItem(subMenuItem)
+//                }
+//            }
+//            //the method we have create in activity
+//            applyFontToMenuItem(mi)
+//        }
+//        //---Custom font menu item----
+//    }
 
-    override fun onCreateContextMenu(
-        menu: ContextMenu?,
-        v: View?,
-        menuInfo: ContextMenu.ContextMenuInfo?
-    ) {
-        super.onCreateContextMenu(menu, v, menuInfo)
-        menuInflater.inflate(R.menu.menu_student_text, menu)
-
-        //---Custom font menu item----
-        for (i in 0 until menu!!.size()) {
-            val mi = menu.getItem(i)
-            //for applying a font to subMenu ...
-            val subMenu = mi.subMenu
-            if (subMenu != null && subMenu.size() > 0) {
-                for (j in 0 until subMenu.size()) {
-                    val subMenuItem = subMenu.getItem(j)
-                    applyFontToMenuItem(subMenuItem)
-                }
-            }
-            //the method we have create in activity
-            applyFontToMenuItem(mi)
-        }
-        //---Custom font menu item----
-    }
-
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.menu_stu_text_edit -> {
-                Toast.makeText(this, "Edit Selected", Toast.LENGTH_SHORT).show()
-                true
-            }
-            R.id.menu_stu_text_delete -> {
-                Toast.makeText(this, "Delete Selected", Toast.LENGTH_SHORT).show()
-                true
-            }
-            R.id.menu_stu_text_exit -> {
-                Toast.makeText(this, "Exit Selected", Toast.LENGTH_SHORT).show()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-    //-----------------End Menu for fragment--------------------------
+//    override fun onContextItemSelected(item: MenuItem): Boolean {
+//        return when (item.itemId) {
+//            R.id.menu_stu_text_edit -> {
+//                showDialogTextInputAndPassDataToTextViewFragment()
+//                true
+//            }
+//            R.id.menu_stu_text_delete -> {
+//                Toast.makeText(this, "Delete Selected", Toast.LENGTH_SHORT).show()
+//                true
+//            }
+//            R.id.menu_stu_text_exit -> {
+//                Toast.makeText(this, "Exit Selected", Toast.LENGTH_SHORT).show()
+//                true
+//            }
+//            else -> super.onOptionsItemSelected(item)
+//        }
+//    }
+//
+//
+//
+//    private fun showDialogTextInputAndPassDataToTextViewFragment() {
+//        //Dialog Are you sure
+//        val input = EditText(this)
+//
+//        //Get id TextView From Fragment Profile and get text show input: EditText
+//        val tv = findViewById<TextView>(viewMenu!!.id)
+//        input.setText(tv.text.toString())
+//        val materialAlertDialogBuilder = MaterialAlertDialogBuilder(this, R.style.MyTitle_ThemeOverlay_MaterialComponents_MaterialAlertDialog)
+//        materialAlertDialogBuilder.setTitle(MainActivity.textWithMyFont(this,"Please enter data", R.font.my_font, Typeface.BOLD))
+//            .setNegativeButton(resources.getString(R.string.cancel)) { dialog, which ->
+//                // Respond to negative button press
+//                dialog.cancel()
+//            }
+//            .setPositiveButton(resources.getString(R.string.ok)) { dialog, which ->
+//                // Respond to positive button press
+//
+//                // Set text to textview(Fragment)
+//                tv.text = input.text.toString()
+//            }
+//            .setView(input)
+//            .show()
+//    }
+//
+//    //-----------------End Menu for fragment--------------------------
 
     //Set color top-left nav
     private fun createItemFor(position: Int): DrawerItem<DrawerAdapter.ViewHolder> {
@@ -326,18 +361,7 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener,
     }
 
 
-    //Custom Font
-    private fun textWithMyFont(text: String, fontId: Int, textStyle: Int): SpannableString {
-        val myTypeface = Typeface.create(ResourcesCompat.getFont(this, fontId), textStyle)
-        val string = SpannableString(text)
-        string.setSpan(
-            TypefaceSpan(myTypeface),
-            0,
-            string.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        return string
-    }
+
 
 
     //Set location top-nav title and bottom-nav icon be right
@@ -347,16 +371,16 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener,
         when (idFragmentOnView) {
             R.id.nav_home -> {
                 supportActionBar?.title =
-                    textWithMyFont(getString(R.string.home), R.font.my_font, Typeface.BOLD)
+                    MainActivity.textWithMyFont(this,getString(R.string.home), R.font.my_font, Typeface.BOLD)
                 adapter.setChecked(CODE_HOME)
             }
             R.id.nav_profile -> {
                 supportActionBar?.title =
-                    textWithMyFont(getString(R.string.my_profile), R.font.my_font, Typeface.BOLD)
+                    MainActivity.textWithMyFont(this,getString(R.string.my_profile), R.font.my_font, Typeface.BOLD)
                 adapter.setChecked(CODE_PROFILE)
             }
             R.id.nav_learning_results -> {
-                supportActionBar?.title = textWithMyFont(
+                supportActionBar?.title = MainActivity.textWithMyFont(this,
                     getString(R.string.learning_results),
                     R.font.my_font,
                     Typeface.BOLD
@@ -365,7 +389,7 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener,
             }
             R.id.nav_chat -> {
                 supportActionBar?.title =
-                    textWithMyFont(getString(R.string.chat), R.font.my_font, Typeface.BOLD)
+                    MainActivity.textWithMyFont(this,getString(R.string.chat), R.font.my_font, Typeface.BOLD)
                 adapter.setChecked(CODE_CHAT)
             }
         }
