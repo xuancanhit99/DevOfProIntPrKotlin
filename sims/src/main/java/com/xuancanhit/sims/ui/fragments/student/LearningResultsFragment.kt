@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.xuancanhit.sims.R
-import com.xuancanhit.sims.tool.nav.bottom.FragmentToActivity
+import com.xuancanhit.sims.ui.interfaces.PassDataFragmentAndActivity
 
 class LearningResultsFragment : Fragment() {
 
@@ -15,7 +15,7 @@ class LearningResultsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        (activity as FragmentToActivity?)!!.setNavState(R.id.nav_learning_results)
+        (activity as PassDataFragmentAndActivity?)!!.setNavState(R.id.nav_learning_results)
         return inflater.inflate(R.layout.fragment_learning_results, container, false)
     }
 

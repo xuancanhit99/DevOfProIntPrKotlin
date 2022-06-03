@@ -4,18 +4,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/card_1"
+    android:background="#fff"
     tools:context=".ui.fragments.student.HomeFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#fff">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/textView"
@@ -23,11 +27,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/welcome_rus"
+                android:text="@string/welcome"
                 android:textAllCaps="true"
                 android:textSize="25sp"
-                app:fontFamily="@font/roboto_regular"
-                app:layout_constraintEnd_toStartOf="@+id/iv_stu_avt"
+                app:fontFamily="@font/my_font"
+                app:layout_constraintEnd_toStartOf="@+id/iv_stu_menu_avt"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
@@ -37,7 +41,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                app:layout_constraintEnd_toStartOf="@+id/iv_stu_avt"
+
+                android:fontFamily="@font/my_font"
+                app:layout_constraintEnd_toStartOf="@+id/iv_stu_menu_avt"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -46,17 +52,21 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                app:layout_constraintEnd_toStartOf="@+id/iv_stu_avt"
+
+                android:fontFamily="@font/my_font"
+                app:layout_constraintEnd_toStartOf="@+id/iv_stu_menu_avt"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_stu_menu_name" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_stu_avt"
+                android:id="@+id/iv_stu_menu_avt"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:layout_marginStart="40dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="20dp"
                 android:src="@drawable/graduated"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView"
                 app:layout_constraintTop_toTopOf="parent"
@@ -66,13 +76,13 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="0dp"
                 android:layout_height="175dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_stu_avt">
+                app:layout_constraintTop_toBottomOf="@+id/iv_stu_menu_avt">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
@@ -245,4 +255,5 @@
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 </FrameLayout>

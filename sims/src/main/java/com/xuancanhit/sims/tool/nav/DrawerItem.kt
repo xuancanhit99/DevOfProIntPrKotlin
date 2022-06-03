@@ -1,4 +1,4 @@
-package com.xuancanhit.sims.tool.nav.top
+package com.xuancanhit.sims.tool.nav
 
 import android.view.ViewGroup
 

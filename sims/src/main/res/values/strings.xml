@@ -1,13 +1,5 @@
 <resources>
-    <string name="app_name">Student Information\nManagement System</string>
-    <string name="copyright">© Vu Xuan Canh IKBO–07–19</string>
-    <string name="logout">Logout</string>
-    <string name="my_profile">My Profile</string>
-    <string name="time_table">Time Table</string>
-    <string name="edit_profile">Edit Profile</string>
-    <string name="learning_results">Learning Results</string>
-    <string name="chat">Chat</string>
-    <string name="welcome_rus">Welcome back</string>
+
 
 
 
@@ -24,14 +16,13 @@
     <string name="admin_login">ADMIN LOGIN</string>
     <string name="student_login">Student Login</string>
     <string name="open">Open</string>
-    <string name="remember_me">Remember me</string>
-    <string name="forgot_password">Forgot Password?</string>
+
     <string name="login">Login</string>
     <string name="are_you_an_admin_login_here">Are you an admin? Login here</string>
     <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign Up</string>
     <string name="take_photo">&#160;Take Photo</string>
     <string name="choose_photo">&#160;Choose Photo</string>
-    <string name="full_name">Full Name</string>
+
     <string name="button_register">Register</string>
     <string name="student_forgot_password">Student Forgot Password</string>
     <string name="reset_password">Reset password</string>
@@ -41,12 +32,42 @@
     <string name="learning_results_rus">Результаты обучения</string>
     <string name="update_profile">Редактировать Информацию</string>
     <string name="chat_rus">Чат</string>
-    <string name="home">Home</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Student Information\nManagement System</string>
+    <string name="copyright">© Vu Xuan Canh IKBO–07–19 Project SIMS</string>
+    <string name="logout">Logout</string>
+    <string name="my_profile">My Profile</string>
+    <string name="time_table">Time Table</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="learning_results">Learning Results</string>
+    <string name="chat">Chat</string>
+    <string name="welcome">Welcome back</string>
+    <string name="title_dialog_logout">Logging out</string>
+    <string name="message_are_you_sure">Are you sure?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
     <string name="sign_up">Sign Up</string>
-
+    <string name="student_id">ID</string>
+    <string name="home">Home</string>
+    <string name="full_name">Full name</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="student_class">Class</string>
+    <string name="gender">Gender</string>
+    <string name="phone_number">Phone number</string>
+    <string name="gmail">Gmail</string>
+    <string name="back">Back</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="exit">Exit</string>
+    <string name="change_password">Change Password</string>
 
 
 </resources>

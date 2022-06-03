@@ -8,7 +8,6 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Patterns
 import android.view.View
-import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
@@ -23,7 +22,6 @@ import com.xuancanhit.sims.tool.InternetDialog
 import com.xuancanhit.sims.tool.ProgressButton
 import com.xuancanhit.sims.tool.EmailDialog
 import kotlinx.android.synthetic.main.activity_student_login.*
-import kotlinx.android.synthetic.main.dialog_email.*
 import kotlinx.android.synthetic.main.layout_student_login.*
 import kotlinx.android.synthetic.main.progress_button_layout.*
 
@@ -274,5 +272,16 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
             loginPrefsEditor.clear()
         }
         loginPrefsEditor.apply()
+    }
+
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            startActivity(Intent(this, StudentMainActivity::class.java))
+            finish()
+        }
     }
 }

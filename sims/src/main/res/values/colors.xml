@@ -68,6 +68,12 @@
     <color name="blueGrey">#607D8B</color>
     <color name="red">#FF0000</color>
 
+<!--    Dialog-->
+    <color name="info">#5bc0de</color>
+    <color name="success">#5cb85c</color>
+    <color name="warning">#f0ad4e</color>
+    <color name="alert">#d9534f</color>
+
 
 
 </resources>

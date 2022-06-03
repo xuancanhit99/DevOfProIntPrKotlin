@@ -35,7 +35,6 @@
     </style>
 
 
-
     <style name="viewParent">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -51,46 +50,57 @@
         <item name="colorButtonNormal">@color/myColor1</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="AppTheme.MyButton2" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/myColor2</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="AppTheme.MyButton3" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/myColor3</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="AppTheme.MyButton4" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/myColor4</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="AppTheme.MyButton5" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/myColor5</item>
         <item name="android:textColor">?attr/colorControlNormal</item>
     </style>
+
     <style name="AppTheme.MyButton6" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/myColor6</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="AppTheme.MyButton7" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/myColor7</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="AppTheme.MyButton8" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/myColor8</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="AppTheme.MyButton9" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/myColor9</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="AppTheme.MyButton10" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/myColor10</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="AppTheme.MyButton11" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/bl</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="AppTheme.MyButton12" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/button_blue_color</item>
         <item name="android:textColor">@color/white</item>
@@ -155,7 +165,7 @@
         <item name="android:layout_marginLeft">15dp</item>
     </style>
 
-<!--    New Button-->
+    <!--    New Button-->
     <style name="BluePrimaryButton" parent="Theme.AppCompat.Light">
         <item name="android:colorBackground">@android:color/black</item>
     </style>
@@ -172,5 +182,25 @@
         <item name="layout_constraintWidth_min">@dimen/defaultBtnWidth</item>
         <item name="layout_constraintHeight_min">55dp</item>
     </style>
+
+    <!--    Dialog-->
+    <style name="InfoTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/info</item>
+    </style>
+
+    <style name="SuccessTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/success</item>
+    </style>
+
+    <style name="WarningTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/warning</item>
+    </style>
+
+    <style name="AlertTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/alert</item>
+    </style>
+
+
+
 
 </resources>

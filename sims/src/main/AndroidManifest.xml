@@ -15,9 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.activities.student.StudentMainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activities.student.StudentMenuActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".ui.activities.student.StudentForgotPasswordActivity"

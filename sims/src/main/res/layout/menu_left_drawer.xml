@@ -29,21 +29,27 @@
                 android:id="@+id/tv_stu_nav_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#fff"
+                android:textStyle="bold"
+                android:fontFamily="@font/my_font"
+                android:textColor="@color/bl"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_stu_nav_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#fff"
+                android:textStyle="bold"
+                android:fontFamily="@font/my_font"
+                android:textColor="@color/bl"
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_stu_nav_group"
+                android:id="@+id/tv_stu_nav_no"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#fff"
+                android:textStyle="bold"
+                android:fontFamily="@font/my_font"
+                android:textColor="@color/bl"
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
@@ -75,7 +81,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/my_font"
             android:text="@string/copyright"
-            android:textColor="@color/bl"
+
             android:textStyle="bold" />
     </RelativeLayout>
 </LinearLayout>
