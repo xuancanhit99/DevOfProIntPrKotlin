@@ -89,9 +89,9 @@ class ProfileFragment : Fragment() {
         tvDob.text = dob
         tvGroup.text = group
         if (gender == "0")
-            tvGender.text = resources.getString(R.string.female)
+            tvGender.text = activity?.resources?.getString(R.string.female)
         else
-            tvGender.text = resources.getString(R.string.male)
+            tvGender.text = activity?.resources?.getString(R.string.male)
         tvPhone.text = phone
         tvEmail.text = email
 

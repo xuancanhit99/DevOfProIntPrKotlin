@@ -22,6 +22,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.platform.MaterialContainerTransform
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import com.google.firebase.auth.FirebaseAuth
@@ -34,6 +35,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.xuancanhit.sims.MainActivity
 import com.xuancanhit.sims.R
+import com.xuancanhit.sims.model.LearningResult
 import com.xuancanhit.sims.model.Student
 import com.xuancanhit.sims.tool.EmailDialog
 import com.xuancanhit.sims.tool.InternetDialog
@@ -219,6 +221,9 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
                                             }
 
                                         //Set data Realtime Database
+
+                                        val learningResult = LearningResult("","","", "", "", "", "")
+
                                         val student = Student(
                                             email,
                                             name,
@@ -227,7 +232,8 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
                                             "",
                                             "",
                                             "",
-                                            ""
+                                            "",
+                                            learningResult
                                         )
                                         database.child("Students").child(user.uid)
                                             .setValue(student) { error, ref ->
@@ -235,7 +241,7 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
                                                     EmailDialog(this).showVerifyEmailDialog("Successful Registration","You have been registered successfully. Check your email to verify your account")
 
 
-                                                    //Login thanh cong
+                                                    //----------------------Login success-------------------------
                                                     progressButtonStudentRegister.buttonFinished(
                                                         "Registered",
                                                         AnimationUtils.loadAnimation(
@@ -253,7 +259,14 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
                                                             )
                                                         )
                                                     }, 1000.toLong())
+
+                                                    edt_stu_register_password.clearFocus()
+                                                    edt_stu_register_name.clearFocus()
+                                                    edt_stu_register_email.clearFocus()
+                                                    auth.signOut()
                                                     setEmptyUI()
+                                                    //----------------------Login success-------------------------
+
                                                 } else {
                                                     Toast.makeText(
                                                         this,

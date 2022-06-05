@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -11,16 +12,19 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
@@ -37,6 +41,7 @@ import com.thecode.aestheticdialogs.DialogStyle
 import com.thecode.aestheticdialogs.DialogType
 import com.xuancanhit.sims.MainActivity
 import com.xuancanhit.sims.R
+import com.xuancanhit.sims.model.LearningResult
 import com.xuancanhit.sims.model.Student
 import com.xuancanhit.sims.tool.EmailDialog
 import com.xuancanhit.sims.ui.interfaces.PassDataFragmentAndActivity
@@ -63,6 +68,8 @@ class StudentEditProfileFragment : Fragment() {
     private var updateGender = "1"
 
     private var rootView:View? = null
+
+    private var stuResults: LearningResult? = null
 
 
     //for date of birth
@@ -94,7 +101,8 @@ class StudentEditProfileFragment : Fragment() {
                         it.group.toString(),
                         it.gender.toString(),
                         it.phone.toString(),
-                        it.email.toString()
+                        it.email.toString(),
+                        it.results!!
                     )
                 }
             }.addOnFailureListener {
@@ -127,9 +135,9 @@ class StudentEditProfileFragment : Fragment() {
         rootView?.edt_stu_update_no?.setOnClickListener {
             MainActivity.aestheticDialog(requireActivity(),DialogStyle.RAINBOW, DialogType.WARNING, "Warning", "You cannot change this field!")
         }
-        rootView?.edt_stu_update_email?.setOnClickListener {
-            MainActivity.aestheticDialog(requireActivity(),DialogStyle.RAINBOW, DialogType.WARNING, "Warning", "You cannot change this field!")
-        }
+//        rootView?.edt_stu_update_email?.setOnClickListener {
+//            MainActivity.aestheticDialog(requireActivity(),DialogStyle.RAINBOW, DialogType.WARNING, "Warning", "You cannot change this field!")
+//        }
 
         //Set click text view Date of birth
         val date =
@@ -168,85 +176,88 @@ class StudentEditProfileFragment : Fragment() {
         rootView?.btn_stu_update_save?.setOnClickListener {
             val user = auth.currentUser
 
-            val email = edt_stu_update_email.text.toString()
-            val name = edt_stu_update_name.text.toString()
-            var no = edt_stu_update_no.text.toString()
-            var img = ""
-            var dob = edt_stu_update_dob.text.toString()
-            val group = edt_stu_update_class.text.toString()
-            val phone = edt_stu_update_phone.text.toString()
-            val gender = updateGender
+            val email = edt_stu_update_email.text.toString().trim()
 
-            //-------------Upload Image to Storage and load link img-------------------
-            val storageRef = storage.reference
 
-            //Load data Image from image view
-            val calendar = Calendar.getInstance()
-            val mountainsRef =
-                storageRef.child("image" + calendar.timeInMillis + ".png")
-            // Get the data from an ImageView as bytes
-            rootView?.iv_stu_update_avt?.isDrawingCacheEnabled = true
-            rootView?.iv_stu_update_avt?.buildDrawingCache()
-            val bitmap = (rootView?.iv_stu_update_avt?.drawable as BitmapDrawable).bitmap
-            val byteAOS = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteAOS)
-            val data = byteAOS.toByteArray()
-            //Put data image
-            var uploadTask = mountainsRef.putBytes(data)
-            uploadTask.addOnFailureListener {
-                // Handle unsuccessful uploads
-                Log.d("SIMS_STUDENT_UP_LOAD_IMG", "Failed when upload image!")
-            }.addOnSuccessListener { taskSnapshot ->
-                // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                Log.d("SIMS_STUDENT_UP_LOAD_IMG", "Successfully when upload image!")
+
+
+            //Check and update email
+            if (email.isEmpty()) {
+                edt_stu_register_email.error = "Enter email address!"
+                edt_stu_register_email.requestFocus()
             }
-                // Lay link file vua moi up
-                uploadTask.continueWithTask { task ->
-                    if (!task.isSuccessful) {
-                        task.exception?.let {
-                            //Register loi
-                            Log.d("SIMS_STUDENT_GET_LINK_IMG", "Failed")
-                        }
-                    }
-                    mountainsRef.downloadUrl
-                }.addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val downloadUri = task.result
-                        Log.d("SIMS_STUDENT_LINK_IMG", downloadUri.toString())
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                edt_stu_register_email.error = "Email address not valid!"
+                edt_stu_register_email.requestFocus()
+            }
 
-                        //Set data user create new node in realtime database
-                        user?.let {
-                            //Set user basic profile
-                            val profileUpdates = userProfileChangeRequest {
-                                displayName = name
-                                photoUri = Uri.parse(downloadUri.toString())
-                            }
-                            user.updateProfile(profileUpdates)
-                                .addOnCompleteListener { task ->
-                                    if (task.isSuccessful) {
-                                        Log.d(
-                                            "SIMS_STUDENT_UPDATE_PROFILE",
-                                            "User profile updated."
-                                        )
-                                    } else {
-                                        Log.d(
-                                            "SIMS_STUDENT_UPDATE_PROFILE",
-                                            "User profile update failed."
-                                        )
+            if (user?.email.toString() != email) {
+                val input = EditText(requireContext())
+                var password = ""
+
+                val materialAlertDialogBuilder = MaterialAlertDialogBuilder(requireContext())
+                materialAlertDialogBuilder.setTitle(MainActivity.textWithMyFont(requireContext(),"Please enter your password to continue!", R.font.my_font, Typeface.BOLD))
+                    .setNegativeButton(resources.getString(R.string.cancel)) { dialog, which ->
+                        // Respond to negative button press
+                        dialog.cancel()
+                    }
+                    .setPositiveButton(resources.getString(R.string.ok)) { dialog, which ->
+                        // Respond to positive button press
+                        password = input.text.toString()
+
+                        if (password !="") {
+                            //Re-authenticate a user
+                            val credential = EmailAuthProvider
+                                .getCredential(user?.email.toString(), password)
+                            user?.reauthenticate(credential)
+                                ?.addOnSuccessListener {
+                                    Log.d("TAG", "User re-authenticated.")
+                                    //----------------- Update Email
+                                    if (email.isNotEmpty()) {
+                                        user.updateEmail(email)
+                                            .addOnCompleteListener { task ->
+                                                if (task.isSuccessful) {
+                                                    Log.d("TAG", "User email address updated.")
+                                                }
+                                            }
                                     }
+                                    //----------------- Update Email
+
+
+                                    //-------------------Update info student database
+                                    updateInfo()
+                                }?.addOnFailureListener {
+                                    rootView?.edt_stu_update_name?.clearFocus()
+                                    rootView?.edt_stu_update_phone?.clearFocus()
+                                    rootView?.edt_stu_update_email?.clearFocus()
+                                    MainActivity.aestheticDialog(requireActivity(), DialogStyle.RAINBOW, DialogType.ERROR, "Error", "User account authentication failed!")
                                 }
-
-                            //Set data Realtime Database
-                            img = downloadUri.toString()
-                            updateProfileStudent(email, name, no, img, dob, group, phone, gender)
-
+                        } else {
+                            rootView?.edt_stu_update_name?.clearFocus()
+                            rootView?.edt_stu_update_phone?.clearFocus()
+                            rootView?.edt_stu_update_email?.clearFocus()
+                            MainActivity.aestheticDialog(requireActivity(), DialogStyle.RAINBOW, DialogType.ERROR, "Error", "User account authentication failed!")
                         }
 
-                    } else {
-                        // Handle failures
-                        Log.d("SIMS_STUDENT_LINK_IMG", "Failed when create link image!")
+
+
+
+
+
+
                     }
-                }
+                    .setView(input)
+                    .show()
+            }
+            else
+                updateInfo()
+
+
+
+
+
+
+
 
 
 
@@ -258,16 +269,114 @@ class StudentEditProfileFragment : Fragment() {
         return rootView
     }
 
+    private fun updateInfo() {
+        val user = auth.currentUser
+        val name = edt_stu_update_name.text.toString().trim()
+        var no = edt_stu_update_no.text.toString()
+        var img = ""
+        var dob = edt_stu_update_dob.text.toString()
+        val group = edt_stu_update_class.text.toString()
+        val phone = edt_stu_update_phone.text.toString()
+        val gender = updateGender
+
+        //-------------Upload Image to Storage and load link img-------------------
+        val storageRef = storage.reference
+
+        //Load data Image from image view
+        val calendar = Calendar.getInstance()
+        val mountainsRef =
+            storageRef.child("image" + calendar.timeInMillis + ".png")
+        // Get the data from an ImageView as bytes
+        rootView?.iv_stu_update_avt?.isDrawingCacheEnabled = true
+        rootView?.iv_stu_update_avt?.buildDrawingCache()
+        val bitmap = (rootView?.iv_stu_update_avt?.drawable as BitmapDrawable).bitmap
+        val byteAOS = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteAOS)
+        val data = byteAOS.toByteArray()
+        //Put data image
+        var uploadTask = mountainsRef.putBytes(data)
+        uploadTask.addOnFailureListener {
+            // Handle unsuccessful uploads
+            Log.d("SIMS_STUDENT_UP_LOAD_IMG", "Failed when upload image!")
+        }.addOnSuccessListener { taskSnapshot ->
+            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+            Log.d("SIMS_STUDENT_UP_LOAD_IMG", "Successfully when upload image!")
+        }
+        // Lay link file vua moi up
+        uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    //Register loi
+                    Log.d("SIMS_STUDENT_GET_LINK_IMG", "Failed")
+                }
+            }
+            mountainsRef.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val downloadUri = task.result
+                Log.d("SIMS_STUDENT_LINK_IMG", downloadUri.toString())
+
+                //Set data user create new node in realtime database
+                user?.let {
+                    //Set user basic profile
+                    val profileUpdates = userProfileChangeRequest {
+                        displayName = name
+                        photoUri = Uri.parse(downloadUri.toString())
+                    }
+                    user.updateProfile(profileUpdates)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Log.d(
+                                    "SIMS_STUDENT_UPDATE_PROFILE",
+                                    "User profile updated."
+                                )
+                            } else {
+                                Log.d(
+                                    "SIMS_STUDENT_UPDATE_PROFILE",
+                                    "User profile update failed."
+                                )
+                            }
+                        }
+
+                    //Set data Realtime Database
+                    img = downloadUri.toString()
+                    updateProfileStudent(user.email.toString(), name, no, img, dob, group, phone, gender)
+
+                }
+
+            } else {
+                // Handle failures
+                Log.d("SIMS_STUDENT_LINK_IMG", "Failed when create link image!")
+            }
+        }
+
+
+    }
+
     private fun updateProfileStudent(email: String, name: String, no: String, img: String, dob: String, group: String, phone: String, gender: String) {
         val currentUser = auth.currentUser
         if (currentUser != null) {
+            //Update Profile
+            val profileUpdates = userProfileChangeRequest {
+                displayName = name
+                photoUri = Uri.parse(img)
+
+            }
+            currentUser.updateProfile(profileUpdates)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.d("TAG", "User profile updated.")
+                    }
+                }
+
+
             val key = database.child("Students").child(currentUser.uid).key
             if (key==null) {
                 Log.w("LOG", "Couldn't get push key for posts")
                 return
             }
 
-            val post = Student(email, name, no, img, dob, group, phone, gender)
+            val post = Student(email, name, no, img, dob, group, phone, gender, stuResults)
             val postValues = post.toMap()
 
             val childUpdates = hashMapOf<String, Any>(
@@ -278,9 +387,13 @@ class StudentEditProfileFragment : Fragment() {
             database.updateChildren(childUpdates).addOnSuccessListener {
                 rootView?.edt_stu_update_name?.clearFocus()
                 rootView?.edt_stu_update_phone?.clearFocus()
+                rootView?.edt_stu_update_email?.clearFocus()
                 MainActivity.aestheticDialog(requireActivity(), DialogStyle.RAINBOW, DialogType.SUCCESS, "Success", "Successfully updated!")
             }. addOnFailureListener {
                 Log.d("LOG", it.toString())
+                rootView?.edt_stu_update_name?.clearFocus()
+                rootView?.edt_stu_update_phone?.clearFocus()
+                rootView?.edt_stu_update_email?.clearFocus()
                 MainActivity.aestheticDialog(requireActivity(), DialogStyle.RAINBOW, DialogType.ERROR, "Error", "An error occurred while updating, please try again later!")
             }
         }
@@ -353,8 +466,10 @@ class StudentEditProfileFragment : Fragment() {
         group: String = "",
         gender: String = "",
         phone: String = "",
-        email: String = ""
+        email: String = "",
+        results: LearningResult
     ) {
+        stuResults = results
         rootView?.edt_stu_update_name?.setText(name)
         rootView?.edt_stu_update_no?.setText(no)
         rootView?.edt_stu_update_dob?.setText(dob)

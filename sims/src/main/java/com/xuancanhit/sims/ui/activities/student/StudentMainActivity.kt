@@ -216,37 +216,6 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener,
 
     //-------------------Menu for toolbar--------------------
     //In the showMenu function from the previous example:
-    @SuppressLint("RestrictedApi")
-    private fun showMenu(v: View, @MenuRes menuRes: Int) {
-        val popup = PopupMenu(this, v)
-        popup.menuInflater.inflate(menuRes, popup.menu)
-
-        if (popup.menu is MenuBuilder) {
-            val menuBuilder = popup.menu as MenuBuilder
-            menuBuilder.setOptionalIconsVisible(true)
-            for (item in menuBuilder.visibleItems) {
-                val iconMarginPx =
-                    TypedValue.applyDimension(
-                        TypedValue.COMPLEX_UNIT_DIP, 3.toFloat(), resources.displayMetrics)
-                        .toInt()
-                if (item.icon != null) {
-                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-                        item.icon = InsetDrawable(item.icon, iconMarginPx, 0, iconMarginPx,0)
-                    } else {
-                        item.icon =
-                            object : InsetDrawable(item.icon, iconMarginPx, 0, iconMarginPx, 0) {
-                                override fun getIntrinsicWidth(): Int {
-                                    return intrinsicHeight + iconMarginPx + iconMarginPx
-                                }
-                            }
-                    }
-                }
-            }
-        }
-        popup.show()
-    }
-
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_toolbar, menu)
         return true
@@ -255,7 +224,7 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener,
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_toolbar_profile -> {
-                Toast.makeText(this, "Profile Selected", Toast.LENGTH_SHORT).show()
+                showFragment(ProfileFragment())
                 true
             }
             R.id.menu_toolbar_change_password -> {
@@ -263,7 +232,7 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener,
                 true
             }
             R.id.menu_toolbar_logout -> {
-                Toast.makeText(this, "Logout Selected", Toast.LENGTH_SHORT).show()
+                signOutAccount()
                 true
             }
             else -> super.onOptionsItemSelected(item)

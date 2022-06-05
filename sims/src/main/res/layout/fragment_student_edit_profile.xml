@@ -104,6 +104,7 @@
                             style="@style/modifiedEditText"
                             android:drawableTint="?attr/colorControlNormal"
                             android:hint="@string/full_name"
+                            android:maxLength="50"
                             android:maxLines="1" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -171,19 +172,15 @@
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/parent"
                         android:layout_marginTop="@dimen/loginViewsMargin"
+                        app:endIconMode="clear_text"
                         app:startIconDrawable="@drawable/round_mail_outline_24">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edt_stu_update_email"
                             style="@style/modifiedEditText"
-
-                            android:clickable="false"
-                            android:cursorVisible="false"
-                            android:drawableTint="?attr/colorControlNormal"
-                            android:focusable="false"
-                            android:focusableInTouchMode="false"
                             android:hint="@string/email"
                             android:inputType="textEmailAddress"
+                            android:maxLength="50"
                             android:maxLines="1" />
                     </com.google.android.material.textfield.TextInputLayout>
 

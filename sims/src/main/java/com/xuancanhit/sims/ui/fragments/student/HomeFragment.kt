@@ -109,7 +109,7 @@ class HomeFragment : Fragment() {
         //Dialog Are you sure
         MaterialAlertDialogBuilder(
             requireContext())
-            .setTitle(resources.getString(R.string.title_dialog_logout))
+            .setTitle(activity?.resources?.getString(R.string.title_dialog_logout))
             .setMessage(resources.getString(R.string.message_are_you_sure))
 //            .setNeutralButton(resources.getString(R.string.cancel)) { dialog, which ->
 //                // Respond to neutral button press

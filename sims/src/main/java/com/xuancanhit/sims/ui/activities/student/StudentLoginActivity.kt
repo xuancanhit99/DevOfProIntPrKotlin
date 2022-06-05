@@ -168,9 +168,11 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
                         val user = auth.currentUser
                         user?.let {
 
-                            //Verify account
-                            if (user.isEmailVerified) {
-                                //Login thanh cong
+////-------------------Verify account
+//                            if (user.isEmailVerified) {
+//                                //Login thanh cong
+////-------------------Verify account
+
                                 progressButtonStudentLogin.buttonFinished(
                                     "Logged in",
                                     AnimationUtils.loadAnimation(this, R.anim.fade_in)
@@ -190,42 +192,31 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
                                 ).show()
                                 startActivity(Intent(this, StudentMainActivity::class.java))
                                 finish()
-                            } else {
-                                //Login loi
-                                progressButtonStudentLogin.buttonError(
-                                    "Login in error",
-                                    AnimationUtils.loadAnimation(this, R.anim.fade_in)
-                                )
-                                Handler(Looper.getMainLooper()).postDelayed({
-                                    //Reset Button
-                                    progressButtonStudentLogin.buttonReset(
-                                        "Login",
-                                        AnimationUtils.loadAnimation(this, R.anim.fade_in)
-                                    )
-                                }, 1000.toLong())
-                                user.sendEmailVerification()
-                                EmailDialog(this).showVerifyEmailDialog("Verify Email", "Check your email to verify your account")
-                            }
-                            //progressButtonStudentLogin.buttonFinished()
 
-//                            // Name, email address, and profile photo Url
-//                            val name = user.displayName
-//                            Log.d("LOG", name.toString())
-//                            val email = user.email
-//                            Log.d("LOG", email.toString())
-//                            val photoUrl = user.photoUrl
-//                            Log.d("LOG", photoUrl.toString())
-//                            // Check if user's email is verified
-//                            val emailVerified = user.isEmailVerified
-//                            Log.d("LOG", emailVerified.toString())
-//
-//                            // The user's ID, unique to the Firebase project. Do NOT use this value to
-//                            // authenticate with your backend server, if you have one. Use
-//                            // FirebaseUser.getToken() instead.
-//                            val uid = user.uid
-//                            Log.d("LOG", uid.toString())
+////-------------------Verify account
+//                            } else {
+//                                //Login loi
+//                                progressButtonStudentLogin.buttonError(
+//                                    "Login in error",
+//                                    AnimationUtils.loadAnimation(this, R.anim.fade_in)
+//                                )
+//                                Handler(Looper.getMainLooper()).postDelayed({
+//                                    //Reset Button
+//                                    progressButtonStudentLogin.buttonReset(
+//                                        "Login",
+//                                        AnimationUtils.loadAnimation(this, R.anim.fade_in)
+//                                    )
+//                                }, 1000.toLong())
+//                                user.sendEmailVerification()
+//                                EmailDialog(this).showVerifyEmailDialog(
+//                                    "Verify Email",
+//                                    "Check your email to verify your account"
+//                                )
+//                            }
+////-------------------Verify account
+
+
                         }
-                        //updateUI(user)
                     } else {
                         //Login loi
                         progressButtonStudentLogin.buttonError(
