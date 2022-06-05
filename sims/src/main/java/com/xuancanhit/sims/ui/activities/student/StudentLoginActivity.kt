@@ -26,6 +26,7 @@ import com.xuancanhit.sims.tool.InternetDialog
 import com.xuancanhit.sims.tool.ProgressButton
 import com.xuancanhit.sims.tool.EmailDialog
 import com.xuancanhit.sims.ui.activities.admin.AdminLoginActivity
+import com.xuancanhit.sims.ui.activities.admin.AdminMainActivity
 import kotlinx.android.synthetic.main.activity_student_login.*
 import kotlinx.android.synthetic.main.layout_student_login.*
 import kotlinx.android.synthetic.main.progress_button_layout.*
@@ -281,7 +282,10 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            startActivity(Intent(this, StudentMainActivity::class.java))
+            if (currentUser.email.toString() == "admin@gmail.com" || currentUser.email.toString() == "admin@gmail.co")
+                startActivity(Intent(this, AdminMainActivity::class.java))
+            else
+                startActivity(Intent(this, StudentMainActivity::class.java))
             finish()
         }
     }

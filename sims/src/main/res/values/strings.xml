@@ -75,6 +75,7 @@
     <string name="admin_login">Admin Login</string>
     <string name="are_you_student_login_here">Are you student? Login here</string>
     <string name="list_student">List Student</string>
+    <string name="add_student">Add Student</string>
 
 
 </resources>

@@ -60,6 +60,7 @@ class ProfileFragment : Fragment() {
         //btnBack = rootView.findViewById(R.id.btn_stu_profile_back)
         btnEdit = rootView.findViewById(R.id.btn_stu_profile_update)
 
+
         btnEdit.setOnClickListener{
                 val fragmentTransaction = fragmentManager?.beginTransaction()
                 fragmentTransaction?.replace(R.id.body_container, StudentEditProfileFragment())

@@ -8,6 +8,8 @@ data class Admin(
     val email: String? = null,
     val name: String? = null,
     val img: String? = null,
+    val no: String? = null,
+    val phone: String? = null,
 ) {
 
     @Exclude
@@ -15,7 +17,9 @@ data class Admin(
         return mapOf(
             "email" to email,
             "name" to name,
-            "img" to img
+            "img" to img,
+            "no" to no,
+            "phone" to phone,
         )
     }
 }
