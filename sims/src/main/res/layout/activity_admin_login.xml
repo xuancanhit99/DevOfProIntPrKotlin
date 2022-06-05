@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/activity_student_login"
+        android:transitionName="shared_element_container"
+        android:background="@color/colorLoginPrimaryDark"
+        tools:context=".ui.activities.admin.AdminLoginActivity">
+
+        <ScrollView style="@style/parent">
+            <RelativeLayout style="@style/parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/headerText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/bl"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/my_font"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:textSize="27sp"
+                            android:layout_marginVertical="20dp"
+                            android:text="@string/app_name" />
+                    </LinearLayout>
+
+                    <include layout="@layout/layout_admin_login" />
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_ad_login_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:contentDescription="@string/close"
+                    android:src="@drawable/ic_baseline_close_24" />
+
+            </RelativeLayout>
+
+        </ScrollView>
+    </RelativeLayout>

@@ -1,22 +1,16 @@
-package com.xuancanhit.sims.ui.activities.student
+package com.xuancanhit.sims.ui.activities.admin
 
-import android.annotation.SuppressLint
-import android.app.ActivityOptions
 import android.content.Intent
 import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Patterns
-import android.view.View
-import android.view.Window
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -24,14 +18,15 @@ import com.xuancanhit.sims.MainActivity
 import com.xuancanhit.sims.R
 import com.xuancanhit.sims.tool.InternetDialog
 import com.xuancanhit.sims.tool.ProgressButton
-import com.xuancanhit.sims.tool.EmailDialog
-import com.xuancanhit.sims.ui.activities.admin.AdminLoginActivity
-import kotlinx.android.synthetic.main.activity_student_login.*
+import com.xuancanhit.sims.ui.activities.student.StudentLoginActivity
+import com.xuancanhit.sims.ui.activities.student.StudentMainActivity
+import kotlinx.android.synthetic.main.activity_admin_login.*
+import kotlinx.android.synthetic.main.layout_admin_login.*
 import kotlinx.android.synthetic.main.layout_student_login.*
 import kotlinx.android.synthetic.main.progress_button_layout.*
 
 
-class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
+class AdminLoginActivity : AppCompatActivity() {
 
     private lateinit var loginPrefsEditor: SharedPreferences.Editor
 
@@ -45,67 +40,53 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_student_login)
+        setContentView(R.layout.activity_admin_login)
 
         MainActivity.hideStatusBar(window)
 
         auth = Firebase.auth
 
-        initView()
-    }
-
-    override fun onClick(p0: View) {
-        when (p0.id) {
-            R.id.iv_stu_login_close -> finish()
-            R.id.tv_stu_login_to_login_admin -> loginAdmin()
-            R.id.tv_stu_login_to_register -> registerActivity()
-            R.id.tv_stu_login_forgot_password -> forgotPasswordActivity()
-            R.id.btn_progress_button -> handlerButtonLogin()
-        }
-    }
-
-    private fun loginAdmin() {
-        startActivity(Intent(this, AdminLoginActivity::class.java))
-        finish()
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun initView() {
-
-        //Image View Close
-        iv_stu_login_close.setOnClickListener(this)
-        //To Login Admin
-        tv_stu_login_to_login_admin.setOnClickListener(this)
-        //To Register
-        tv_stu_login_to_register.setOnClickListener(this)
-        //Forgot Password
-        tv_stu_login_forgot_password.setOnClickListener(this)
-        //View Button Login
-        textView_progress_button.text = "Login"
-        btn_progress_button.setOnClickListener(this)
+        //Init View
 
         //Remember Me
         val loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE)
         loginPrefsEditor = loginPreferences.edit()
-        val rememberMeCheck = loginPreferences.getBoolean("STUDENT_REMEMBER_ME", false)
+        val rememberMeCheck = loginPreferences.getBoolean("ADMIN_REMEMBER_ME", false)
         if (rememberMeCheck) {
-            edt_stu_login_email.setText(loginPreferences.getString("STUDENT_EMAIL", ""))
-            edt_stu_login_password.setText(loginPreferences.getString("STUDENT_PASSWORD", ""))
-            cb_stu_login_remember_me.isChecked = true
+            edt_ad_login_email.setText(loginPreferences.getString("ADMIN_EMAIL", ""))
+            edt_ad_login_password.setText(loginPreferences.getString("ADMIN_PASSWORD", ""))
+            cb_ad_login_remember_me.isChecked = true
         }
 
         //Login When Enter - Done
-        edt_stu_login_password.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+        edt_ad_login_password.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 handlerButtonLogin()
                 rememberMe()
             }
             false
         })
+
+        //Image View Close
+        iv_ad_login_close.setOnClickListener {
+            finish()
+        }
+
+        tv_ad_login_to_login_stu.setOnClickListener {
+            startActivity(Intent(this, StudentLoginActivity::class.java))
+            finish()
+        }
+
+        textView_progress_button.text = "Login"
+        btn_progress_button.setOnClickListener {
+            handlerButtonLogin()
+        }
+
+
+
+
     }
 
-
-    //Hieu ung Button Login
     private fun handlerButtonLogin() {
         progressButtonStudentLogin = ProgressButton(
             cardView_progress_button,
@@ -118,34 +99,34 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
             AnimationUtils.loadAnimation(this, R.anim.fade_in)
         )
         Handler(Looper.getMainLooper()).postDelayed({
-            loginStudent()
+            loginAdmin()
         }, 1000.toLong())
     }
 
-    private fun loginStudent() {
+    private fun loginAdmin() {
         // CALL getInternetStatus() function to check for internet and display error dialog
         InternetDialog(this).internetStatus
 
 
-        email = edt_stu_login_email.text.toString().trim()
-        password = edt_stu_login_password.text.toString().trim()
+        email = edt_ad_login_email.text.toString().trim()
+        password = edt_ad_login_password.text.toString().trim()
 
         if (password.isEmpty()) {
-            edt_stu_login_password.error = "Enter password!"
-            edt_stu_login_password.requestFocus()
+            edt_ad_login_password.error = "Enter password!"
+            edt_ad_login_password.requestFocus()
         }
 
         if (email.isEmpty()) {
-            edt_stu_login_email.error = "Enter email address!"
-            edt_stu_login_email.requestFocus()
+            edt_ad_login_email.error = "Enter email address!"
+            edt_ad_login_email.requestFocus()
         }
 
         if (password.length < 6)
-            edt_stu_login_password.error = "Password too short, enter minimum 6 characters!"
+            edt_ad_login_password.error = "Password too short, enter minimum 6 characters!"
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            edt_stu_login_email.error = "Email address not valid"
-            edt_stu_login_email.requestFocus()
+            edt_ad_login_email.error = "Email address not valid"
+            edt_ad_login_email.requestFocus()
         }
 
 
@@ -154,14 +135,15 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
         rememberMe()
     }
 
-    private fun forgotPasswordActivity() {
-        startActivity(Intent(this, StudentForgotPasswordActivity::class.java))
-        finish()
-    }
-
-    private fun registerActivity() {
-        startActivity(Intent(this, StudentRegisterActivity::class.java))
-        finish()
+    private fun rememberMe() {
+        if (cb_ad_login_remember_me.isChecked) {
+            loginPrefsEditor.putBoolean("ADMIN_REMEMBER_ME", true)
+            loginPrefsEditor.putString("ADMIN_EMAIL", email)
+            loginPrefsEditor.putString("ADMIN_PASSWORD", password)
+        } else {
+            loginPrefsEditor.clear()
+        }
+        loginPrefsEditor.apply()
     }
 
     private fun loginAuthentication() {
@@ -179,25 +161,25 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
 //                                //Login thanh cong
 ////-------------------Verify account
 
-                                progressButtonStudentLogin.buttonFinished(
-                                    "Logged in",
+                            progressButtonStudentLogin.buttonFinished(
+                                "Logged in",
+                                AnimationUtils.loadAnimation(this, R.anim.fade_in)
+                            )
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                //Reset Button
+                                progressButtonStudentLogin.buttonReset(
+                                    "Login",
                                     AnimationUtils.loadAnimation(this, R.anim.fade_in)
                                 )
-                                Handler(Looper.getMainLooper()).postDelayed({
-                                    //Reset Button
-                                    progressButtonStudentLogin.buttonReset(
-                                        "Login",
-                                        AnimationUtils.loadAnimation(this, R.anim.fade_in)
-                                    )
-                                }, 1000.toLong())
+                            }, 1000.toLong())
 
-                                Toast.makeText(
-                                    this,
-                                    "Welcome " + user.displayName + "!",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                startActivity(Intent(this, StudentMainActivity::class.java))
-                                finish()
+                            Toast.makeText(
+                                this,
+                                "Welcome " + user.displayName + "!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            startActivity(Intent(this, AdminMainActivity::class.java))
+                            finish()
 
 ////-------------------Verify account
 //                            } else {
@@ -264,27 +246,14 @@ class StudentLoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
-    private fun rememberMe() {
-        if (cb_stu_login_remember_me.isChecked) {
-            loginPrefsEditor.putBoolean("STUDENT_REMEMBER_ME", true)
-            loginPrefsEditor.putString("STUDENT_EMAIL", email)
-            loginPrefsEditor.putString("STUDENT_PASSWORD", password)
-        } else {
-            loginPrefsEditor.clear()
-        }
-        loginPrefsEditor.apply()
-    }
-
-
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            startActivity(Intent(this, StudentMainActivity::class.java))
+            startActivity(Intent(this, AdminMainActivity::class.java))
             finish()
         }
     }
-
 
 }

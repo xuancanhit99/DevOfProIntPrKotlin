@@ -8,7 +8,7 @@
     <string name="signup_login_hint">Already have an account? Sign In</string>
     <string name="login_signup_hint">Don\'t have an account? Sign Up</string>
     <string name="close">Close</string>
-    <string name="admin_login">ADMIN LOGIN</string>
+
     <string name="student_login">Student Login</string>
     <string name="open">Open</string>
 
@@ -78,6 +78,8 @@
     <string name="economics">Economics</string>
     <string name="philosophy">Philosophy</string>
     <string name="english">English</string>
+    <string name="admin_login">Admin Login</string>
+    <string name="are_you_student_login_here">Are you student? Login here</string>
 
 
 </resources>
