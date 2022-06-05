@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:contentPadding="0dp"
+        tools:context=".ui.activities.admin.AdminMainActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/light_white"
+            android:orientation="vertical">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar_ad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white" />
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:id="@+id/body_container_admin"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/bottom_navigation_ad"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/round_corner"
+                    android:elevation="2dp"
+                    app:itemIconSize="30dp"
+                    app:itemIconTint="@drawable/item_selector"
+                    app:itemRippleColor="@android:color/transparent"
+                    app:labelVisibilityMode="unlabeled"
+                    app:menu="@menu/item_menu_admin" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>

@@ -18,12 +18,12 @@
     </string-array>
 
     <string-array name="ld_activityScreenTitles">
-        <item>Home</item>
-        <item>My Profile</item>
-        <item>Learning Results</item>
-        <item>Chat</item>
+        <item>@string/home</item>
+        <item>@string/my_profile</item>
+        <item>@string/learning_results</item>
+        <item>@string/chat</item>
         <item />
-        <item>Log Out</item>
+        <item>@string/logout</item>
     </string-array>
 
     <array name="ld_activityScreenIcons">
@@ -35,4 +35,23 @@
         <item>@drawable/ic_baseline_logout_24</item>
     </array>
 
+
+<!--    Admin-->
+    <string-array name="array_item_title_ad_nav_top_left">
+        <item>@string/home</item>
+        <item>@string/my_profile</item>
+        <item>@string/list_student</item>
+        <item>@string/chat</item>
+        <item />
+        <item>@string/logout</item>
+    </string-array>
+
+    <array name="array_item_icon_ad_nav_top_left">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_profile</item>
+        <item>@drawable/ic_list</item>
+        <item>@drawable/ic_chat</item>
+        <item>0</item>
+        <item>@drawable/ic_baseline_logout_24</item>
+    </array>
 </resources>

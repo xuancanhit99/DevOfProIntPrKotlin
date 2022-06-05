@@ -22,12 +22,6 @@
     <string name="student_forgot_password">Student Forgot Password</string>
     <string name="reset_password">Reset password</string>
 
-    <string name="my_profile_rus">Мой профиль</string>
-    <string name="timetable_rus">Расписание</string>
-    <string name="learning_results_rus">Результаты обучения</string>
-    <string name="update_profile">Редактировать Информацию</string>
-    <string name="chat_rus">Чат</string>
-
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -80,6 +74,7 @@
     <string name="english">English</string>
     <string name="admin_login">Admin Login</string>
     <string name="are_you_student_login_here">Are you student? Login here</string>
+    <string name="list_student">List Student</string>
 
 
 </resources>

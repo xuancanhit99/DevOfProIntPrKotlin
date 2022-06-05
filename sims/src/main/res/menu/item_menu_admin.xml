@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/nav_home"
+    <item android:id="@+id/nav_ad_home"
         android:title="@string/home"
         android:icon="@drawable/ic_home" />
 
-    <item android:id="@+id/nav_profile"
+    <item android:id="@+id/nav_ad_profile"
         android:title="@string/my_profile"
         android:icon="@drawable/ic_profile" />
 
-    <item android:id="@+id/nav_learning_results"
-        android:title="@string/learning_results"
-        android:icon="@drawable/ic_results" />
+    <item android:id="@+id/nav_ad_list_student"
+        android:title="@string/list_student"
+        android:icon="@drawable/ic_list" />
 
-    <item android:id="@+id/nav_chat"
+    <item android:id="@+id/nav_ad_chat"
         android:title="@string/chat"
         android:icon="@drawable/ic_chat" />
 </menu>
