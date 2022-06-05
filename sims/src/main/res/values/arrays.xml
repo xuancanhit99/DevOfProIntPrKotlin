@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="list_result_rus">
+        <item>Неудов</item>
+        <item>Удов</item>
+        <item>Хорошо</item>
+        <item>Отлично</item>
+        <item> </item>
+    </string-array>
+
 
     <string-array name="student_group">
         <item>IKBO-01-19</item>

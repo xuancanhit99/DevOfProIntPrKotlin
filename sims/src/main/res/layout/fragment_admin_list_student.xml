@@ -2,13 +2,61 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/card_2"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.admin.AdminListStudentFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="list" />
+        android:orientation="vertical"
+        tools:context=".MainActivity"
+        tools:ignore="UselessParent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardBackgroundColor="@color/myColor1"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="3dp">
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="@color/myColor1"
+            android:layout_gravity="center"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp">
+
+            <Button
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:id="@+id/btn_soft_by_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                app:iconTint="@color/white"
+                app:icon="@drawable/ic_baseline_arrow_downward_24"
+                android:drawablePadding="10dp"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:drawableTint="@color/black"
+                android:text="@string/a_z_soft_by_name"
+
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_items_student"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="4"
+            tools:listitem="@layout/list_item_for_recycler_view_student" />
+    </LinearLayout>
 
 </FrameLayout>

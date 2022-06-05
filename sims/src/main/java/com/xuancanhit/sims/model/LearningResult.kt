@@ -14,8 +14,6 @@ class LearningResult (
     val phi: String? = null,
 ) {
 
-
-
     @Exclude
     fun toMap(): Map<String, Any?> {
         return mapOf(

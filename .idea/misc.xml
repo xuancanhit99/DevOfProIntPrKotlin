@@ -63,6 +63,7 @@
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/drawable-v24/login_button_bk.xml" value="0.283" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/drawable-v24/login_shape_bk.xml" value="0.4565" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/drawable/button_shape_no_fill.xml" value="0.3785" />
+        <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/drawable/ic_baseline_arrow_downward_24.xml" value="0.3595" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/drawable/ic_baseline_mail_outline_24.xml" value="0.1895" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/drawable/ic_launcher_background.xml" value="0.4715" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/drawable/ic_login_button.xml" value="0.4515" />
@@ -84,6 +85,12 @@
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/dialog_email.xml" value="0.5572916666666666" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/dialog_no_internet.xml" value="0.5" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/dialog_verify_email.xml" value="0.5" />
+        <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/fragment_admin_chat.xml" value="0.5572916666666666" />
+        <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/fragment_admin_edit_profile.xml" value="0.5572916666666666" />
+        <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/fragment_admin_home.xml" value="0.5572916666666666" />
+        <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/fragment_admin_list_student.xml" value="0.5" />
+        <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/fragment_admin_profile.xml" value="0.5" />
+        <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/fragment_admin_update_student.xml" value="0.40749601275917063" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/fragment_chat.xml" value="0.5572916666666666" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/fragment_home.xml" value="0.5" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/fragment_learning_results.xml" value="0.5" />
@@ -99,6 +106,7 @@
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/layout_student_login.xml" value="0.33" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/layout_student_register.xml" value="0.5" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/layout_temp.xml" value="0.53125" />
+        <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/list_item_for_recycler_view_student.xml" value="0.67" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/menu_admin_left_draw.xml" value="0.53125" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/menu_left_drawer.xml" value="0.5" />
         <entry key="..\:/Users/daota/AndroidStudioProjects/DevOfProIntPrKotlin/sims/src/main/res/layout/progress_button_layout.xml" value="0.33" />

@@ -87,6 +87,7 @@
                             android:clickable="false"
                             android:cursorVisible="false"
                             android:focusable="false"
+                            android:maxLength="7"
                             android:focusableInTouchMode="false"
                             android:hint="@string/student_id"
                             android:maxLines="1" />

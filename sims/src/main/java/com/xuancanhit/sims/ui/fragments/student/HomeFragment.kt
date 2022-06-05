@@ -164,7 +164,5 @@ class HomeFragment : Fragment() {
 
 
 
-    override fun onSaveInstanceState(outState: Bundle) {
 
-    }
 }

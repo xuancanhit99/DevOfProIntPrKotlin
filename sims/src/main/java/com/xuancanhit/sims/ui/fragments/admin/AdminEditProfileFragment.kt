@@ -1,39 +1,32 @@
-package com.xuancanhit.sims.ui.fragments.student
+package com.xuancanhit.sims.ui.fragments.admin
 
 import android.app.Activity
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.MediaStore
 import android.text.InputType
+import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.util.Patterns
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -43,46 +36,36 @@ import com.thecode.aestheticdialogs.DialogStyle
 import com.thecode.aestheticdialogs.DialogType
 import com.xuancanhit.sims.MainActivity
 import com.xuancanhit.sims.R
+import com.xuancanhit.sims.model.Admin
 import com.xuancanhit.sims.model.LearningResult
 import com.xuancanhit.sims.model.Student
-import com.xuancanhit.sims.tool.EmailDialog
+import com.xuancanhit.sims.ui.fragments.student.ProfileFragment
 import com.xuancanhit.sims.ui.interfaces.PassDataFragmentAndActivity
+import kotlinx.android.synthetic.main.fragment_admin_edit_profile.*
+import kotlinx.android.synthetic.main.fragment_admin_edit_profile.view.*
 import kotlinx.android.synthetic.main.fragment_student_edit_profile.*
 import kotlinx.android.synthetic.main.fragment_student_edit_profile.view.*
 import kotlinx.android.synthetic.main.layout_student_register.*
 import java.io.ByteArrayOutputStream
-import java.text.SimpleDateFormat
 import java.util.*
 
 
-class StudentEditProfileFragment : Fragment() {
+class AdminEditProfileFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private lateinit var storage: FirebaseStorage
-    private var student: Student? = null
-
-//    private lateinit var name: String
-//    private lateinit var phone: String
-//    private lateinit var dob: String
-//    private lateinit var group: String
-
-    private var updateGender = "1"
+    private var admin: Admin? = null
 
     private var rootView:View? = null
 
-    private var stuResults: LearningResult? = null
-
-
-    //for date of birth
-    private val calendar = Calendar.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_student_edit_profile, container, false)
+        rootView = inflater.inflate(R.layout.fragment_admin_edit_profile, container, false)
 
         // Initialize firebase
         auth = Firebase.auth
@@ -92,105 +75,64 @@ class StudentEditProfileFragment : Fragment() {
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            database.child("Students").child(currentUser.uid).get().addOnSuccessListener { data ->
-                student = data.getValue(Student::class.java)
-                student?.let {
+            database.child("Admins").child(currentUser.uid).get().addOnSuccessListener { data ->
+                admin = data.getValue(Admin::class.java)
+                admin?.let {
                     reload(
                         it.name.toString(),
                         it.img.toString(),
                         it.no.toString(),
-                        it.dob.toString(),
-                        it.group.toString(),
-                        it.gender.toString(),
                         it.phone.toString(),
-                        it.email.toString(),
-                        it.results!!
+                        it.email.toString()
                     )
                 }
             }.addOnFailureListener {
                 Log.e("firebase", "Error getting data", it)
                 MainActivity.aestheticDialog(requireActivity(), DialogStyle.RAINBOW, DialogType.ERROR, "Error", "Error getting data!")
             }
-
         }
-
 
         //InitView
-        rootView?.btn_stu_update_choose_photo?.setOnClickListener{
+        rootView?.btn_ad_update_choose_photo?.setOnClickListener{
             openFileManagerActivityForResult()
         }
-        rootView?.btn_stu_update_take_photo?.setOnClickListener {
+        rootView?.btn_ad_update_take_photo?.setOnClickListener {
             openCameraActivityForResult()
         }
-        rootView?.btn_stu_update_delete_img?.setOnClickListener {
-            rootView?.iv_stu_update_avt?.setImageDrawable(
+        rootView?.btn_ad_update_delete_img?.setOnClickListener {
+            rootView?.iv_ad_update_avt?.setImageDrawable(
                 ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.graduated,
+                    R.drawable.admin,
                     null
                 )
             )
         }
-        rootView?.btn_stu_update_exit?.setOnClickListener {
-            toStudentProfileFragment()
+        rootView?.btn_ad_update_exit?.setOnClickListener {
+            toAdminProfileFragment()
         }
-        rootView?.edt_stu_update_no?.setOnClickListener {
+        rootView?.edt_ad_update_no?.setOnClickListener {
             MainActivity.aestheticDialog(requireActivity(),DialogStyle.RAINBOW, DialogType.WARNING, "Warning", "You cannot change this field!")
         }
-//        rootView?.edt_stu_update_email?.setOnClickListener {
-//            MainActivity.aestheticDialog(requireActivity(),DialogStyle.RAINBOW, DialogType.WARNING, "Warning", "You cannot change this field!")
-//        }
 
-        //Set click text view Date of birth
-        val date =
-            DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                calendar[Calendar.YEAR] = year
-                calendar[Calendar.MONTH] = month
-                calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
-                updateLabel()
-            }
-        rootView?.edt_stu_update_dob?.setOnClickListener {
-            DatePickerDialog(
-                requireContext(), date,
-                calendar[Calendar.YEAR], calendar[Calendar.MONTH],
-                calendar[Calendar.DAY_OF_MONTH]
-            ).show()
-        }
-        rootView?.edt_stu_update_class?.setOnClickListener {
-            val items =  resources.getStringArray(R.array.student_group)
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle(resources.getString(R.string.choose_your_class))
-                .setItems(items) { dialog, which ->
-                    // Respond to item chosen
-                    rootView?.edt_stu_update_class?.setText(items[which])
-                }
-                .show()
-        }
 
-        rootView?.rg_stu_update_gender?.setOnCheckedChangeListener { group, checkedId ->
-            updateGender = if (checkedId == R.id.rb_stu_update_male) {
-                "1"
-            } else {
-                "0"
-            }
-        }
 
-        rootView?.btn_stu_update_save?.setOnClickListener {
+        rootView?.btn_ad_update_save?.setOnClickListener {
             val user = auth.currentUser
 
-            val email = rootView?.edt_stu_update_email?.text.toString().trim()
+            val email = rootView?.edt_ad_update_email?.text.toString().trim()
 
 
 
 
             //Check and update email
             if (email.isEmpty()) {
-                rootView?.edt_stu_update_email?.error = "Enter email address!"
-                rootView?.edt_stu_update_email?.requestFocus()
+                rootView?.edt_ad_update_email?.error = "Enter email address!"
+                rootView?.edt_ad_update_email?.requestFocus()
             }
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                rootView?.edt_stu_update_email?.error = "Email address not valid!"
-                rootView?.edt_stu_update_email?.requestFocus()
+                rootView?.edt_ad_update_email?.error = "Email address not valid!"
+                rootView?.edt_ad_update_email?.requestFocus()
             }
 
             if (user?.email.toString() != email) {
@@ -231,15 +173,15 @@ class StudentEditProfileFragment : Fragment() {
                                     //-------------------Update info student database
                                     updateInfo()
                                 }?.addOnFailureListener {
-                                    rootView?.edt_stu_update_name?.clearFocus()
-                                    rootView?.edt_stu_update_phone?.clearFocus()
-                                    rootView?.edt_stu_update_email?.clearFocus()
+                                    rootView?.edt_ad_update_name?.clearFocus()
+                                    rootView?.edt_ad_update_phone?.clearFocus()
+                                    rootView?.edt_ad_update_email?.clearFocus()
                                     MainActivity.aestheticDialog(requireActivity(), DialogStyle.RAINBOW, DialogType.ERROR, "Error", "User account authentication failed!")
                                 }
                         } else {
-                            rootView?.edt_stu_update_name?.clearFocus()
-                            rootView?.edt_stu_update_phone?.clearFocus()
-                            rootView?.edt_stu_update_email?.clearFocus()
+                            rootView?.edt_ad_update_name?.clearFocus()
+                            rootView?.edt_ad_update_phone?.clearFocus()
+                            rootView?.edt_ad_update_email?.clearFocus()
                             MainActivity.aestheticDialog(requireActivity(), DialogStyle.RAINBOW, DialogType.ERROR, "Error", "User account authentication failed!")
                         }
 
@@ -270,18 +212,19 @@ class StudentEditProfileFragment : Fragment() {
 
         (activity as PassDataFragmentAndActivity?)!!.getViewFragment(rootView!!, resources.getString(R.string.edit_profile))
         (activity as PassDataFragmentAndActivity?)!!.setNavState(R.id.fragment_student_edit_profile)
+
+
+
         return rootView
     }
 
     private fun updateInfo() {
         val user = auth.currentUser
-        val name = rootView?.edt_stu_update_name?.text.toString().trim()
-        var no = rootView?.edt_stu_update_no?.text.toString()
+        val name = rootView?.edt_ad_update_name?.text.toString().trim()
+        var no = rootView?.edt_ad_update_no?.text.toString()
         var img = ""
-        var dob = rootView?.edt_stu_update_dob?.text.toString()
-        val group = rootView?.edt_stu_update_class?.text.toString()
-        val phone = rootView?.edt_stu_update_phone?.text.toString()
-        val gender = updateGender
+        val phone = rootView?.edt_ad_update_phone?.text.toString()
+
 
         //-------------Upload Image to Storage and load link img-------------------
         val storageRef = storage.reference
@@ -291,9 +234,9 @@ class StudentEditProfileFragment : Fragment() {
         val mountainsRef =
             storageRef.child("image" + calendar.timeInMillis + ".png")
         // Get the data from an ImageView as bytes
-        rootView?.iv_stu_update_avt?.isDrawingCacheEnabled = true
-        rootView?.iv_stu_update_avt?.buildDrawingCache()
-        val bitmap = (rootView?.iv_stu_update_avt?.drawable as BitmapDrawable).bitmap
+        rootView?.iv_ad_update_avt?.isDrawingCacheEnabled = true
+        rootView?.iv_ad_update_avt?.buildDrawingCache()
+        val bitmap = (rootView?.iv_ad_update_avt?.drawable as BitmapDrawable).bitmap
         val byteAOS = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteAOS)
         val data = byteAOS.toByteArray()
@@ -301,24 +244,24 @@ class StudentEditProfileFragment : Fragment() {
         var uploadTask = mountainsRef.putBytes(data)
         uploadTask.addOnFailureListener {
             // Handle unsuccessful uploads
-            Log.d("SIMS_STUDENT_UP_LOAD_IMG", "Failed when upload image!")
+            Log.d("LOAD_IMG", "Failed when upload image!")
         }.addOnSuccessListener { taskSnapshot ->
             // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-            Log.d("SIMS_STUDENT_UP_LOAD_IMG", "Successfully when upload image!")
+            Log.d("LOAD_IMG", "Successfully when upload image!")
         }
         // Lay link file vua moi up
         uploadTask.continueWithTask { task ->
             if (!task.isSuccessful) {
                 task.exception?.let {
                     //Register loi
-                    Log.d("SIMS_STUDENT_GET_LINK_IMG", "Failed")
+                    Log.d("GET_LINK_IMG", "Failed")
                 }
             }
             mountainsRef.downloadUrl
         }.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val downloadUri = task.result
-                Log.d("SIMS_STUDENT_LINK_IMG", downloadUri.toString())
+                Log.d("LINK_IMG", downloadUri.toString())
 
                 //Set data user create new node in realtime database
                 user?.let {
@@ -331,12 +274,12 @@ class StudentEditProfileFragment : Fragment() {
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 Log.d(
-                                    "SIMS_STUDENT_UPDATE_PROFILE",
+                                    "UPDATE_PROFILE",
                                     "User profile updated."
                                 )
                             } else {
                                 Log.d(
-                                    "SIMS_STUDENT_UPDATE_PROFILE",
+                                    "UPDATE_PROFILE",
                                     "User profile update failed."
                                 )
                             }
@@ -344,27 +287,32 @@ class StudentEditProfileFragment : Fragment() {
 
                     //Set data Realtime Database
                     img = downloadUri.toString()
-                    updateProfileStudent(user.email.toString(), name, user.uid, img, dob, group, phone, gender)
+                    updateProfileAdmin(auth.currentUser?.email.toString(), name, no, img, phone)
 
                 }
 
             } else {
                 // Handle failures
-                Log.d("SIMS_STUDENT_LINK_IMG", "Failed when create link image!")
+                Log.d("LINK_IMG", "Failed when create link image!")
             }
         }
 
 
     }
 
-    private fun updateProfileStudent(email: String, name: String, no: String, img: String, dob: String, group: String, phone: String, gender: String) {
+    private fun updateProfileAdmin(
+        email: String,
+        name: String,
+        no: String,
+        img: String,
+        phone: String
+    ) {
         val currentUser = auth.currentUser
         if (currentUser != null) {
             //Update Profile
             val profileUpdates = userProfileChangeRequest {
                 displayName = name
                 photoUri = Uri.parse(img)
-
             }
             currentUser.updateProfile(profileUpdates)
                 .addOnCompleteListener { task ->
@@ -374,46 +322,40 @@ class StudentEditProfileFragment : Fragment() {
                 }
 
 
-            val key = database.child("Students").child(currentUser.uid).key
+            val key = database.child("Admins").child(currentUser.uid).key
             if (key==null) {
                 Log.w("LOG", "Couldn't get push key for posts")
                 return
             }
 
-            val post = Student(email, name, no, img, dob, group, phone, gender, stuResults)
+            val post = Admin(email, name, img, no, phone)
             val postValues = post.toMap()
 
             val childUpdates = hashMapOf<String, Any>(
-                "/Students/$key" to postValues,
+                "/Admins/$key" to postValues,
                 //"/user-posts/$userId/$key" to postValues
             )
 
             database.updateChildren(childUpdates).addOnSuccessListener {
-                rootView?.edt_stu_update_name?.clearFocus()
-                rootView?.edt_stu_update_phone?.clearFocus()
-                rootView?.edt_stu_update_email?.clearFocus()
+                rootView?.edt_ad_update_name?.clearFocus()
+                rootView?.edt_ad_update_phone?.clearFocus()
+                rootView?.edt_ad_update_email?.clearFocus()
                 MainActivity.aestheticDialog(requireActivity(), DialogStyle.RAINBOW, DialogType.SUCCESS, "Success", "Successfully updated!")
             }. addOnFailureListener {
                 Log.d("LOG", it.toString())
-                rootView?.edt_stu_update_name?.clearFocus()
-                rootView?.edt_stu_update_phone?.clearFocus()
-                rootView?.edt_stu_update_email?.clearFocus()
+                rootView?.edt_ad_update_name?.clearFocus()
+                rootView?.edt_ad_update_phone?.clearFocus()
+                rootView?.edt_ad_update_email?.clearFocus()
                 MainActivity.aestheticDialog(requireActivity(), DialogStyle.RAINBOW, DialogType.ERROR, "Error", "An error occurred while updating, please try again later!")
             }
         }
 
-
     }
 
-    private fun updateLabel() {
-        val myFormat = "dd/MM/yyyy"
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
-        rootView?.edt_stu_update_dob?.setText(sdf.format(calendar.time))
-    }
 
-    private fun toStudentProfileFragment() {
+    private fun toAdminProfileFragment() {
         val fragmentTransaction = fragmentManager?.beginTransaction()
-        fragmentTransaction?.replace(R.id.body_container, ProfileFragment())
+        fragmentTransaction?.replace(R.id.body_container_admin, AdminProfileFragment())
         fragmentTransaction?.commit()
     }
 
@@ -426,7 +368,7 @@ class StudentEditProfileFragment : Fragment() {
                 //do stuff here
                 if (intent != null) {
                     val bitmap = intent.extras?.get("data") as Bitmap
-                    rootView?.iv_stu_update_avt?.setImageBitmap(bitmap)
+                    rootView?.iv_ad_update_avt?.setImageBitmap(bitmap)
                 }
             }
         }
@@ -447,7 +389,7 @@ class StudentEditProfileFragment : Fragment() {
                 if (intent != null) {
                     val selectedImgUri = intent.data
                     if (selectedImgUri != null) {
-                        rootView?.iv_stu_update_avt?.setImageURI(selectedImgUri)
+                        rootView?.iv_ad_update_avt?.setImageURI(selectedImgUri)
                     }
                 }
             }
@@ -460,38 +402,24 @@ class StudentEditProfileFragment : Fragment() {
     }
     //______END OPEN FILE MANAGER_______
 
-
-
     private fun reload(
         name: String = "",
         img: String = "",
         no: String = "",
-        dob: String = "",
-        group: String = "",
-        gender: String = "",
         phone: String = "",
         email: String = "",
-        results: LearningResult
     ) {
-        stuResults = results
-        rootView?.edt_stu_update_name?.setText(name)
-        rootView?.edt_stu_update_no?.setText(no)
-        rootView?.edt_stu_update_dob?.setText(dob)
-        rootView?.edt_stu_update_class?.setText(group)
+        rootView?.edt_ad_update_name?.setText(name)
+        rootView?.edt_ad_update_no?.setText(no)
 
-        if(gender=="0")
-            rootView?.rb_stu_update_female?.isChecked = true
-        else
-            rootView?.rb_stu_update_male?.isChecked = true
-
-        rootView?.edt_stu_update_phone?.setText(phone)
-        rootView?.edt_stu_update_email?.setText(email)
+        rootView?.edt_ad_update_phone?.setText(phone)
+        rootView?.edt_ad_update_email?.setText(email)
 
         Picasso.get()
             .load(img)
             .placeholder(R.drawable.graduated)
             .error(R.drawable.graduated)
-            .into(rootView?.iv_stu_update_avt)
+            .into(rootView?.iv_ad_update_avt)
     }
 
 }

@@ -11,5 +11,7 @@ interface PassDataFragmentAndActivity {
     //Send view(fragment) to activity
     fun getViewFragment(view: View, nameView: String)
 
+    fun passDataComm(uid: String)
+
 
 }

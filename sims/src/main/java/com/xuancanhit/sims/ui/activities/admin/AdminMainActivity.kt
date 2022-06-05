@@ -34,10 +34,7 @@ import com.xuancanhit.sims.model.Student
 import com.xuancanhit.sims.tool.nav.*
 import com.xuancanhit.sims.ui.activities.student.StudentLoginActivity
 import com.xuancanhit.sims.ui.activities.student.StudentMainActivity
-import com.xuancanhit.sims.ui.fragments.admin.AdminChatFragment
-import com.xuancanhit.sims.ui.fragments.admin.AdminHomeFragment
-import com.xuancanhit.sims.ui.fragments.admin.AdminListStudentFragment
-import com.xuancanhit.sims.ui.fragments.admin.AdminProfileFragment
+import com.xuancanhit.sims.ui.fragments.admin.*
 import com.xuancanhit.sims.ui.fragments.student.ChatFragment
 import com.xuancanhit.sims.ui.fragments.student.HomeFragment
 import com.xuancanhit.sims.ui.fragments.student.LearningResultsFragment
@@ -339,7 +336,19 @@ class AdminMainActivity : AppCompatActivity() , OnItemSelectedListener,
     }
 
 
+    //Pass data from adapter
+    override fun passDataComm(uid: String) {
+        val bundle = Bundle()
+        bundle.putString("UID", uid)
 
+        val adminUpdateStudentFragment = AdminUpdateStudentFragment()
+        adminUpdateStudentFragment.arguments = bundle
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.body_container_admin, adminUpdateStudentFragment)
+            //.addToBackStack(null)
+            .commit()
+    }
 
 
     //Set location top-nav title and bottom-nav icon be right
@@ -380,6 +389,10 @@ class AdminMainActivity : AppCompatActivity() , OnItemSelectedListener,
                 adapter.setChecked(CODE_PROFILE)
                 bottom_navigation_ad.menu.findItem(R.id.nav_ad_profile).isChecked = true
             }
+            R.id.fragment_admin_update_student -> {
+                adapter.setChecked(CODE_LIST)
+                bottom_navigation_ad.menu.findItem(R.id.nav_ad_list_student).isChecked = true
+            }
             else -> {
                 supportActionBar?.title =
                     MainActivity.textWithMyFont(this,getString(R.string.home), R.font.my_font, Typeface.BOLD)
@@ -393,6 +406,7 @@ class AdminMainActivity : AppCompatActivity() , OnItemSelectedListener,
         viewFragment = view
         supportActionBar?.title =
             MainActivity.textWithMyFont(this,nameView, R.font.my_font, Typeface.BOLD)
+        Toast.makeText(this, nameView, Toast.LENGTH_SHORT).show()
     }
 
     override fun onBackPressed() {

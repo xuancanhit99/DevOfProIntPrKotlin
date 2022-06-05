@@ -227,7 +227,7 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
                                         val student = Student(
                                             email,
                                             name,
-                                            "",
+                                            user.uid,
                                             downloadUri.toString(),
                                             "",
                                             "",

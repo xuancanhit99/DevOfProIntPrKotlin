@@ -406,6 +406,10 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener,
             MainActivity.textWithMyFont(this,nameView, R.font.my_font, Typeface.BOLD)
     }
 
+    override fun passDataComm(uid: String) {
+        TODO("Not yet implemented")
+    }
+
     override fun onBackPressed() {
         supportFragmentManager.beginTransaction()
             .add(R.id.body_container, HomeFragment())
