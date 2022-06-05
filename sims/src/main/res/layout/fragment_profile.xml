@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/fragment_profile"
     android:layout_height="match_parent"
+    android:transitionName="shared_element_container"
 
     tools:context=".ui.fragments.student.ProfileFragment">
 
@@ -13,8 +15,8 @@
         android:layout_height="match_parent"
         android:background="@color/card_2"
         android:clipToPadding="false"
-
-        android:paddingBottom="100dp">
+        android:paddingBottom="100dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,11 +78,16 @@
                                     android:text="@string/student_id"
 
                                     android:textStyle="bold" />
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="18dp"
+                                    android:background="@color/white"/>
 
                                 <TextView
                                     android:id="@+id/tv_stu_profile_no"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center"
                                     android:layout_weight="9"
                                     android:fontFamily="@font/my_font"
                                     android:textColor="@color/bl"
@@ -113,11 +120,16 @@
                                     android:text="@string/full_name"
 
                                     android:textStyle="bold" />
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="18dp"
+                                    android:background="@color/white"/>
 
                                 <TextView
                                     android:id="@+id/tv_stu_profile_name"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center"
                                     android:layout_weight="9"
                                     android:fontFamily="@font/my_font"
                                     android:textColor="@color/bl"
@@ -148,11 +160,16 @@
                                     android:text="@string/date_of_birth"
 
                                     android:textStyle="bold" />
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="18dp"
+                                    android:background="@color/white"/>
 
                                 <TextView
                                     android:id="@+id/tv_stu_profile_dob"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center"
                                     android:layout_weight="9"
                                     android:fontFamily="@font/my_font"
                                     android:textColor="@color/bl"
@@ -184,6 +201,10 @@
                                     android:text="@string/student_class"
 
                                     android:textStyle="bold" />
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="18dp"
+                                    android:background="@color/white"/>
 
                                 <TextView
                                     android:id="@+id/tv_stu_profile_group"
@@ -191,6 +212,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="9"
                                     android:fontFamily="@font/my_font"
+                                    android:gravity="center"
                                     android:textColor="@color/bl"
                                     android:textStyle="bold" />
                             </LinearLayout>
@@ -220,6 +242,10 @@
                                     android:text="@string/gender"
 
                                     android:textStyle="bold" />
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="18dp"
+                                    android:background="@color/white"/>
 
                                 <TextView
                                     android:id="@+id/tv_stu_profile_gender"
@@ -227,6 +253,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="9"
                                     android:fontFamily="@font/my_font"
+                                    android:gravity="center"
                                     android:textColor="@color/bl"
                                     android:textStyle="bold" />
 
@@ -250,13 +277,17 @@
                                 android:weightSum="10">
 
                                 <TextView
-                                    android:layout_width="100dp"
+                                    android:layout_width="60dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
                                     android:fontFamily="@font/my_font"
                                     android:text="@string/phone"
 
                                     android:textStyle="bold" />
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="18dp"
+                                    android:background="@color/white"/>
 
                                 <TextView
                                     android:id="@+id/tv_stu_profile_phone"
@@ -264,6 +295,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="9"
                                     android:fontFamily="@font/my_font"
+                                    android:gravity="center"
                                     android:textColor="@color/bl"
                                     android:textStyle="bold" />
                             </LinearLayout>
@@ -285,13 +317,17 @@
                                 android:weightSum="10">
 
                                 <TextView
-                                    android:layout_width="100dp"
+                                    android:layout_width="60dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
                                     android:fontFamily="@font/my_font"
                                     android:text="@string/email"
 
                                     android:textStyle="bold" />
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="18dp"
+                                    android:background="@color/white"/>
 
                                 <TextView
                                     android:id="@+id/tv_stu_profile_email"
@@ -299,6 +335,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="9"
                                     android:fontFamily="@font/my_font"
+                                    android:gravity="center"
                                     android:textColor="@color/bl"
                                     android:textStyle="bold" />
                             </LinearLayout>

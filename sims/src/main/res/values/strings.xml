@@ -1,12 +1,7 @@
 <resources>
 
 
-
-
-
-
-
-<!--Chua kiem duyet-->
+    <!--Chua kiem duyet-->
     <string name="register">Student Register</string>
     <string name="login_email_hint">Email</string>
     <string name="login_password_hint">Password</string>
@@ -59,6 +54,7 @@
     <string name="date_of_birth">Date of birth</string>
     <string name="student_class">Class</string>
     <string name="gender">Gender</string>
+    <string name="gender_space">&#160;&#160;&#160;&#160;Gender</string>
     <string name="phone_number">Phone number</string>
     <string name="gmail">Gmail</string>
     <string name="back">Back</string>
@@ -69,6 +65,19 @@
     <string name="exit">Exit</string>
     <string name="change_password">Change Password</string>
     <string name="ok">OK</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="save">Save</string>
+    <string name="delete_avatar">Delete Avatar</string>
+    <string name="choose_your_class">Choose your class</string>
+    <string name="name">Name</string>
+    <string name="math">Math</string>
+    <string name="physical">Physical</string>
+    <string name="programming">Programming</string>
+    <string name="informatics">Informatic</string>
+    <string name="economics">Economics</string>
+    <string name="philosophy">Philosophy</string>
+    <string name="english">English</string>
 
 
 </resources>

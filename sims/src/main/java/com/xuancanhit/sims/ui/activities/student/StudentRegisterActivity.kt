@@ -14,6 +14,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.util.Patterns
 import android.view.View
+import android.view.Window
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.Toast
@@ -21,6 +22,8 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+import com.google.android.material.transition.platform.MaterialContainerTransform
+import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
@@ -357,6 +360,8 @@ class StudentRegisterActivity : AppCompatActivity(), View.OnClickListener {
                 //do stuff here
                 if (intent != null) {
                     val bitmap = intent.extras?.get("data") as Bitmap
+                    Toast.makeText(this, bitmap.toString(), Toast.LENGTH_SHORT).show()
+
                     iv_stu_register_avt.setImageBitmap(bitmap)
                 }
             }

@@ -23,7 +23,6 @@
         style="@style/viewParent"
         android:layout_marginTop="10dp"
         android:text="@string/register"
-        android:fontFamily="@font/my_font"
         android:textSize="@dimen/headerTextSize"
         android:textColor="@color/blackTextColor"
         android:textStyle="bold" />
@@ -57,11 +56,11 @@
                 android:id="@+id/btn_stu_register_take_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_baseline_photo_camera_24"
+                app:icon="@drawable/ic_baseline_photo_camera_24"
                 android:text="@string/take_photo"
                 android:fontFamily="@font/my_font"
                 android:textStyle="bold"
-                android:theme="@style/AppTheme.MyButton12" />
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon" />
 
             <Button
                 android:id="@+id/btn_stu_register_choose_photo"
@@ -69,21 +68,21 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/my_font"
                 android:textStyle="bold"
-                android:drawableStart="@drawable/ic_baseline_insert_photo_24"
+                app:icon="@drawable/ic_baseline_insert_photo_24"
                 android:text="@string/choose_photo"
-                android:theme="@style/AppTheme.MyButton12" />
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"/>
         </LinearLayout>
     </LinearLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/parent"
+        app:startIconDrawable="@drawable/ic_baseline_person_pin_24"
         android:layout_marginTop="@dimen/signup_text_margin_top">
 
         <EditText
             android:id="@+id/edt_stu_register_name"
             style="@style/modifiedEditText"
-            android:drawableStart="@drawable/ic_baseline_person_pin_24"
             android:drawableTint="?attr/colorControlNormal"
             android:fontFamily="@font/my_font"
             android:hint="@string/full_name"
@@ -95,12 +94,13 @@
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/parent"
+        app:startIconDrawable="@drawable/round_mail_outline_24"
         android:layout_marginTop="@dimen/signup_text_margin_top">
 
         <EditText
             android:id="@+id/edt_stu_register_email"
             style="@style/modifiedEditText"
-            android:drawableStart="@drawable/round_mail_outline_24"
+
             android:hint="@string/login_email_hint"
             android:inputType="textEmailAddress"
             android:fontFamily="@font/my_font"
@@ -111,12 +111,12 @@
     <com.google.android.material.textfield.TextInputLayout
         style="@style/parent"
         android:layout_marginTop="@dimen/signup_text_margin_top"
-        app:passwordToggleEnabled="true">
+        app:startIconDrawable="@drawable/round_lock_24"
+        app:endIconMode="password_toggle">
 
         <EditText
             android:id="@+id/edt_stu_register_password"
             style="@style/modifiedEditText"
-            android:drawableStart="@drawable/round_lock_24"
             android:hint="@string/login_password_hint"
             android:fontFamily="@font/my_font"
             android:inputType="textPassword"

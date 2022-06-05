@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
+    <string-array name="student_group">
+        <item>IKBO-01-19</item>
+        <item>IKBO-02-19</item>
+        <item>IKBO-03-19</item>
+        <item>IABO-01-19</item>
+        <item>IABO-02-19</item>
+        <item>IABO-03-19</item>
+        <item>INBO-01-19</item>
+        <item>INBO-02-19</item>
+        <item>INBO-03-19</item>
+        <item>IVBO-01-19</item>
+        <item>IVBO-02-19</item>
+        <item>IVBO-03-19</item>
+    </string-array>
+
     <string-array name="ld_activityScreenTitles">
         <item>Home</item>
         <item>My Profile</item>

@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/activity_student_login"
+    android:transitionName="shared_element_container"
     android:background="@color/colorLoginPrimaryDark"
     tools:context=".ui.activities.student.StudentLoginActivity">
 

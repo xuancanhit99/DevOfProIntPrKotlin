@@ -166,7 +166,7 @@
     </style>
 
     <!--    New Button-->
-    <style name="BluePrimaryButton" parent="Theme.AppCompat.Light">
+    <style name="BluePrimaryButton" parent="Theme.Material3.Light">
         <item name="android:colorBackground">@android:color/black</item>
     </style>
 
@@ -183,24 +183,12 @@
         <item name="layout_constraintHeight_min">55dp</item>
     </style>
 
-    <!--    Dialog-->
-    <style name="InfoTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">@color/info</item>
+    <style name="MyTheme" parent="MaterialAlertDialog.Material3">
+        <item name="backgroundColor">@color/white</item>
+        <item name="background">@color/white</item>
+        <item name="android:background">@color/white</item>
+
     </style>
-
-    <style name="SuccessTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">@color/success</item>
-    </style>
-
-    <style name="WarningTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">@color/warning</item>
-    </style>
-
-    <style name="AlertTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">@color/alert</item>
-    </style>
-
-
 
 
 </resources>

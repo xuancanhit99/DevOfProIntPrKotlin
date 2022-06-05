@@ -31,13 +31,14 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputEmail"
         style="@style/parent"
+        app:startIconDrawable="@drawable/ic_baseline_mail_outline_24"
         android:layout_marginTop="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_stu_login_email"
             style="@style/modifiedEditText"
             android:drawableTint="?attr/colorControlNormal"
-            android:drawableStart="@drawable/ic_baseline_mail_outline_24"
+
             android:hint="@string/login_email_hint"
             android:fontFamily="@font/my_font"
             android:inputType="textEmailAddress"
@@ -48,13 +49,13 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputPassword"
         style="@style/parent"
-        app:passwordToggleEnabled="true">
+        app:startIconDrawable="@drawable/ic_outline_lock_24"
+        app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_stu_login_password"
             style="@style/modifiedEditText"
             android:drawableTint="?attr/colorControlNormal"
-            android:drawableStart="@drawable/ic_outline_lock_24"
             android:hint="@string/login_password_hint"
             android:fontFamily="@font/my_font"
             android:inputType="textPassword"
@@ -73,21 +74,21 @@
             android:id="@+id/cb_stu_login_remember_me"
             style="@style/viewParent"
             android:layout_gravity="start"
-            android:text="@string/remember_me"
             android:fontFamily="@font/my_font"
+            android:text="@string/remember_me"
             android:textColor="@color/blackTextColor"
             android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_stu_login_forgot_password"
             style="@style/viewParent"
-            android:fontFamily="@font/my_font"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_gravity="end"
             android:layout_marginStart="150dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="14dp"
             android:layout_marginEnd="2dp"
+            android:fontFamily="@font/my_font"
             android:text="@string/forgot_password"
             android:textColor="@color/blackTextColor"
             android:textSize="15sp" />

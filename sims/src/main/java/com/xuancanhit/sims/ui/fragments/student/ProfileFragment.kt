@@ -1,30 +1,21 @@
 package com.xuancanhit.sims.ui.fragments.student
 
-import android.graphics.Typeface
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
-import com.thecode.aestheticdialogs.AestheticDialog
-import com.thecode.aestheticdialogs.DialogStyle
-import com.thecode.aestheticdialogs.DialogType
-import com.thecode.aestheticdialogs.OnDialogClickListener
-import com.xuancanhit.sims.MainActivity
 import com.xuancanhit.sims.R
 import com.xuancanhit.sims.model.Student
 import com.xuancanhit.sims.ui.interfaces.PassDataFragmentAndActivity
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 
@@ -42,10 +33,9 @@ class ProfileFragment : Fragment() {
     private lateinit var tvPhone: TextView
     private lateinit var tvEmail: TextView
     private lateinit var ivImg: ImageView
-    private lateinit var btnBack: Button
+
     private lateinit var btnEdit: Button
 
-    private var check = false
 
 
     override fun onCreateView(
@@ -70,9 +60,18 @@ class ProfileFragment : Fragment() {
         //btnBack = rootView.findViewById(R.id.btn_stu_profile_back)
         btnEdit = rootView.findViewById(R.id.btn_stu_profile_update)
 
+        btnEdit.setOnClickListener{
+                val fragmentTransaction = fragmentManager?.beginTransaction()
+                fragmentTransaction?.replace(R.id.body_container, StudentEditProfileFragment())
+                fragmentTransaction?.commit()
+        }
+
+
         (activity as PassDataFragmentAndActivity?)!!.setNavState(R.id.nav_profile)
         return rootView
     }
+
+
 
 
     private fun reload(
@@ -89,7 +88,10 @@ class ProfileFragment : Fragment() {
         tvNo.text = no
         tvDob.text = dob
         tvGroup.text = group
-        tvGender.text = gender
+        if (gender == "0")
+            tvGender.text = resources.getString(R.string.female)
+        else
+            tvGender.text = resources.getString(R.string.male)
         tvPhone.text = phone
         tvEmail.text = email
 
@@ -130,4 +132,14 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        //tv, btn
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        this.clearFindViewByIdCache()
+    }
 }

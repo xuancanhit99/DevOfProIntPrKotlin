@@ -1,5 +1,7 @@
 package com.xuancanhit.sims.ui.fragments.student
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -18,7 +21,9 @@ import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import com.xuancanhit.sims.R
 import com.xuancanhit.sims.model.Student
+import com.xuancanhit.sims.ui.activities.student.StudentLoginActivity
 import com.xuancanhit.sims.ui.interfaces.PassDataFragmentAndActivity
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
 class HomeFragment : Fragment() {
@@ -49,10 +54,79 @@ class HomeFragment : Fragment() {
         tvGroup = rootView.findViewById(R.id.tv_stu_menu_group)
         ivImg = rootView.findViewById(R.id.iv_stu_menu_avt)
 
+        rootView?.btn_stu_my_profile?.setOnClickListener {
+            val fragmentTransaction = fragmentManager?.beginTransaction()
+            fragmentTransaction?.replace(R.id.body_container, ProfileFragment())
+            fragmentTransaction?.commit()
+        }
+
+        rootView?.btn_stu_update_profile?.setOnClickListener {
+            val fragmentTransaction = fragmentManager?.beginTransaction()
+            fragmentTransaction?.replace(R.id.body_container, StudentEditProfileFragment())
+            fragmentTransaction?.commit()
+        }
+
+        rootView?.btn_stu_my_profile?.setOnClickListener {
+            val fragmentTransaction = fragmentManager?.beginTransaction()
+            fragmentTransaction?.replace(R.id.body_container, ProfileFragment())
+            fragmentTransaction?.commit()
+        }
+
+        rootView?.btn_stu_learning_results?.setOnClickListener {
+            val fragmentTransaction = fragmentManager?.beginTransaction()
+            fragmentTransaction?.replace(R.id.body_container, LearningResultsFragment())
+            fragmentTransaction?.commit()
+        }
+
+        rootView?.btn_stu_menu_chat?.setOnClickListener {
+            val fragmentTransaction = fragmentManager?.beginTransaction()
+            fragmentTransaction?.replace(R.id.body_container, ChatFragment())
+            fragmentTransaction?.commit()
+        }
+
+        rootView?.btn_stu_time_table?.setOnClickListener {
+            var url = "https://www.mirea.ru/schedule/"
+            if (!url.startsWith("http://") && !url.startsWith("https://"))
+                url = "http://$url";
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(browserIntent)
+            //finish()
+        }
+
+        rootView?.btn_stu_logout?.setOnClickListener {
+            signOutAccount()
+        }
+
 
         (activity as PassDataFragmentAndActivity?)!!.setNavState(R.id.nav_home)
         return rootView
     }
+
+
+    //Sign out
+    private fun signOutAccount() {
+
+        //Dialog Are you sure
+        MaterialAlertDialogBuilder(
+            requireContext())
+            .setTitle(resources.getString(R.string.title_dialog_logout))
+            .setMessage(resources.getString(R.string.message_are_you_sure))
+//            .setNeutralButton(resources.getString(R.string.cancel)) { dialog, which ->
+//                // Respond to neutral button press
+//
+//            }
+            .setNegativeButton(resources.getString(R.string.no)) { dialog, which ->
+                // Respond to negative button press
+            }
+            .setPositiveButton(resources.getString(R.string.yes)) { dialog, which ->
+                // Respond to positive button press
+                auth.signOut()
+                startActivity(Intent(requireActivity(), StudentLoginActivity::class.java))
+                requireActivity().finish()
+            }
+            .show()
+    }
+
 
     private fun reload(name: String = "", img:String = "", group: String="") {
         tvName.text = name

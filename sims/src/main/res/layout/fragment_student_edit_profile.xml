@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_student_edit_profile"
+    tools:context=".ui.fragments.student.StudentEditProfileFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/myColor5"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingTop="20dp"
+                        android:paddingBottom="20dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/iv_stu_update_avt"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/graduated" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_stu_update_take_photo"
+                                style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/take_photo"
+                                app:icon="@drawable/ic_baseline_photo_camera_24" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_stu_update_choose_photo"
+                                style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/choose_photo"
+                                app:icon="@drawable/ic_baseline_insert_photo_24" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/parent"
+                        android:layout_marginTop="@dimen/loginViewsMargin"
+                        app:startIconDrawable="@drawable/ic_baseline_confirmation_number_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_stu_update_no"
+                            style="@style/modifiedEditText"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/student_id"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/parent"
+                        android:layout_marginTop="@dimen/loginViewsMargin"
+                        app:endIconMode="clear_text"
+                        app:startIconDrawable="@drawable/ic_baseline_person_pin_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_stu_update_name"
+                            style="@style/modifiedEditText"
+                            android:drawableTint="?attr/colorControlNormal"
+                            android:hint="@string/full_name"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/parent"
+
+                        android:layout_marginTop="@dimen/loginViewsMargin"
+
+                        app:startIconDrawable="@drawable/ic_baseline_date_range_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_stu_update_dob"
+                            style="@style/modifiedEditText"
+
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+
+                            android:hint="@string/date_of_birth"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/parent"
+                        android:layout_marginTop="@dimen/loginViewsMargin"
+                        app:startIconDrawable="@drawable/ic_baseline_class_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_stu_update_class"
+                            style="@style/modifiedEditText"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:drawableTint="?attr/colorControlNormal"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/student_class"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.fredporciuncula.phonemoji.PhonemojiTextInputLayout
+                        android:id="@+id/secondTextInputLayout"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/loginViewsMargin"
+                        app:endIconMode="clear_text"
+                        android:hint="@string/phone_number">
+
+                        <com.fredporciuncula.phonemoji.PhonemojiTextInputEditText
+                            android:id="@+id/edt_stu_update_phone"
+                            android:maxLength="16"
+                            android:maxLines="1"
+                            android:digits="0123456789+"
+                            android:inputType="phone"
+                            style="@style/modifiedEditText"
+                            />
+
+                    </com.fredporciuncula.phonemoji.PhonemojiTextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/parent"
+                        android:layout_marginTop="@dimen/loginViewsMargin"
+                        app:startIconDrawable="@drawable/round_mail_outline_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_stu_update_email"
+                            style="@style/modifiedEditText"
+
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:drawableTint="?attr/colorControlNormal"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/email"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginStart="4dp"
+                        android:orientation="horizontal"
+                        android:paddingTop="13dp"
+                        android:paddingBottom="10dp"
+                        android:weightSum="10">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_weight="3"
+                            android:text="@string/gender_space"
+                            app:drawableStartCompat="@drawable/ic_baseline_person_24"
+                            app:drawableTint="?attr/colorControlNormal" />
+
+                        <RadioGroup
+                            android:id="@+id/rg_stu_update_gender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="7"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/rb_stu_update_male"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:checked="true"
+                                android:text="@string/male" />
+
+                            <RadioButton
+                                android:id="@+id/rb_stu_update_female"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:text="@string/female" />
+
+                        </RadioGroup>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/toggleButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center">
+
+                <Button
+                    android:id="@+id/btn_stu_update_save"
+                    app:icon="@drawable/ic_baseline_upload_24"
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="@string/save" />
+
+                <Button
+                    android:id="@+id/btn_stu_update_delete_img"
+                    app:icon="@drawable/ic_delete_img"
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="@string/delete_avatar"
+                    android:theme="@style/AppTheme.MyButton7" />
+
+                <Button
+                    android:id="@+id/btn_stu_update_exit"
+                    app:icon="@drawable/ic_back"
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="@string/back"
+                    android:theme="@style/AppTheme.MyButton3" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>

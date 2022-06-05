@@ -1,15 +1,469 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:transitionName="shared_element_container"
     android:background="@color/card_3"
     tools:context=".ui.fragments.student.LearningResultsFragment">
 
-   <TextView
-       android:layout_gravity="center"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="RESULTS"/>
+   <androidx.core.widget.NestedScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:background="@color/myColor2"
+       android:clipToPadding="false"
+       android:paddingBottom="50dp"
+       >
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:padding="5dp">
+
+
+
+         <androidx.cardview.widget.CardView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+
+             android:layout_margin="20dp"
+             app:cardCornerRadius="20dp"
+             app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="5dp"
+                   android:gravity="center"
+
+                   android:orientation="horizontal"
+                   android:paddingTop="20dp"
+                   >
+
+                  <de.hdodenhof.circleimageview.CircleImageView
+                      android:id="@+id/iv_stu_result_avt"
+                      android:layout_width="100dp"
+                      android:layout_margin="15dp"
+                      android:layout_height="100dp"
+                      android:src="@drawable/graduated" />
+
+
+                  <LinearLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="center"
+                      android:orientation="vertical">
+
+                     <androidx.cardview.widget.CardView
+
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_margin="10dp"
+                         app:cardBackgroundColor="@color/myColor2"
+                         app:cardCornerRadius="20dp"
+                         app:cardElevation="2dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="10dp"
+                            android:orientation="horizontal"
+                            android:weightSum="10">
+
+                           <TextView
+                               android:layout_width="50dp"
+                               android:layout_height="wrap_content"
+                               android:layout_marginStart="10dp"
+                               android:text="@string/name"
+                              android:textColor="@color/white"
+                               android:textStyle="bold"
+                               tools:ignore="TooDeepLayout" />
+                           <View
+                               android:layout_width="1dp"
+                               android:layout_height="18dp"
+                               android:background="@color/white"/>
+
+                           <TextView
+                               android:id="@+id/tv_stu_result_name"
+                               android:layout_width="0dp"
+                               android:layout_height="wrap_content"
+                               android:layout_weight="9"
+                               android:gravity="center"
+                               android:textColor="@color/white"
+                               android:textStyle="bold" />
+                        </LinearLayout>
+                     </androidx.cardview.widget.CardView>
+
+                     <androidx.cardview.widget.CardView
+
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_margin="10dp"
+                         app:cardBackgroundColor="@color/myColor2"
+                         app:cardCornerRadius="20dp"
+
+                         app:cardElevation="2dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="10dp"
+                            android:orientation="horizontal"
+                            android:weightSum="10">
+
+                           <TextView
+                               android:layout_width="50dp"
+                               android:layout_height="wrap_content"
+                               android:layout_marginStart="10dp"
+                               android:fontFamily="@font/my_font"
+                               android:text="@string/student_class"
+                               android:textColor="@color/white"
+                               android:textStyle="bold" />
+                           <View
+                               android:layout_width="1dp"
+                               android:layout_height="18dp"
+                               android:background="@color/white"/>
+
+                           <TextView
+                               android:id="@+id/tv_stu_result_group"
+                               android:layout_width="0dp"
+                               android:layout_height="wrap_content"
+                               android:layout_weight="9"
+                               android:gravity="center"
+                               android:fontFamily="@font/my_font"
+                               android:textColor="@color/white"
+                               android:textStyle="bold" />
+                        </LinearLayout>
+                     </androidx.cardview.widget.CardView>
+                  </LinearLayout>
+               </LinearLayout>
+
+
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="10dp"
+                   android:orientation="vertical">
+
+
+                  <androidx.cardview.widget.CardView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="5dp"
+                      app:cardBackgroundColor="@color/myColor1"
+                      app:cardCornerRadius="20dp"
+                      app:cardElevation="2dp">
+
+
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginVertical="10dp"
+                         android:orientation="horizontal"
+                         android:weightSum="10">
+
+
+                        <TextView
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/my_font"
+                            android:text="@string/math"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="18dp"
+                            android:background="@color/white"/>
+
+                        <TextView
+                            android:id="@+id/tv_stu_result_math"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_weight="9"
+                            android:fontFamily="@font/my_font"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+                     </LinearLayout>
+
+                  </androidx.cardview.widget.CardView>
+
+
+                  <androidx.cardview.widget.CardView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="5dp"
+                      app:cardBackgroundColor="@color/myColor1"
+                      app:cardCornerRadius="20dp"
+                      app:cardElevation="2dp">
+
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginVertical="10dp"
+                         android:orientation="horizontal"
+                         android:weightSum="10">
+
+                        <TextView
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/my_font"
+                            android:text="@string/english"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="18dp"
+                            android:background="@color/white"/>
+
+                        <TextView
+                            android:id="@+id/tv_stu_result_eng"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_weight="9"
+                            android:fontFamily="@font/my_font"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+                     </LinearLayout>
+                  </androidx.cardview.widget.CardView>
+
+                  <androidx.cardview.widget.CardView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="5dp"
+                      app:cardBackgroundColor="@color/myColor1"
+                      app:cardCornerRadius="20dp"
+                      app:cardElevation="2dp">
+
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginVertical="10dp"
+                         android:orientation="horizontal"
+                         android:weightSum="10">
+
+                        <TextView
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/my_font"
+                            android:text="@string/physical"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="18dp"
+                            android:background="@color/white"/>
+
+                        <TextView
+                            android:id="@+id/tv_stu_result_phy"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_weight="9"
+                            android:fontFamily="@font/my_font"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+                     </LinearLayout>
+                  </androidx.cardview.widget.CardView>
+
+                  <androidx.cardview.widget.CardView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="5dp"
+                      app:cardBackgroundColor="@color/myColor1"
+                      app:cardCornerRadius="20dp"
+
+                      app:cardElevation="2dp">
+
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginVertical="10dp"
+                         android:orientation="horizontal"
+                         android:weightSum="10">
+
+                        <TextView
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/my_font"
+                            android:text="@string/informatics"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="18dp"
+                            android:background="@color/white"/>
+
+                        <TextView
+                            android:id="@+id/tv_stu_result_info"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_weight="9"
+                            android:fontFamily="@font/my_font"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+                     </LinearLayout>
+                  </androidx.cardview.widget.CardView>
+
+
+                  <androidx.cardview.widget.CardView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="5dp"
+                      app:cardBackgroundColor="@color/myColor1"
+                      app:cardCornerRadius="20dp"
+                      app:cardElevation="2dp">
+
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginVertical="10dp"
+                         android:orientation="horizontal"
+                         android:weightSum="10">
+
+                        <TextView
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/my_font"
+                            android:text="@string/programming"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="18dp"
+                            android:background="@color/white"/>
+
+                        <TextView
+                            android:id="@+id/tv_stu_result_pro"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_weight="9"
+                            android:fontFamily="@font/my_font"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+
+                     </LinearLayout>
+
+                  </androidx.cardview.widget.CardView>
+
+                  <androidx.cardview.widget.CardView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="5dp"
+                      app:cardBackgroundColor="@color/myColor1"
+                      app:cardCornerRadius="20dp"
+                      app:cardElevation="2dp">
+
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginVertical="10dp"
+                         android:orientation="horizontal"
+                         android:weightSum="10">
+
+                        <TextView
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/my_font"
+                            android:text="@string/economics"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="18dp"
+                            android:background="@color/white"/>
+
+                        <TextView
+                            android:id="@+id/tv_stu_result_eco"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_weight="9"
+                            android:fontFamily="@font/my_font"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+                     </LinearLayout>
+                  </androidx.cardview.widget.CardView>
+
+                  <androidx.cardview.widget.CardView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="5dp"
+                      app:cardBackgroundColor="@color/myColor1"
+                      app:cardCornerRadius="20dp"
+                      app:cardElevation="2dp">
+
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginVertical="10dp"
+                         android:orientation="horizontal"
+                         android:weightSum="10">
+
+                        <TextView
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/my_font"
+                            android:text="@string/philosophy"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="18dp"
+                            android:background="@color/white"/>
+
+                        <TextView
+                            android:id="@+id/tv_stu_result_phi"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="9"
+                            android:gravity="center"
+                            android:fontFamily="@font/my_font"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+                     </LinearLayout>
+                  </androidx.cardview.widget.CardView>
+
+
+               </LinearLayout>
+            </LinearLayout>
+
+         </androidx.cardview.widget.CardView>
+
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginVertical="10dp"
+             android:gravity="center"
+             android:orientation="horizontal">
+
+
+
+
+
+         </LinearLayout>
+      </LinearLayout>
+   </androidx.core.widget.NestedScrollView>
+
 
 </FrameLayout>

@@ -1,26 +1,39 @@
 package com.xuancanhit.sims.ui.activities.student
 
 
+import android.R.attr.name
 import android.R.attr.typeface
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.InsetDrawable
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.MediaStore
 import android.text.InputType
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.TypefaceSpan
+import android.util.TypedValue
 import android.view.*
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
+import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.menu.MenuBuilder
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -48,6 +61,9 @@ import com.xuancanhit.sims.ui.interfaces.PassDataFragmentAndActivity
 import com.yarolegovich.slidingrootnav.SlidingRootNav
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder
 import kotlinx.android.synthetic.main.activity_student_main.*
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_student_edit_profile.*
+import kotlinx.android.synthetic.main.fragment_student_edit_profile.view.*
 import kotlinx.android.synthetic.main.menu_left_drawer.*
 
 
@@ -77,6 +93,7 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener,
     private var student: Student? = null
 
     //private var viewMenu: View? = null // View from fragment (click tu menu item fragment vd: tv_Name)
+    private var viewFragment: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,13 +108,16 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener,
 
         //Init Nav
         initNavBottomAndTopLeft(savedInstanceState)
+
+        //Set Event Menu
+
     }
 
 
     private fun initNavBottomAndTopLeft(savedInstanceState: Bundle?) {
         //----------------Setup nav top-left----------------
         setSupportActionBar(toolbar_stu)
-        //registerForContextMenu(toolbar_stu)
+        registerForContextMenu(toolbar_stu)
         //toolbar_stu.overflowIcon = ContextCompat.getDrawable(this, R.drawable.ic_person_toolbar)
         supportActionBar?.title = null
         slidingRootNav = SlidingRootNavBuilder(this)
@@ -194,61 +214,67 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener,
             .commit()
     }
 
-//    //-------------------Menu for toolbar--------------------
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.menu_toolbar, menu)
-//
-//        //---Custom font menu item----
-//        for (i in 0 until menu!!.size()) {
-//            val mi = menu.getItem(i)
-//            //for applying a font to subMenu ...
-//            val subMenu = mi.subMenu
-//            if (subMenu != null && subMenu.size() > 0) {
-//                for (j in 0 until subMenu.size()) {
-//                    val subMenuItem = subMenu.getItem(j)
-//                    applyFontToMenuItem(subMenuItem)
-//                }
-//            }
-//            //the method we have create in activity
-//            applyFontToMenuItem(mi)
-//        }
-//        //---Custom font menu item----
-//        return true
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return when (item.itemId) {
-//            R.id.menu_toolbar_profile -> {
-//                Toast.makeText(this, "Profile Selected", Toast.LENGTH_SHORT).show()
-//                true
-//            }
-//            R.id.menu_toolbar_change_password -> {
-//                Toast.makeText(this, "Change Password Selected", Toast.LENGTH_SHORT).show()
-//                true
-//            }
-//            R.id.menu_toolbar_logout -> {
-//                Toast.makeText(this, "Logout Selected", Toast.LENGTH_SHORT).show()
-//                true
-//            }
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
-//    //-------------------End Menu for toolbar--------------------
+    //-------------------Menu for toolbar--------------------
+    //In the showMenu function from the previous example:
+    @SuppressLint("RestrictedApi")
+    private fun showMenu(v: View, @MenuRes menuRes: Int) {
+        val popup = PopupMenu(this, v)
+        popup.menuInflater.inflate(menuRes, popup.menu)
+
+        if (popup.menu is MenuBuilder) {
+            val menuBuilder = popup.menu as MenuBuilder
+            menuBuilder.setOptionalIconsVisible(true)
+            for (item in menuBuilder.visibleItems) {
+                val iconMarginPx =
+                    TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP, 3.toFloat(), resources.displayMetrics)
+                        .toInt()
+                if (item.icon != null) {
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+                        item.icon = InsetDrawable(item.icon, iconMarginPx, 0, iconMarginPx,0)
+                    } else {
+                        item.icon =
+                            object : InsetDrawable(item.icon, iconMarginPx, 0, iconMarginPx, 0) {
+                                override fun getIntrinsicWidth(): Int {
+                                    return intrinsicHeight + iconMarginPx + iconMarginPx
+                                }
+                            }
+                    }
+                }
+            }
+        }
+        popup.show()
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_toolbar, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_toolbar_profile -> {
+                Toast.makeText(this, "Profile Selected", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.menu_toolbar_change_password -> {
+                Toast.makeText(this, "Change Password Selected", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.menu_toolbar_logout -> {
+                Toast.makeText(this, "Logout Selected", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+    //-------------------End Menu for toolbar--------------------
 
     //-----------------Menu for fragment--------------------------
 
 //    //Custom font menu item
-//    private fun applyFontToMenuItem(mi: MenuItem) {
-//        val font = Typeface.create(ResourcesCompat.getFont(this, R.font.my_font), Typeface.NORMAL)
-//        val mNewTitle = SpannableString(mi.title)
-//        mNewTitle.setSpan(
-//            TypefaceSpan(font),
-//            0,
-//            mNewTitle.length,
-//            Spannable.SPAN_INCLUSIVE_INCLUSIVE
-//        )
-//        mi.title = mNewTitle
-//    }
+
 //
 //    override fun onCreateContextMenu(
 //        menu: ContextMenu?,
@@ -367,17 +393,18 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener,
     //Set location top-nav title and bottom-nav icon be right
     override fun setNavState(id: Int) {
         idFragmentOnView = id
-        bottom_navigation_student.menu.findItem(idFragmentOnView).isChecked = true
         when (idFragmentOnView) {
             R.id.nav_home -> {
                 supportActionBar?.title =
                     MainActivity.textWithMyFont(this,getString(R.string.home), R.font.my_font, Typeface.BOLD)
                 adapter.setChecked(CODE_HOME)
+                bottom_navigation_student.menu.findItem(idFragmentOnView).isChecked = true
             }
             R.id.nav_profile -> {
                 supportActionBar?.title =
                     MainActivity.textWithMyFont(this,getString(R.string.my_profile), R.font.my_font, Typeface.BOLD)
                 adapter.setChecked(CODE_PROFILE)
+                bottom_navigation_student.menu.findItem(idFragmentOnView).isChecked = true
             }
             R.id.nav_learning_results -> {
                 supportActionBar?.title = MainActivity.textWithMyFont(this,
@@ -386,13 +413,28 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener,
                     Typeface.BOLD
                 )
                 adapter.setChecked(CODE_RESULTS)
+                bottom_navigation_student.menu.findItem(idFragmentOnView).isChecked = true
             }
             R.id.nav_chat -> {
                 supportActionBar?.title =
                     MainActivity.textWithMyFont(this,getString(R.string.chat), R.font.my_font, Typeface.BOLD)
                 adapter.setChecked(CODE_CHAT)
+                bottom_navigation_student.menu.findItem(idFragmentOnView).isChecked = true
+            }
+
+            R.id.fragment_student_edit_profile -> {
+                supportActionBar?.title =
+                    MainActivity.textWithMyFont(this,getString(R.string.edit_profile), R.font.my_font, Typeface.BOLD)
+                adapter.setChecked(CODE_PROFILE)
+                bottom_navigation_student.menu.findItem(R.id.nav_profile).isChecked = true
             }
         }
+    }
+
+    override fun getViewFragment(view: View, nameView: String) {
+        viewFragment = view
+        supportActionBar?.title =
+            MainActivity.textWithMyFont(this,nameView, R.font.my_font, Typeface.BOLD)
     }
 
     override fun onBackPressed() {
@@ -422,9 +464,7 @@ class StudentMainActivity : AppCompatActivity(), OnItemSelectedListener,
 
         //Dialog Are you sure
         MaterialAlertDialogBuilder(
-            this,
-            R.style.MyTitle_ThemeOverlay_MaterialComponents_MaterialAlertDialog
-        )
+            this)
             .setTitle(resources.getString(R.string.title_dialog_logout))
             .setMessage(resources.getString(R.string.message_are_you_sure))
 //            .setNeutralButton(resources.getString(R.string.cancel)) { dialog, which ->
