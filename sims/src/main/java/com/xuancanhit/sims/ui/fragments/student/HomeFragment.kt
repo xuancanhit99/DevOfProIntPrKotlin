@@ -85,7 +85,7 @@ class HomeFragment : Fragment() {
         }
 
         rootView?.btn_stu_time_table?.setOnClickListener {
-            var url = "https://www.mirea.ru/schedule/"
+            var url = "https://online-edu.mirea.ru/my/"
             if (!url.startsWith("http://") && !url.startsWith("https://"))
                 url = "http://$url";
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))

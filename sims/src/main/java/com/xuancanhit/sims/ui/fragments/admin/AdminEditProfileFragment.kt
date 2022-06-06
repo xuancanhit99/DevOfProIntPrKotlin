@@ -287,7 +287,7 @@ class AdminEditProfileFragment : Fragment() {
 
                     //Set data Realtime Database
                     img = downloadUri.toString()
-                    updateProfileAdmin(auth.currentUser?.email.toString(), name, no, img, phone)
+                    updateProfileAdmin(auth.currentUser?.email.toString(), name, auth.currentUser?.uid.toString(), img, phone)
 
                 }
 

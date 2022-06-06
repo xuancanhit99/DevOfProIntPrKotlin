@@ -96,6 +96,7 @@
                                             android:id="@+id/tv_ad_profile_no"
                                             android:layout_width="0dp"
                                             android:layout_height="wrap_content"
+                                            android:maxLength="7"
                                             android:layout_weight="9"
                                             android:gravity="center"
 

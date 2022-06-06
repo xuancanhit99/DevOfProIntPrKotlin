@@ -32,7 +32,7 @@
     <string name="time_table">Time Table</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="learning_results">Learning Results</string>
-    <string name="chat">Chat</string>
+    <string name="chat">Schedule</string>
     <string name="welcome">Welcome back</string>
     <string name="title_dialog_logout">Logging out</string>
     <string name="message_are_you_sure">Are you sure?</string>
@@ -80,5 +80,6 @@
     <string name="student_profile">Student Profile</string>
     <string name="select_result">Select result</string>
     <string name="student">Student</string>
+    <string name="online_mirea">Online Mirea</string>
 
 </resources>

@@ -406,7 +406,6 @@ class AdminMainActivity : AppCompatActivity() , OnItemSelectedListener,
         viewFragment = view
         supportActionBar?.title =
             MainActivity.textWithMyFont(this,nameView, R.font.my_font, Typeface.BOLD)
-        Toast.makeText(this, nameView, Toast.LENGTH_SHORT).show()
     }
 
     override fun onBackPressed() {

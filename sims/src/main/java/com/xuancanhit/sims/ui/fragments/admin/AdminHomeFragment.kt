@@ -84,9 +84,15 @@ class AdminHomeFragment : Fragment() {
         }
 
         rootView?.btn_ad_add_student?.setOnClickListener {
-            val fragmentTransaction = fragmentManager?.beginTransaction()
-            fragmentTransaction?.replace(R.id.body_container_admin, AdminAddStudentFragment())
-            fragmentTransaction?.commit()
+
+            var url = "https://online-edu.mirea.ru/my/"
+            if (!url.startsWith("http://") && !url.startsWith("https://"))
+                url = "http://$url";
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(browserIntent)
+//            val fragmentTransaction = fragmentManager?.beginTransaction()
+//            fragmentTransaction?.replace(R.id.body_container_admin, AdminAddStudentFragment())
+//            fragmentTransaction?.commit()
         }
 
         rootView?.btn_ad_logout?.setOnClickListener {
