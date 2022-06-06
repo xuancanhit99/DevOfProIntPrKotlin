@@ -49,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:fontFamily="@font/my_font"
+                android:maxLength="7"
                 android:textColor="@color/bl"
                 android:textSize="12sp" />
         </LinearLayout>

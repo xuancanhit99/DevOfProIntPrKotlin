@@ -81,10 +81,6 @@ class AdminLoginActivity : AppCompatActivity() {
         btn_progress_button.setOnClickListener {
             handlerButtonLogin()
         }
-
-
-
-
     }
 
     private fun handlerButtonLogin() {
