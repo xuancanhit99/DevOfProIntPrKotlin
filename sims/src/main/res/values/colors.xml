@@ -17,6 +17,8 @@
     <color name="colorLight">#d54c5c</color>
     <color name="colorGrey">#F8F9F9</color>
 
+    <color name="ic_launcher_background">#FFFFFF</color>
+
 
     <!--colors for modern ui-->
     <color name="whiteTextColor">#fff</color>
