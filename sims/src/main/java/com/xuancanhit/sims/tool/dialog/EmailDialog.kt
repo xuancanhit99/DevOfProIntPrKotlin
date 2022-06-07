@@ -1,4 +1,4 @@
-package com.xuancanhit.sims.tool
+package com.xuancanhit.sims.tool.dialog
 
 import android.annotation.SuppressLint
 import android.app.Dialog

@@ -7,7 +7,6 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Patterns
 import android.view.View
-import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,9 +15,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.xuancanhit.sims.MainActivity
 import com.xuancanhit.sims.R
-import com.xuancanhit.sims.tool.EmailDialog
-import com.xuancanhit.sims.tool.InternetDialog
-import com.xuancanhit.sims.tool.ProgressButton
+import com.xuancanhit.sims.tool.dialog.EmailDialog
+import com.xuancanhit.sims.tool.dialog.InternetDialog
+import com.xuancanhit.sims.tool.but.ProgressButton
 import kotlinx.android.synthetic.main.activity_student_forgot_password.*
 import kotlinx.android.synthetic.main.layout_student_forgot_password.*
 import kotlinx.android.synthetic.main.progress_button_layout.*

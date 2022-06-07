@@ -1,7 +1,6 @@
 package com.xuancanhit.sims.ui.activities.student
 
 import android.annotation.SuppressLint
-import android.app.ActivityOptions
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -9,22 +8,18 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Patterns
 import android.view.View
-import android.view.Window
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.xuancanhit.sims.MainActivity
 import com.xuancanhit.sims.R
-import com.xuancanhit.sims.tool.InternetDialog
-import com.xuancanhit.sims.tool.ProgressButton
-import com.xuancanhit.sims.tool.EmailDialog
+import com.xuancanhit.sims.tool.dialog.InternetDialog
+import com.xuancanhit.sims.tool.but.ProgressButton
 import com.xuancanhit.sims.ui.activities.admin.AdminLoginActivity
 import com.xuancanhit.sims.ui.activities.admin.AdminMainActivity
 import kotlinx.android.synthetic.main.activity_student_login.*

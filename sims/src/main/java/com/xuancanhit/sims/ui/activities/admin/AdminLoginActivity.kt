@@ -16,13 +16,11 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.xuancanhit.sims.MainActivity
 import com.xuancanhit.sims.R
-import com.xuancanhit.sims.tool.InternetDialog
-import com.xuancanhit.sims.tool.ProgressButton
+import com.xuancanhit.sims.tool.dialog.InternetDialog
+import com.xuancanhit.sims.tool.but.ProgressButton
 import com.xuancanhit.sims.ui.activities.student.StudentLoginActivity
-import com.xuancanhit.sims.ui.activities.student.StudentMainActivity
 import kotlinx.android.synthetic.main.activity_admin_login.*
 import kotlinx.android.synthetic.main.layout_admin_login.*
-import kotlinx.android.synthetic.main.layout_student_login.*
 import kotlinx.android.synthetic.main.progress_button_layout.*
 
 

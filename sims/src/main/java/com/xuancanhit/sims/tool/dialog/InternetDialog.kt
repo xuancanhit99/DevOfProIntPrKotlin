@@ -1,4 +1,4 @@
-package com.xuancanhit.sims.tool
+package com.xuancanhit.sims.tool.dialog
 
 import android.app.Dialog
 import android.content.Context

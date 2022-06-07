@@ -54,6 +54,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_items_student"
             android:layout_width="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="100dp"
             android:layout_height="match_parent"
             tools:itemCount="4"
             tools:listitem="@layout/list_item_for_recycler_view_student" />
